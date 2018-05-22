@@ -1,0 +1,12 @@
+[{
+  "modid": "spicypineapple",
+  "name": "Spicy Pineapple Mod",
+  "description": "Pineapples are really spicy",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "assets/spicypineapple/textures/logo.png",
+  "url": "masterzach32.net/",
+  "updateJSON": "",
+  "authorList": ["Zach Kozar"],
+  "credits": "Created by the true doge."
+}]
