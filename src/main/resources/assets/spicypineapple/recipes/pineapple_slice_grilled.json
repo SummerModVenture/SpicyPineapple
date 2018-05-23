@@ -1,7 +1,8 @@
 {
   "type": "smelting",
   "ingredient": {
-    "item": "spicypineapple:pineapple_slice"
+    "item": "spicypineapple:pineapple_slice",
+    "data": 0
   },
   "result": "spicypineapple:pineapple_slice_grilled",
   "experience": 2,
