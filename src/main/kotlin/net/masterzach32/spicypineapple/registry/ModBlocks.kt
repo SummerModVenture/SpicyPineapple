@@ -12,8 +12,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.client.event.ModelRegistryEvent
 
-
-
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModBlocks {
 

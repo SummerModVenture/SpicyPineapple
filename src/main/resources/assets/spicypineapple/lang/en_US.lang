@@ -2,6 +2,7 @@ language.name=English
 language.region=US
 language.code=en_US
 
+itemGroup.spicy_pineapple_stuff=Pineapple Stuff
 
 item.pineapple_slice.name=Pineapple Slice
 item.pineapple_slice_spicy.name=Spicy Pineapple Slice
@@ -9,4 +10,5 @@ item.pineapple_slice_grilled.name=Grilled Pineapple Slice
 item.pineapple_slice_golden.name=Golden Pineapple Slice
 item.pineapple_slice_godly.name=Godly Pineapple Slice
 
-tile.spicy_pineapple.name=Spicy Pineapple
+tile.pineapple.name=Pineapple
+tile.pineapple_spicy.name=Spicy Pineapple
