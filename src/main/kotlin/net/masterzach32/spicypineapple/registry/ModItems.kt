@@ -1,7 +1,11 @@
 package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.dsl.setCodename
 import net.masterzach32.spicypineapple.item.ItemPineappleSlice
+import net.masterzach32.spicypineapple.item.ToolMaterialPineapple
+import net.masterzach32.spicypineapple.item.Toolset
+import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.event.RegistryEvent
@@ -16,37 +20,60 @@ import net.minecraftforge.client.model.ModelLoader
 object ModItems {
 
     val pineappleSlice = ItemPineappleSlice(2, 0.25F).addTooltip {
-        it.add("§e+2 hearts over 5 seconds.")
-    }.setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 30*5, 0), 1F).setUnlocalizedName("pineapple_slice").setRegistryName("pineapple_slice")
+        it.add("§e+2 hearts over 5 seconds")
+    }.addRegen(5, 0).setCodename("pineapple_slice")
+
     val spicyPineappleSlice = ItemPineappleSlice(3, .5F).addTooltip {
         it.add("§e+5 hearts over 5 seconds")
-    }.setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 30*5, 1), 1F).setUnlocalizedName("pineapple_slice_spicy").setRegistryName("pineapple_slice_spicy")
-    val grilledPineappleSlice = ItemPineappleSlice(4, 1F).setUnlocalizedName("pineapple_slice_grilled").setRegistryName("pineapple_slice_grilled")
+    }.addRegen(5, 1).setCodename("pineapple_slice_spicy")
+
+    val grilledPineappleSlice = ItemPineappleSlice(4, 1F).setCodename("pineapple_slice_grilled")
+
     val goldenPineappleSlice = ItemPineappleSlice(6, 1F).addTooltip {
         it.add("§e+5 hearts over 5 seconds")
-    }.setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 30*5, 1), 1F).setUnlocalizedName("pineapple_slice_golden").setRegistryName("pineapple_slice_golden")
+    }.addRegen(5, 2).setCodename("pineapple_slice_golden")
+
     val godlyPineappleSlice = ItemPineappleSlice(10, 2F).addTooltip {
         it.add("§e+20 hearts over 5 seconds")
-    }.setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 30*5, 10), 1F).setUnlocalizedName("pineapple_slice_godly").setRegistryName("pineapple_slice_godly")
+    }.addRegen(5, 10).setCodename("pineapple_slice_godly")
 
-    fun init() {
-
-    }
+    val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
 
     @JvmStatic
     @SubscribeEvent
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
-        event.registry.registerAll(pineappleSlice, spicyPineappleSlice, grilledPineappleSlice, goldenPineappleSlice, godlyPineappleSlice)
+        event.registry.registerAll(
+                pineappleSlice,
+                spicyPineappleSlice,
+                grilledPineappleSlice,
+                goldenPineappleSlice,
+                godlyPineappleSlice,
+                *pineappleToolset.getItems()
+        )
     }
 
     @JvmStatic
     @SubscribeEvent
     fun registerRenders(event: ModelRegistryEvent) {
-        registerRenders(pineappleSlice, spicyPineappleSlice, grilledPineappleSlice, goldenPineappleSlice, godlyPineappleSlice)
+        registerRenders(
+                pineappleSlice,
+                spicyPineappleSlice,
+                grilledPineappleSlice,
+                goldenPineappleSlice,
+                godlyPineappleSlice
+        )
+
+        registerRenders(*pineappleToolset.getItems(), location =  "tools/")
     }
 
     @JvmStatic
-    private fun registerRenders(vararg items: Item) {
-        items.forEach { ModelLoader.setCustomModelResourceLocation(it, 0, ModelResourceLocation(it.registryName!!, "inventory")) }
+    private fun registerRenders(vararg items: Item, location: String = "") {
+        items.forEach {
+            val registryName = it.registryName!!
+            ModelLoader.setCustomModelResourceLocation(it, 0,
+                    ModelResourceLocation("${registryName.resourceDomain}:$location${registryName.resourcePath}", "inventory"))
+        }
     }
+
+    fun init() {}
 }

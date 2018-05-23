@@ -7,6 +7,7 @@ import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import org.apache.logging.log4j.Logger
 
@@ -43,6 +44,11 @@ object SpicyPineappleMod {
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
+
+    }
+
+    @Mod.EventHandler
+    fun postInit(event: FMLPostInitializationEvent) {
 
     }
 }
