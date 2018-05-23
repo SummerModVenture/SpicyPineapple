@@ -16,9 +16,9 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModBlocks {
 
-    val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4).setCodename("pineapple")
-    val spicyPineappleBlock = BlockPineapple(ModItems.spicyPineappleSlice, 4).setCodename("pineapple_spicy")
-    val godlyPineappleBlock = BlockPineapple(ModItems.godlyPineappleSlice, 6).setCodename("pineapple_godly")
+    val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4).setCodename("pineapple_block")
+    val spicyPineappleBlock = BlockPineapple(ModItems.spicyPineappleSlice, 4).setCodename("pineapple_block_spicy")
+    val godlyPineappleBlock = BlockPineapple(ModItems.godlyPineappleSlice, 6).setCodename("pineapple_block_godly")
 
     @JvmStatic
     @SubscribeEvent

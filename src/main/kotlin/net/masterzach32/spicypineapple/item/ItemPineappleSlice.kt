@@ -28,4 +28,8 @@ class ItemPineappleSlice(hungerFilled: Int, saturation: Float) : ItemFood(hunger
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
         getTooltip(tooltip)
     }
+
+    override fun isFull3D(): Boolean {
+        return false
+    }
 }
