@@ -1,0 +1,12 @@
+language.name=English
+language.region=US
+language.code=en_US
+
+
+item.pineapple_slice.name=Pineapple Slice
+item.pineapple_slice_spicy.name=Spicy Pineapple Slice
+item.pineapple_slice_grilled.name=Grilled Pineapple Slice
+item.pineapple_slice_golden.name=Golden Pineapple Slice
+item.pineapple_slice_godly.name=Godly Pineapple Slice
+
+tile.spicy_pineapple.name=Spicy Pineapple
