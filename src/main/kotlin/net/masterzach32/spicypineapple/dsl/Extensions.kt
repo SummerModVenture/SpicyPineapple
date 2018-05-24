@@ -2,6 +2,7 @@ package net.masterzach32.spicypineapple.dsl
 
 import net.minecraft.block.Block
 import net.minecraft.item.Item
+import net.minecraft.util.math.BlockPos
 
 /*
  * SpicyPineapple - Created on 5/23/2018
@@ -23,3 +24,5 @@ fun Item.setCodename(name: String): Item {
 fun Block.setCodename(name: String): Block {
     return setUnlocalizedName(name).setRegistryName(name)
 }
+
+fun BlockPos.equals(other: BlockPos) = x == other.x && y == other.y && z == other.z

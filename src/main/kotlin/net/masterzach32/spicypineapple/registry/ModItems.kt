@@ -2,6 +2,7 @@ package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.dsl.setCodename
+import net.masterzach32.spicypineapple.item.ItemEnergizedPickaxe
 import net.masterzach32.spicypineapple.item.ItemPineappleSlice
 import net.masterzach32.spicypineapple.item.ToolMaterialPineapple
 import net.masterzach32.spicypineapple.item.Toolset
@@ -20,18 +21,17 @@ import net.minecraftforge.client.model.ModelLoader
 object ModItems {
 
     val pineappleSlice = ItemPineappleSlice(2, 0.25F).setCodename("pineapple_slice")
-
     val spicyPineappleSlice = ItemPineappleSlice(3, .5F).setCodename("pineapple_slice_spicy")
-
     val grilledPineappleSlice = ItemPineappleSlice(4, 1F).setCodename("pineapple_slice_grilled")
-
     val goldenPineappleSlice = ItemPineappleSlice(6, 1F)
-            .addRegen(5, 1).setCodename("pineapple_slice_golden")
-
-    val godlyPineappleSlice = ItemPineappleSlice(10, 2F)
-            .addRegen(5, 10).setCodename("pineapple_slice_godly")
+            .setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1), 1F)
+            .setCodename("pineapple_slice_golden")
+    val energizedPineappleSlice = ItemPineappleSlice(0, 2F).setCodename("pineapple_slice_energized")
+    val energizedCrystal = Item().setCodename("energized_crystal")
 
     val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
+
+    val energizedPickaxe = ItemEnergizedPickaxe().setCodename("energized_pickaxe")
 
     @JvmStatic
     @SubscribeEvent
@@ -41,7 +41,9 @@ object ModItems {
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 goldenPineappleSlice,
-                godlyPineappleSlice,
+                energizedPineappleSlice,
+                energizedCrystal,
+                energizedPickaxe,
                 *pineappleToolset.getItems()
         )
     }
@@ -54,10 +56,15 @@ object ModItems {
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 goldenPineappleSlice,
-                godlyPineappleSlice
+                energizedPineappleSlice,
+                energizedCrystal
         )
 
-        registerRenders(*pineappleToolset.getItems(), location =  "tools/")
+        registerRenders(
+                *pineappleToolset.getItems(),
+                energizedPickaxe,
+                location =  "tools/"
+        )
     }
 
     @JvmStatic

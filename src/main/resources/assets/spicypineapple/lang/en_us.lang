@@ -10,5 +10,11 @@ item.pineapple_slice_grilled.name=Grilled Pineapple Slice
 item.pineapple_slice_golden.name=Golden Pineapple Slice
 item.pineapple_slice_godly.name=Godly Pineapple Slice
 
-tile.pineapple.name=Pineapple
-tile.pineapple_spicy.name=Spicy Pineapple
+item.pineapple_axe.name=Pineapple Axe
+item.pineapple_pickaxe.name=Pineapple Pickaxe
+item.pineapple_shovel.name=Pineapple Shovel
+item.pineapple_hoe.name=Pineapple Hoe
+item.pineapple_sword.name=Pineapple Sword
+
+tile.pineapple_block.name=Pineapple
+tile.pineapple_block_energized.name=Energized Pineapple

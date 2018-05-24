@@ -1,6 +1,5 @@
 package net.masterzach32.spicypineapple.gen
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
@@ -18,6 +17,7 @@ object PineappleClusterGenerator : IWorldGenerator {
             val y = 50 + r.nextInt(60)
             val z = chunkZ*16 + r.nextInt(16) + 8
 
+            var count = 0
             for (i in 1..48) {
                 val x1 = x + r.nextInt(8) - r.nextInt(8)
                 val y1 = y + r.nextInt(4) - r.nextInt(4)
@@ -25,10 +25,12 @@ object PineappleClusterGenerator : IWorldGenerator {
 
                 val blockPos = BlockPos(x1, y1, z1)
 
-
                 if (world.isAirBlock(blockPos) && world.getBlockState(BlockPos(x1, y1-1, z1)).block == Blocks.GRASS
                         && ModBlocks.pineappleBlock.canPlaceBlockAt(world, blockPos)) {
+                    if (count == 8)
+                        break
                     world.setBlockState(blockPos, ModBlocks.pineappleBlock.defaultState)
+                    count++
                 }
             }
         }

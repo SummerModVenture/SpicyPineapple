@@ -15,4 +15,5 @@ import net.minecraftforge.common.util.EnumHelper
  * @version 5/23/2018
  */
 
-val ToolMaterialPineapple = EnumHelper.addToolMaterial("PINEAPPLE", 3, 300, 6.0F, 3F, 10)!!
+val ToolMaterialPineapple = EnumHelper.addToolMaterial("PINEAPPLE", 1, 300, 4.0F, 3F, 10)!!
+val ToolMaterialEnergized = EnumHelper.addToolMaterial("ENERGIZED", 3, 1000, 8.0F, 6F, 10)!!
