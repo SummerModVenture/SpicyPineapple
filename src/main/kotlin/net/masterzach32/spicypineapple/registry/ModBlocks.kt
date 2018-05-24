@@ -16,17 +16,15 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModBlocks {
 
-    val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4).setCodename("pineapple_block")
-    val spicyPineappleBlock = BlockPineapple(ModItems.spicyPineappleSlice, 4).setCodename("pineapple_block_spicy")
-    val godlyPineappleBlock = BlockPineapple(ModItems.godlyPineappleSlice, 6).setCodename("pineapple_block_godly")
+    val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4, false).setCodename("pineapple_block")
+    val pineappleBlockEnergized = BlockPineapple(ModItems.pineappleSlice, 6, true).setCodename("pineapple_block_energized")
 
     @JvmStatic
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
                 pineappleBlock,
-                spicyPineappleBlock,
-                godlyPineappleBlock
+                pineappleBlockEnergized
         )
     }
 
@@ -35,14 +33,18 @@ object ModBlocks {
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
                 itemBlock(pineappleBlock),
-                itemBlock(spicyPineappleBlock),
-                itemBlock(godlyPineappleBlock)
+                itemBlock(pineappleBlockEnergized)
         )
     }
 
+
+    @JvmStatic
     @SubscribeEvent
     fun registerRenders(event: ModelRegistryEvent) {
-        registerRenders(pineappleBlock, spicyPineappleBlock)
+        registerRenders(
+                pineappleBlock,
+                pineappleBlockEnergized
+        )
     }
 
     private fun registerRenders(vararg blocks: Block) {

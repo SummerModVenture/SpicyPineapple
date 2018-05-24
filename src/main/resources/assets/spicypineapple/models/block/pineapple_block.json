@@ -5,7 +5,7 @@
         "particle": "spicypineapple:blocks/side",
         "0": "spicypineapple:blocks/side",
         "1": "spicypineapple:blocks/top",
-        "2": "spicypineapple:blocks/bottom"
+        "2": "spicypineapple:blocks/bot"
     },
     "elements": [
         {

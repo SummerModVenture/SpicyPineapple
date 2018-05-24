@@ -19,23 +19,17 @@ import net.minecraftforge.client.model.ModelLoader
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModItems {
 
-    val pineappleSlice = ItemPineappleSlice(2, 0.25F).addTooltip {
-        it.add("§e+2 hearts over 5 seconds")
-    }.addRegen(5, 0).setCodename("pineapple_slice")
+    val pineappleSlice = ItemPineappleSlice(2, 0.25F).setCodename("pineapple_slice")
 
-    val spicyPineappleSlice = ItemPineappleSlice(3, .5F).addTooltip {
-        it.add("§e+5 hearts over 5 seconds")
-    }.addRegen(5, 1).setCodename("pineapple_slice_spicy")
+    val spicyPineappleSlice = ItemPineappleSlice(3, .5F).setCodename("pineapple_slice_spicy")
 
     val grilledPineappleSlice = ItemPineappleSlice(4, 1F).setCodename("pineapple_slice_grilled")
 
-    val goldenPineappleSlice = ItemPineappleSlice(6, 1F).addTooltip {
-        it.add("§e+5 hearts over 5 seconds")
-    }.addRegen(5, 2).setCodename("pineapple_slice_golden")
+    val goldenPineappleSlice = ItemPineappleSlice(6, 1F)
+            .addRegen(5, 1).setCodename("pineapple_slice_golden")
 
-    val godlyPineappleSlice = ItemPineappleSlice(10, 2F).addTooltip {
-        it.add("§e+20 hearts over 5 seconds")
-    }.addRegen(5, 10).setCodename("pineapple_slice_godly")
+    val godlyPineappleSlice = ItemPineappleSlice(10, 2F)
+            .addRegen(5, 10).setCodename("pineapple_slice_godly")
 
     val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
 
