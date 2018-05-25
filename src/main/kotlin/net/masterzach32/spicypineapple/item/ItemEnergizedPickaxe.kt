@@ -29,20 +29,18 @@ class ItemEnergizedPickaxe : ItemPickaxe(ToolMaterialEnergized) {
     }
 
     override fun onBlockDestroyed(stack: ItemStack, world: World, state: IBlockState, pos: BlockPos, entity: EntityLivingBase): Boolean {
-        if (world.isRemote || entity !is EntityPlayer)
-            return super.onBlockDestroyed(stack, world, state, pos, entity)
-        if (entity.isSneaking)
+        if (world.isRemote || entity !is EntityPlayer || entity.isSneaking)
             return super.onBlockDestroyed(stack, world, state, pos, entity)
         val blocks = BlockPos.getAllInBoxMutable(BlockPos(pos.x-1, pos.y-1, pos.z-1), BlockPos(pos.x+1, pos.y+1, pos.z+1))
         blocks.forEach {
             val otherState = world.getBlockState(it)
-            if (it != pos && otherState != Blocks.AIR) {
+            if (it != pos && otherState.block != Blocks.AIR) {
                 otherState.block.harvestBlock(world, entity, it, otherState, null, stack)
                 world.setBlockToAir(it)
-                stack.damageItem(1, entity)
-                entity.foodStats.addExhaustion(0.25f)
             }
         }
+        stack.damageItem(4, entity)
+        entity.foodStats.addExhaustion(4.0f * entity.foodStats.foodLevel/20)
         return super.onBlockDestroyed(stack, world, state, pos, entity)
     }
 }

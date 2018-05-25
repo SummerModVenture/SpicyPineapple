@@ -17,14 +17,14 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 object ModBlocks {
 
     val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4, false).setCodename("pineapple_block")
-    val pineappleBlockEnergized = BlockPineapple(ModItems.energizedPineappleSlice, 6, true).setCodename("pineapple_block_energized")
+    val pineappleBlockCrystalized = BlockPineapple(ModItems.pineappleSlice, 4, true).setCodename("pineapple_block_energized")
 
     @JvmStatic
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
                 pineappleBlock,
-                pineappleBlockEnergized
+                pineappleBlockCrystalized
         )
     }
 
@@ -33,7 +33,7 @@ object ModBlocks {
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
                 itemBlock(pineappleBlock),
-                itemBlock(pineappleBlockEnergized)
+                itemBlock(pineappleBlockCrystalized)
         )
     }
 
@@ -43,7 +43,7 @@ object ModBlocks {
     fun registerRenders(event: ModelRegistryEvent) {
         registerRenders(
                 pineappleBlock,
-                pineappleBlockEnergized
+                pineappleBlockCrystalized
         )
     }
 

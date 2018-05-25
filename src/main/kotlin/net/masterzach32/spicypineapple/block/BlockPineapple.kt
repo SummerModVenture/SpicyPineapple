@@ -17,19 +17,19 @@ import net.minecraft.world.World
 import java.util.*
 
 class BlockPineapple(private val itemDropped: Item, private val countDropped: Int,
-                     private val isEnergized: Boolean) : Block(Material.CACTUS) {
+                     private val isCrystalized: Boolean) : Block(Material.CACTUS) {
 
     val alignedBB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
 
     init {
         setCreativeTab(SpicyPineappleTab)
         setHardness(0.5f)
-        if (isEnergized)
+        if (isCrystalized)
             setLightLevel(0.5f)
     }
 
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, r: Random) {
-        if (isEnergized) {
+        if (isCrystalized) {
             val f1 = pos.x + .5f
             val f2 = pos.y + .6f
             val f3 = pos.z + .5f
@@ -50,8 +50,12 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
 
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         drops.add(ItemStack(itemDropped, countDropped))
-        if (isEnergized && Math.random() > 0.5)
-            drops.add(ItemStack(ModItems.energizedCrystal, 1 + fortune))
+
+        when (Random().nextInt(3)) {
+            0 -> drops.add(ItemStack(ModItems.energyCrystal, 1 + fortune))
+            1 -> drops.add(ItemStack(ModItems.fireCrystal, 1 + fortune))
+            2 -> drops.add(ItemStack(ModItems.lifeCrystal, 1 + fortune))
+        }
     }
 
     @SuppressWarnings("Deprecated")
