@@ -28,27 +28,25 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     }
 
     private fun harvestAllWood(world: World, pos: BlockPos, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
-        destroyBlock(world, pos, player, stack)
+        val block = world.getBlockState(pos).block
+        destroyBlock(world, block, pos, player, stack)
         if (broken.size >= 100)
             return
         EnumFacing.VALUES
                 .filter {
-                    val block = world.getBlockState(pos.offset(it)).block
-                    block == Blocks.LOG || block == Blocks.LOG2 || block == Blocks.LEAVES || block == Blocks.LEAVES2
+                    val other = world.getBlockState(pos.offset(it)).block
+                    other == Blocks.LOG || other == Blocks.LOG2 || other == Blocks.LEAVES || other == Blocks.LEAVES2
                 }
                 .filter { broken.add(pos.offset(it)) }
                 .filterNot {
-                    val block = world.getBlockState(pos).block
-                    val other = world.getBlockState(pos.offset(it))
+                    val other = world.getBlockState(pos.offset(it)).block
                     (block == Blocks.LEAVES || block == Blocks.LEAVES2) && (other == Blocks.LOG || other == Blocks.LOG2)
                 }
-                .forEach {
-                    harvestAllWood(world, pos.offset(it), broken, player, stack)
-                }
+                .forEach { harvestAllWood(world, pos.offset(it), broken, player, stack) }
     }
 
-    private fun destroyBlock(world: World, pos: BlockPos, player: EntityPlayer, stack: ItemStack) {
-        world.getBlockState(pos).block.harvestBlock(world, player, pos, world.getBlockState(pos), null, stack)
+    private fun destroyBlock(world: World, block: Block, pos: BlockPos, player: EntityPlayer, stack: ItemStack) {
+        block.harvestBlock(world, player, pos, world.getBlockState(pos), null, stack)
         world.setBlockToAir(pos)
         stack.damageItem(1, player)
         player.foodStats.addExhaustion(0.3f)
