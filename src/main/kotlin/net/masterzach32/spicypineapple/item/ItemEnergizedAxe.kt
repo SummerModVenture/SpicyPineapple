@@ -22,7 +22,8 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
         if (world.isRemote || entity !is EntityPlayer || !entity.isSneaking)
             return super.onBlockDestroyed(stack, world, state, pos, entity)
 
-        harvestAllWood(world, pos, mutableSetOf(), entity, stack)
+        if (world.getBlockState(pos).block == Blocks.LOG || world.getBlockState(pos).block == Blocks.LOG2)
+            harvestAllWood(world, pos, mutableSetOf(), entity, stack)
 
         return super.onBlockDestroyed(stack, world, state, pos, entity)
     }
@@ -30,7 +31,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     private fun harvestAllWood(world: World, pos: BlockPos, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
         val block = world.getBlockState(pos).block
         destroyBlock(world, block, pos, player, stack)
-        if (broken.size >= 100)
+        if (broken.size >= 400)
             return
         EnumFacing.VALUES
                 .filter {
@@ -38,17 +39,14 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
                     other == Blocks.LOG || other == Blocks.LOG2 || other == Blocks.LEAVES || other == Blocks.LEAVES2
                 }
                 .filter { broken.add(pos.offset(it)) }
-                .filterNot {
-                    val other = world.getBlockState(pos.offset(it)).block
-                    (block == Blocks.LEAVES || block == Blocks.LEAVES2) && (other == Blocks.LOG || other == Blocks.LOG2)
-                }
                 .forEach { harvestAllWood(world, pos.offset(it), broken, player, stack) }
     }
 
     private fun destroyBlock(world: World, block: Block, pos: BlockPos, player: EntityPlayer, stack: ItemStack) {
         block.harvestBlock(world, player, pos, world.getBlockState(pos), null, stack)
         world.setBlockToAir(pos)
-        stack.damageItem(1, player)
-        player.foodStats.addExhaustion(0.3f)
+        if (block == Blocks.LOG || block == Blocks.LOG2)
+            stack.damageItem(1, player)
+        player.foodStats.addExhaustion(0.1f)
     }
 }

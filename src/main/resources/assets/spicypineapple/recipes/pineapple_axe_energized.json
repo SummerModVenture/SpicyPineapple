@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PC ",
+    "PS ",
+    " S "
+  ],
+  "key": {
+    "P": {
+      "item": "spicypineapple:pineapple_slice_golden"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "item": "spicypineapple:energy_crystal"
+    }
+  },
+  "result": {
+    "item": "spicypineapple:pineapple_axe_energized"
+  }
+}

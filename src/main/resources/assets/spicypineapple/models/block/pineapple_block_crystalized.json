@@ -1,10 +1,10 @@
 {
   "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
   "textures": {
-    "particle": "spicypineapple:blocks/side_energized",
-    "0": "spicypineapple:blocks/side_energized",
-    "1": "spicypineapple:blocks/top_energized",
-    "2": "spicypineapple:blocks/bot_energized"
+    "particle": "spicypineapple:blocks/side_crystalized",
+    "0": "spicypineapple:blocks/side_crystalized",
+    "1": "spicypineapple:blocks/top_crystalized",
+    "2": "spicypineapple:blocks/bot_crystalized"
   },
   "elements": [
     {
