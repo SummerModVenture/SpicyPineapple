@@ -19,7 +19,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     }
 
     override fun onBlockDestroyed(stack: ItemStack, world: World, state: IBlockState, pos: BlockPos, entity: EntityLivingBase): Boolean {
-        if (world.isRemote || entity !is EntityPlayer || !entity.isSneaking)
+        if (world.isRemote || entity !is EntityPlayer || entity.isSneaking)
             return super.onBlockDestroyed(stack, world, state, pos, entity)
 
         if (world.getBlockState(pos).block == Blocks.LOG || world.getBlockState(pos).block == Blocks.LOG2)
@@ -31,7 +31,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     private fun harvestAllWood(world: World, pos: BlockPos, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
         val block = world.getBlockState(pos).block
         destroyBlock(world, block, pos, player, stack)
-        if (broken.size >= 400)
+        if (broken.size >= 200)
             return
         EnumFacing.VALUES
                 .filter {

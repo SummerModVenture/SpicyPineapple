@@ -2,10 +2,7 @@ package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.dsl.setCodename
-import net.masterzach32.spicypineapple.item.ItemEnergizedAxe
-import net.masterzach32.spicypineapple.item.ItemEnergizedPickaxe
-import net.masterzach32.spicypineapple.item.ToolMaterialPineapple
-import net.masterzach32.spicypineapple.item.Toolset
+import net.masterzach32.spicypineapple.item.*
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.Mod
@@ -37,6 +34,8 @@ object ModItems {
     val energizedPickaxe = ItemEnergizedPickaxe().setCodename("energized_pickaxe")
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
 
+    val staff = ItemStaff().setCodename("staff")
+
     @JvmStatic
     @SubscribeEvent
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
@@ -50,6 +49,7 @@ object ModItems {
                 fireCrystal,
                 energizedPickaxe,
                 energizedAxe,
+                staff,
                 *pineappleToolset.getItems()
         )
     }
@@ -64,7 +64,8 @@ object ModItems {
                 goldenPineappleSlice,
                 energyCrystal,
                 lifeCrystal,
-                fireCrystal
+                fireCrystal,
+                staff
         )
 
         registerRenders(

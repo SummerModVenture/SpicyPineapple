@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "spicypineapple:blocks/block_crystal",
-        "1": "spicypineapple:blocks/block_crystal",
-        "2": "spicypineapple:blocks/block_crystal",
+        "0": "spicypineapple:blocks/block_spicy",
+        "1": "spicypineapple:blocks/block_spicy",
+        "2": "spicypineapple:blocks/block_spicy",
         "3": "minecraft:blocks/leaf"
     },
     "elements": [

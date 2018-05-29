@@ -1,17 +1,16 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
-    "ambientocclusion": false,
     "textures": {
-        "particle": "spicypineapple:blocks/side",
-        "0": "spicypineapple:blocks/side",
-        "1": "spicypineapple:blocks/top",
-        "2": "spicypineapple:blocks/bot"
+        "0": "spicypineapple:blocks/block",
+        "1": "spicypineapple:blocks/block",
+        "2": "spicypineapple:blocks/block",
+        "3": "minecraft:blocks/leaf"
     },
     "elements": [
         {
             "name": "Center",
             "from": [ 5.0, 0.0, 5.0 ], 
-            "to": [ 11.0, 10.0, 11.0 ],
+            "to": [ 11.0, 10.0, 11.0 ], 
             "shade": false,
             "faces": {
                 "north": { "texture": "#0", "uv": [ 5.0, 6.0, 11.0, 16.0 ] },
@@ -25,7 +24,7 @@
         {
             "name": "Side West",
             "from": [ 4.0, 1.0, 5.0 ], 
-            "to": [ 5.0, 9.0, 11.0 ],
+            "to": [ 5.0, 9.0, 11.0 ], 
             "shade": false,
             "faces": {
                 "north": { "texture": "#0", "uv": [ 11.0, 7.0, 12.0, 15.0 ] },
@@ -39,7 +38,7 @@
         {
             "name": "Side East",
             "from": [ 11.0, 1.0, 5.0 ], 
-            "to": [ 12.0, 9.0, 11.0 ],
+            "to": [ 12.0, 9.0, 11.0 ], 
             "shade": false,
             "faces": {
                 "north": { "texture": "#0", "uv": [ 11.0, 7.0, 12.0, 15.0 ] },
@@ -53,7 +52,7 @@
         {
             "name": "Side North",
             "from": [ 5.0, 1.0, 4.0 ], 
-            "to": [ 11.0, 9.0, 5.0 ],
+            "to": [ 11.0, 9.0, 5.0 ], 
             "shade": false,
             "faces": {
                 "north": { "texture": "#0", "uv": [ 5.0, 7.0, 11.0, 15.0 ] },
@@ -67,7 +66,7 @@
         {
             "name": "Side South",
             "from": [ 5.0, 1.0, 11.0 ], 
-            "to": [ 11.0, 9.0, 12.0 ],
+            "to": [ 11.0, 9.0, 12.0 ], 
             "shade": false,
             "faces": {
                 "north": { "texture": "#-1", "uv": [ 0.0, 0.0, 6.0, 8.0 ] },
@@ -76,6 +75,28 @@
                 "west": { "texture": "#0", "uv": [ 4.0, 7.0, 5.0, 15.0 ] },
                 "up": { "texture": "#1", "uv": [ 5.0, 11.0, 11.0, 12.0 ] },
                 "down": { "texture": "#2", "uv": [ 5.0, 11.0, 11.0, 12.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 5.0, 10.0, 8.0 ], 
+            "to": [ 11.0, 16.0, 8.0 ], 
+            "shade": false,
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#3", "uv": [ 0.0, 10.0, 6.0, 16.0 ] },
+                "south": { "texture": "#3", "uv": [ 0.0, 10.0, 6.0, 16.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 5.0, 10.0, 8.0 ], 
+            "to": [ 11.0, 16.0, 8.0 ], 
+            "shade": false,
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": -45.0 },
+            "faces": {
+                "north": { "texture": "#3", "uv": [ 0.0, 10.0, 6.0, 16.0 ] },
+                "south": { "texture": "#3", "uv": [ 0.0, 10.0, 6.0, 16.0 ] }
             }
         }
     ]
