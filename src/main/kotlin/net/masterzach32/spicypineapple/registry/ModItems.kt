@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.item.ItemFood
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraftforge.client.event.ModelRegistryEvent
@@ -18,16 +17,20 @@ import net.minecraftforge.client.model.ModelLoader
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModItems {
 
-    val pineappleSlice = ItemFood(2, 0.25F, false).setCreativeTab(SpicyPineappleTab).setCodename("pineapple_slice")
-    val spicyPineappleSlice = ItemFood(3, .5F, false).setCreativeTab(SpicyPineappleTab).setCodename("pineapple_slice_spicy")
-    val grilledPineappleSlice = ItemFood(4, 1F, false).setCreativeTab(SpicyPineappleTab).setCodename("pineapple_slice_grilled")
-    val goldenPineappleSlice = ItemFood(6, 1F, false).setAlwaysEdible()
+    val pineappleSlice = ItemPineappleSlice(2, 0.25).setCodename("pineapple_slice")
+    val spicyPineappleSlice = ItemPineappleSlice(3, 0.5).setCodename("pineapple_slice_spicy")
+    val grilledPineappleSlice = ItemPineappleSlice(4, 1.0).setCodename("pineapple_slice_grilled")
+    val goldenPineappleSlice = ItemPineappleSlice(6, 1.0).setAlwaysEdible()
             .setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1), 1F)
-            .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_slice_golden")
+            .setCodename("pineapple_slice_golden")
+
 
     val energyCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("energy_crystal")
     val lifeCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("life_crystal")
     val fireCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("fire_crystal")
+    val earthCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("earth_crystal")
+    val waterCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("water_crystal")
+    val crystals = listOf(energyCrystal, lifeCrystal, fireCrystal, earthCrystal, waterCrystal)
 
     val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
 
@@ -47,6 +50,8 @@ object ModItems {
                 energyCrystal,
                 lifeCrystal,
                 fireCrystal,
+                earthCrystal,
+                waterCrystal,
                 energizedPickaxe,
                 energizedAxe,
                 staff,
@@ -65,6 +70,8 @@ object ModItems {
                 energyCrystal,
                 lifeCrystal,
                 fireCrystal,
+                earthCrystal,
+                waterCrystal,
                 staff
         )
 

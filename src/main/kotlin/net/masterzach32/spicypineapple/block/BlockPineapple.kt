@@ -51,11 +51,8 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         drops.add(ItemStack(itemDropped, countDropped))
 
-        when (Random().nextInt(3)) {
-            0 -> drops.add(ItemStack(ModItems.energyCrystal, 1 + fortune))
-            1 -> drops.add(ItemStack(ModItems.fireCrystal, 1 + fortune))
-            2 -> drops.add(ItemStack(ModItems.lifeCrystal, 1 + fortune))
-        }
+        for (i in 0..fortune)
+            drops.add(ItemStack(ModItems.crystals[Math.floor(ModItems.crystals.size*Math.random()).toInt()]))
     }
 
     @SuppressWarnings("Deprecated")
