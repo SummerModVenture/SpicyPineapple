@@ -17,7 +17,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 object ModBlocks {
 
     val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4, false).setCodename("pineapple_block")
-    val pineappleBlockCrystalized = BlockPineapple(ModItems.pineappleSlice, 4, true).setCodename("pineapple_block_crystalized")
+    val pineappleBlockCrystalized = BlockPineapple(ModItems.crystalPineappleSlice, 4, true).setCodename("pineapple_block_crystalized")
 
     @JvmStatic
     @SubscribeEvent

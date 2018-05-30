@@ -20,9 +20,9 @@ object ModItems {
     val pineappleSlice = ItemPineappleSlice(2, 0.25).setCodename("pineapple_slice")
     val spicyPineappleSlice = ItemPineappleSlice(3, 0.5).setCodename("pineapple_slice_spicy")
     val grilledPineappleSlice = ItemPineappleSlice(4, 1.0).setCodename("pineapple_slice_grilled")
-    val goldenPineappleSlice = ItemPineappleSlice(6, 1.0).setAlwaysEdible()
+    val crystalPineappleSlice = ItemPineappleSlice(6, 1.0).setAlwaysEdible()
             .setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1), 1F)
-            .setCodename("pineapple_slice_golden")
+            .setCodename("pineapple_slice_crystal")
 
 
     val energyCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("energy_crystal")
@@ -46,7 +46,7 @@ object ModItems {
                 pineappleSlice,
                 spicyPineappleSlice,
                 grilledPineappleSlice,
-                goldenPineappleSlice,
+                crystalPineappleSlice,
                 energyCrystal,
                 lifeCrystal,
                 fireCrystal,
@@ -66,7 +66,7 @@ object ModItems {
                 pineappleSlice,
                 spicyPineappleSlice,
                 grilledPineappleSlice,
-                goldenPineappleSlice,
+                crystalPineappleSlice,
                 energyCrystal,
                 lifeCrystal,
                 fireCrystal,

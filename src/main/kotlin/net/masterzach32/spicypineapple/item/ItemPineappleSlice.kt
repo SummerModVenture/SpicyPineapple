@@ -1,6 +1,5 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.dsl.setCodename
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.BlockJukebox
 import net.minecraft.entity.player.EntityPlayer
@@ -8,6 +7,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.Item
 import net.minecraft.item.ItemFood
+import net.minecraft.item.ItemStack
 import net.minecraft.stats.StatList
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
@@ -42,16 +42,16 @@ class ItemPineappleSlice(hungerFilled: Int, saturation: Double) : ItemFood(hunge
         if (blockState.block == Blocks.JUKEBOX && !blockState.getValue(BlockJukebox.HAS_RECORD)) {
             if (!world.isRemote) {
                 val stack = player.getHeldItem(hand)
-                (Blocks.JUKEBOX as BlockJukebox).insertRecord(world, pos, blockState, stack)
+                (Blocks.JUKEBOX as BlockJukebox).insertRecord(world, pos, blockState, ItemStack(stack.item))
                 world.playEvent(null, 1010, pos, Item.getIdFromItem(this))
                 stack.shrink(1)
                 player.addStat(StatList.RECORD_PLAYED)
+            }
+            if (world.isRemote) {
                 world.playSound(null, pos, sound, SoundCategory.MUSIC, 1.0F, 1.0F)
             }
-
             return EnumActionResult.SUCCESS
         }
-
         return EnumActionResult.PASS
     }
 

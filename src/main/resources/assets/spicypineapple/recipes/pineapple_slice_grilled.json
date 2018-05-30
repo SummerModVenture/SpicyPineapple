@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "spicypineapple:pineapple_slice"
-  },
-  "result": "spicypineapple:pineapple_slice_grilled",
-  "experience": 2,
-  "cookingtime": 200
-}
