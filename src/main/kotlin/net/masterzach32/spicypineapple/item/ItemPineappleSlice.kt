@@ -2,8 +2,10 @@ package net.masterzach32.spicypineapple.item
 
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.BlockJukebox
+import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
+import net.minecraft.init.Items
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.Item
 import net.minecraft.item.ItemFood
@@ -16,7 +18,7 @@ import net.minecraft.world.World
 /*
  * SpicyPineapple - Created on 5/29/2018
  * Author: Zach Kozar
- * 
+ *
  * This code is licensed under the GNU GPL v3
  * You can find more info in the LICENSE file at the project root.
  */
@@ -46,9 +48,6 @@ class ItemPineappleSlice(hungerFilled: Int, saturation: Double) : ItemFood(hunge
                 world.playEvent(null, 1010, pos, Item.getIdFromItem(this))
                 stack.shrink(1)
                 player.addStat(StatList.RECORD_PLAYED)
-            }
-            if (world.isRemote) {
-                world.playSound(null, pos, sound, SoundCategory.MUSIC, 1.0F, 1.0F)
             }
             return EnumActionResult.SUCCESS
         }
