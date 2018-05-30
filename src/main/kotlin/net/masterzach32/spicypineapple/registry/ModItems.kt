@@ -17,12 +17,11 @@ import net.minecraftforge.client.model.ModelLoader
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModItems {
 
-    val pineappleSlice = ItemPineappleSlice(2, 0.25).setCodename("pineapple_slice")
-    val spicyPineappleSlice = ItemPineappleSlice(3, 0.5).setCodename("pineapple_slice_spicy")
-    val grilledPineappleSlice = ItemPineappleSlice(4, 1.0).setCodename("pineapple_slice_grilled")
-    val crystalPineappleSlice = ItemPineappleSlice(6, 1.0).setAlwaysEdible()
-            .setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1), 1F)
-            .setCodename("pineapple_slice_crystal")
+    val pineappleSlice = ItemPineappleSlice("pineapple_slice", 2, 0.25)
+    val spicyPineappleSlice = ItemPineappleSlice("pineapple_slice_spicy", 3, 0.5)
+    val grilledPineappleSlice = ItemPineappleSlice("pineapple_slice_grilled", 4, 1.0)
+    val crystalPineappleSlice = ItemPineappleSlice("pineapple_slice_crystal", 6, 1.0, true,
+            PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1))
 
 
     val energyCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("energy_crystal")

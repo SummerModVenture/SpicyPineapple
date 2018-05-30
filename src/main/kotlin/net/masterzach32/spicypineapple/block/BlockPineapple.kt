@@ -1,5 +1,6 @@
 package net.masterzach32.spicypineapple.block
 
+import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.Block
@@ -41,7 +42,7 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
         }
     }
 
-    override fun canProvidePower(state: IBlockState?): Boolean = true
+    override fun canProvidePower(state: IBlockState): Boolean = true
 
     override fun getWeakPower(state: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Int = 5
 
@@ -50,16 +51,15 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
 
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         drops.add(ItemStack(itemDropped, countDropped))
-
-        for (i in 0..fortune)
+        for (i in 0..(1+fortune)/2)
             drops.add(ItemStack(ModItems.crystals[Math.floor(ModItems.crystals.size*Math.random()).toInt()]))
     }
 
     @SuppressWarnings("Deprecated")
-    override fun isFullBlock(state: IBlockState?): Boolean = false
+    override fun isFullBlock(state: IBlockState): Boolean = false
 
     @SuppressWarnings("Deprecated")
-    override fun isFullCube(state: IBlockState?): Boolean = false
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @SuppressWarnings("Deprecated")
     override fun isOpaqueCube(state: IBlockState): Boolean = false

@@ -8,11 +8,13 @@ item.pineapple_slice.name=Pineapple Slice
 item.pineapple_slice_spicy.name=Spicy Pineapple Slice
 item.pineapple_slice_grilled.name=Grilled Pineapple Slice
 item.pineapple_slice_golden.name=Golden Pineapple Slice
-item.pineapple_slice_energized.name=Energized Pineapple Slice
+item.pineapple_slice_crystal.name=Crystal Pineapple Slice
 
 item.energy_crystal.name=Energy Crystal
 item.life_crystal.name=Life Crystal
 item.fire_crystal.name=Fire Crystal
+item.earth_crystal.name=Earth Crystal
+item.water_crystal.name=Water Crystal
 
 item.pineapple_axe.name=Pineapple Axe
 item.pineapple_pickaxe.name=Pineapple Pickaxe
@@ -21,6 +23,7 @@ item.pineapple_hoe.name=Pineapple Hoe
 item.pineapple_sword.name=Pineapple Sword
 
 item.energized_pickaxe.name=Energized Pickaxe
+item.energized_axe.name=Energized Axe
 
 tile.pineapple_block.name=Pineapple
-tile.pineapple_block_energized.name=Energized Pineapple
+tile.pineapple_block_crystalized.name=Crystalized Pineapple
