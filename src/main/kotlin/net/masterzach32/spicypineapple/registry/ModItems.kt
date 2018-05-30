@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.init.SoundEvents
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraftforge.client.event.ModelRegistryEvent
@@ -17,10 +18,10 @@ import net.minecraftforge.client.model.ModelLoader
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModItems {
 
-    val pineappleSlice = ItemPineappleSlice(2, 0.25).setCodename("pineapple_slice")
-    val spicyPineappleSlice = ItemPineappleSlice(3, 0.5).setCodename("pineapple_slice_spicy")
-    val grilledPineappleSlice = ItemPineappleSlice(4, 1.0).setCodename("pineapple_slice_grilled")
-    val crystalPineappleSlice = ItemPineappleSlice(6, 1.0).setAlwaysEdible()
+    val pineappleSlice = ItemPineappleSlice(2, 0.25, "Pineapple Slice", SoundEvents.RECORD_CHIRP).setCodename("pineapple_slice")
+    val spicyPineappleSlice = ItemPineappleSlice(3, 0.5, "Spicy Pineapple Slice", SoundEvents.RECORD_BLOCKS).setCodename("pineapple_slice_spicy")
+    val grilledPineappleSlice = ItemPineappleSlice(4, 1.0, "Grilled Pineapple Slice", SoundEvents.RECORD_CAT).setCodename("pineapple_slice_grilled")
+    val crystalPineappleSlice = ItemPineappleSlice(6, 1.0, "Crystal Pineapple Slice", SoundEvents.RECORD_13).setAlwaysEdible()
             .setPotionEffect(PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1), 1F)
             .setCodename("pineapple_slice_crystal")
 
