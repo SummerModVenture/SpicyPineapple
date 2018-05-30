@@ -42,8 +42,8 @@ object SpicyPineappleMod {
         logger = event.modLog
         logger.info("Creating some spicy pineapples.")
 
-        ModBlocks.init()
         ModItems.init()
+        ModBlocks.init()
 
         GameRegistry.registerWorldGenerator(PineappleClusterGenerator, 0)
         GameRegistry.registerWorldGenerator(PineappleShrineGenerator, 0)
