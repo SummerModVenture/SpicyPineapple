@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.gen
 
-import net.masterzach32.spicypineapple.registry.ModBlocks
+import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -9,10 +9,10 @@ import net.minecraft.world.gen.IChunkGenerator
 import net.minecraftforge.fml.common.IWorldGenerator
 import java.util.*
 
-object PineappleClusterGenerator : IWorldGenerator {
+class ClusterGenerator(val toSpawn: Block, val probability: Double) : IWorldGenerator {
 
     override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
-        if (r.nextInt(8) == 0) {
+        if (Math.random() < probability) {
             val x = chunkX*16 + r.nextInt(16) + 8
             val y = 50 + r.nextInt(60)
             val z = chunkZ*16 + r.nextInt(16) + 8
@@ -26,10 +26,10 @@ object PineappleClusterGenerator : IWorldGenerator {
                 val blockPos = BlockPos(x1, y1, z1)
 
                 if (world.isAirBlock(blockPos) && world.getBlockState(BlockPos(x1, y1-1, z1)).block == Blocks.GRASS
-                        && ModBlocks.pineappleBlock.canPlaceBlockAt(world, blockPos)) {
+                        && toSpawn.canPlaceBlockAt(world, blockPos)) {
                     if (count == 8)
                         break
-                    world.setBlockState(blockPos, ModBlocks.pineappleBlock.defaultState)
+                    world.setBlockState(blockPos, toSpawn.defaultState)
                     count++
                 }
             }

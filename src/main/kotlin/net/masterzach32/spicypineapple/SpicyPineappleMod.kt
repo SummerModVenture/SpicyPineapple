@@ -4,7 +4,7 @@ import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
 import net.masterzach32.spicypineapple.dsl.clientOnly
-import net.masterzach32.spicypineapple.gen.PineappleClusterGenerator
+import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModItems
@@ -48,7 +48,8 @@ object SpicyPineappleMod {
         ModItems.init()
         ModBlocks.init()
 
-        GameRegistry.registerWorldGenerator(PineappleClusterGenerator, 0)
+        GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)
+        GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlockSpicy, 1/40.0), 0)
         GameRegistry.registerWorldGenerator(PineappleShrineGenerator, 0)
     }
 
