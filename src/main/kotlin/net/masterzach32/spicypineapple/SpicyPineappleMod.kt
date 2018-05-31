@@ -84,7 +84,7 @@ object SpicyPineappleMod {
         }
         serverOnly {
             logger.info("Registering server network handler.")
-            NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.SERVER)
+            NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
     }
 }

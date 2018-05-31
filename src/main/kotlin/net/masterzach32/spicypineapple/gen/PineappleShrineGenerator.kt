@@ -10,10 +10,8 @@ import net.minecraft.world.gen.IChunkGenerator
 import net.minecraftforge.fml.common.IWorldGenerator
 import java.util.*
 import net.minecraft.init.Blocks
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.storage.WorldSavedData
 
 object PineappleShrineGenerator : IWorldGenerator {
 
@@ -87,7 +85,8 @@ object PineappleShrineGenerator : IWorldGenerator {
 
                 world.setBlockState(BlockPos(x, y + 1, z), ModBlocks.pineappleBlockCrystalized.defaultState)
 
-                ShrineSaveData.getForWorld(world).addShrineLocation(centerBlock)
+                ShrineLocData.getForWorld(world).addShrineLocation(centerBlock)
+                SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, centerBlock))
                 break
             }
         }

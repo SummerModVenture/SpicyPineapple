@@ -1,14 +1,9 @@
 package net.masterzach32.spicypineapple.network
 
-import ibxm.Player
 import net.masterzach32.spicypineapple.SpicyPineappleMod
-import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
-import net.masterzach32.spicypineapple.gen.ShrineSaveData
+import net.masterzach32.spicypineapple.gen.ShrineLocData
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.PlayerEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
@@ -28,28 +23,22 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 class ShrineLocClientHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
 
-    companion object {
-        val updates = mutableListOf<ShrineLocUpdateMessage>()
-
-        @JvmStatic
-        @SubscribeEvent
-        fun onClientTick(event: TickEvent.ClientTickEvent) {
-            if (event.phase == TickEvent.Phase.START) {
-                while (updates.size > 0) {
-                    val update = updates.removeAt(0)
-                    val shrineData = ShrineSaveData.getForWorld(Minecraft.getMinecraft().world)
-                    if (update.action == ShrineLocUpdateMessage.Action.ADD) {
-                        SpicyPineappleMod.logger.info("Received new shrine location from server: ${update.pos}")
-                        shrineData.addShrineLocation(update.pos!!)
-                    }
-                }
-            }
-        }
-    }
-
     override fun onMessage(message: ShrineLocUpdateMessage, ctx: MessageContext): IMessage? {
         SpicyPineappleMod.logger.info("Client received message: $message")
-        updates.add(message)
+
+        val world = Minecraft.getMinecraft().world
+        if (world != null && message.action == ShrineLocUpdateMessage.Action.ADD) {
+            Minecraft.getMinecraft().addScheduledTask {
+                SpicyPineappleMod.logger.info("Received new shrine location from server: ${message.pos}")
+                ShrineLocData.getForWorld(world).addShrineLocation(message.pos)
+            }
+        } else if (world != null && message.action == ShrineLocUpdateMessage.Action.REMOVE) {
+            Minecraft.getMinecraft().addScheduledTask {
+                SpicyPineappleMod.logger.info("Removing shrine location from local list: ${message.pos}")
+                ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
+            }
+        }
+
         return null
     }
 }

@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage
  * @author Zach Kozar
  * @version 5/31/2018
  */
-data class ShrineLocUpdateMessage(var action: Action, var pos: BlockPos?) : IMessage {
+data class ShrineLocUpdateMessage(var action: Action, var pos: BlockPos) : IMessage {
 
     constructor() : this(Action.UNKNOWN, BlockPos(0, 0, 0))
 
@@ -26,7 +26,7 @@ data class ShrineLocUpdateMessage(var action: Action, var pos: BlockPos?) : IMes
     }
 
     override fun toBytes(buf: ByteBuf) {
-        buf.writeLong(pos!!.toLong())
+        buf.writeLong(pos.toLong())
         buf.writeInt(action.ordinal)
     }
 

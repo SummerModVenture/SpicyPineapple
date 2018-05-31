@@ -19,17 +19,17 @@ import net.minecraft.world.storage.WorldSavedData
  * @author Zach Kozar
  * @version 5/31/2018
  */
-class ShrineSaveData(name: String = ID) : WorldSavedData(ID) {
+class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
     companion object {
         const val ID = "PineappleShrineLoc"
 
-        fun getForWorld(world: World): ShrineSaveData {
-            var shrineData: WorldSavedData? = world.perWorldStorage.getOrLoadData(ShrineSaveData::class.java, ShrineSaveData.ID)
+        fun getForWorld(world: World): ShrineLocData {
+            var shrineData: WorldSavedData? = world.perWorldStorage.getOrLoadData(ShrineLocData::class.java, ShrineLocData.ID)
             if (shrineData == null) {
-                shrineData = ShrineSaveData()
-                world.perWorldStorage.setData(ShrineSaveData.ID, shrineData)
+                shrineData = ShrineLocData()
+                world.perWorldStorage.setData(ShrineLocData.ID, shrineData)
             }
-            return shrineData as ShrineSaveData
+            return shrineData as ShrineLocData
         }
     }
 
@@ -38,13 +38,11 @@ class ShrineSaveData(name: String = ID) : WorldSavedData(ID) {
     fun addShrineLocation(pos: BlockPos) {
         map.add(pos)
         markDirty()
-        SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, pos))
     }
 
     fun removeShrineLocation(pos: BlockPos) {
         map.remove(pos)
         markDirty()
-        SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, pos))
     }
 
     override fun writeToNBT(nbt: NBTTagCompound): NBTTagCompound {
