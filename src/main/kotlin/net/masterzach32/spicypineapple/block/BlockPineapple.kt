@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.block
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.item.ItemCrystal
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.Block
@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.NonNullList
@@ -52,7 +53,7 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         drops.add(ItemStack(itemDropped, countDropped))
         for (i in 0..(1+fortune)/2)
-            drops.add(ItemStack(ModItems.crystals[Math.floor(ModItems.crystals.size*Math.random()).toInt()]))
+            drops.add(ItemStack(ModItems.crystal, 1, (Math.random()*ItemCrystal.COUNT).toInt()))
     }
 
     @SuppressWarnings("Deprecated")
@@ -64,4 +65,5 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
     @SuppressWarnings("Deprecated")
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
+    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 }

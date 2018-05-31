@@ -3,10 +3,13 @@ package net.masterzach32.spicypineapple
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
+import net.masterzach32.spicypineapple.dsl.clientOnly
 import net.masterzach32.spicypineapple.gen.PineappleClusterGenerator
 import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModItems
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -52,6 +55,10 @@ object SpicyPineappleMod {
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
         GameRegistry.addSmelting(ModItems.pineappleSlice, ItemStack(ModItems.grilledPineappleSlice), 1.0F)
+
+        clientOnly {
+            Minecraft.getMinecraft().itemColors.registerItemColorHandler(ModItems.crystal as IItemColor, ModItems.crystal)
+        }
     }
 
     @Mod.EventHandler

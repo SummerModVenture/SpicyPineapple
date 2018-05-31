@@ -3,6 +3,8 @@ package net.masterzach32.spicypineapple.dsl
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.util.math.BlockPos
+import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minecraftforge.fml.relauncher.Side
 
 /*
  * SpicyPineapple - Created on 5/23/2018
@@ -26,3 +28,15 @@ fun Block.setCodename(name: String): Block {
 }
 
 fun BlockPos.equals(other: BlockPos) = x == other.x && y == other.y && z == other.z
+
+inline fun serverOnly(action: () -> Unit) {
+    if (FMLCommonHandler.instance().effectiveSide == Side.SERVER) {
+        action()
+    }
+}
+
+inline fun clientOnly(action: () -> Unit) {
+    if (FMLCommonHandler.instance().effectiveSide == Side.CLIENT) {
+        action()
+    }
+}

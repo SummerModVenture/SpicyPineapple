@@ -17,13 +17,19 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 object ModBlocks {
 
     val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4, false).setCodename("pineapple_block")
+    val pineappleBlockSpicy = BlockPineapple(ModItems.spicyPineappleSlice, 4, false).setCodename("pineapple_block_spicy")
     val pineappleBlockCrystalized = BlockPineapple(ModItems.crystalPineappleSlice, 4, true).setCodename("pineapple_block_crystalized")
+
+    val pineappleBlockItem = itemBlock(pineappleBlock)
+    val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
+    val pineappleBlockCrystalizedItem = itemBlock(pineappleBlockCrystalized)
 
     @JvmStatic
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
         event.registry.registerAll(
                 pineappleBlock,
+                pineappleBlockSpicy,
                 pineappleBlockCrystalized
         )
     }
@@ -32,8 +38,9 @@ object ModBlocks {
     @SubscribeEvent
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
-                itemBlock(pineappleBlock),
-                itemBlock(pineappleBlockCrystalized)
+                pineappleBlockItem,
+                pineappleBlockSpicyItem,
+                pineappleBlockCrystalizedItem
         )
     }
 
@@ -43,6 +50,7 @@ object ModBlocks {
     fun registerRenders(event: ModelRegistryEvent) {
         registerRenders(
                 pineappleBlock,
+                pineappleBlockSpicy,
                 pineappleBlockCrystalized
         )
     }
@@ -54,7 +62,7 @@ object ModBlocks {
         }
     }
 
-    private fun itemBlock(b: Block) = ItemBlock(b).setRegistryName(b.registryName)
+    private fun itemBlock(b: Block) = ItemBlock(b).setRegistryName(b.registryName)!!
 
     fun init() {}
 }

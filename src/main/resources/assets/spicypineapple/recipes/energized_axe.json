@@ -7,16 +7,17 @@
   ],
   "key": {
     "P": {
-      "item": "spicypineapple:pineapple_slice_golden"
+      "item": "spicypineapple:pineapple_slice_crystal"
     },
     "S": {
       "item": "minecraft:stick"
     },
     "C": {
-      "item": "spicypineapple:energy_crystal"
+      "item": "spicypineapple:crystal",
+      "data": 1
     }
   },
   "result": {
-    "item": "spicypineapple:pineapple_axe_energized"
+    "item": "spicypineapple:energized_axe"
   }
 }

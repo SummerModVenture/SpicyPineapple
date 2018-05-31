@@ -9,8 +9,11 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
+import net.minecraft.util.NonNullList
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 
@@ -24,12 +27,7 @@ object ModItems {
             PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1))
 
 
-    val energyCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("energy_crystal")
-    val lifeCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("life_crystal")
-    val fireCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("fire_crystal")
-    val earthCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("earth_crystal")
-    val waterCrystal = Item().setCreativeTab(SpicyPineappleTab).setCodename("water_crystal")
-    val crystals = listOf(energyCrystal, lifeCrystal, fireCrystal, earthCrystal, waterCrystal)
+    val crystal = ItemCrystal().setCodename("crystal")
 
     val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
 
@@ -46,11 +44,7 @@ object ModItems {
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 crystalPineappleSlice,
-                energyCrystal,
-                lifeCrystal,
-                fireCrystal,
-                earthCrystal,
-                waterCrystal,
+                crystal,
                 energizedPickaxe,
                 energizedAxe,
                 staff,
@@ -66,11 +60,7 @@ object ModItems {
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 crystalPineappleSlice,
-                energyCrystal,
-                lifeCrystal,
-                fireCrystal,
-                earthCrystal,
-                waterCrystal,
+                crystal,
                 staff
         )
 
@@ -84,10 +74,22 @@ object ModItems {
 
     @JvmStatic
     private fun registerRenders(vararg items: Item, location: String = "") {
-        items.forEach {
-            val registryName = it.registryName!!
-            ModelLoader.setCustomModelResourceLocation(it, 0,
+        fun setResourceLocation(item: Item, metadata: Int, registryName: ResourceLocation, location: String) {
+            ModelLoader.setCustomModelResourceLocation(item, metadata,
                     ModelResourceLocation("${registryName.resourceDomain}:$location${registryName.resourcePath}", "inventory"))
+        }
+
+        items.forEach {
+            if (it.hasSubtypes) {
+                val stacks = NonNullList.create<ItemStack>()
+                it.getSubItems(it.creativeTab!!, stacks)
+
+                stacks.forEach { stack ->
+                    setResourceLocation(it, stack.metadata, it.registryName!!, location)
+                }
+            } else {
+                setResourceLocation(it, 0, it.registryName!!, location)
+            }
         }
     }
 

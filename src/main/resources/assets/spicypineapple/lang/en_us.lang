@@ -5,10 +5,13 @@ language.code=en_US
 itemGroup.spicy_pineapple_stuff=Pineapple Stuff
 
 item.pineapple_slice.name=Pineapple Slice
+item.record.pineapple_slice.desc=Pineapple Slice
 item.pineapple_slice_spicy.name=Spicy Pineapple Slice
+item.record.pineapple_slice_spicy.desc=Spicy Pineapple Slice
 item.pineapple_slice_grilled.name=Grilled Pineapple Slice
-item.pineapple_slice_golden.name=Golden Pineapple Slice
+item.record.pineapple_slice_grilled.desc=Grilled Pineapple Slice
 item.pineapple_slice_crystal.name=Crystal Pineapple Slice
+item.record.pineapple_slice_crystal.desc=Crystal Pineapple Slice
 
 item.energy_crystal.name=Energy Crystal
 item.life_crystal.name=Life Crystal

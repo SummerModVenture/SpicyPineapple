@@ -34,5 +34,5 @@ class Toolset(val name: String, val material: Item.ToolMaterial, val creativeTab
 
     class ItemBasicPickaxe(material: ToolMaterial) : ItemPickaxe(material)
 
-    class ItemBasicAxe(material: ToolMaterial) : ItemPickaxe(material)
+    class ItemBasicAxe(material: ToolMaterial) : ItemAxe(material, material.attackDamage, -3.0f)
 }
