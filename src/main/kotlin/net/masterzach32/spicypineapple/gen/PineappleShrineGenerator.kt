@@ -9,8 +9,10 @@ import net.minecraft.world.gen.IChunkGenerator
 import net.minecraftforge.fml.common.IWorldGenerator
 import java.util.*
 import net.minecraft.init.Blocks
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.storage.WorldSavedData
 
 
 object PineappleShrineGenerator : IWorldGenerator {
@@ -87,5 +89,24 @@ object PineappleShrineGenerator : IWorldGenerator {
                 break
             }
         }
+    }
+
+    object ShrineSaveData : WorldSavedData("PineappleShrineLocations") {
+
+        val map = mutableSetOf<BlockPos>()
+
+        fun addShrineLocation(pos: BlockPos) {
+            map.add(pos)
+            markDirty()
+        }
+
+        override fun writeToNBT(nbt: NBTTagCompound): NBTTagCompound {
+            return nbt
+        }
+
+        override fun readFromNBT(nbt: NBTTagCompound) {
+
+        }
+
     }
 }
