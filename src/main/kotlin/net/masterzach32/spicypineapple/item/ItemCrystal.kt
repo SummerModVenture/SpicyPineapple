@@ -7,7 +7,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 
-class ItemCrystal : Item(), IItemColor {
+class ItemCrystal : Item() {
 
     companion object {
         const val LIFE = 0
@@ -41,17 +41,6 @@ class ItemCrystal : Item(), IItemColor {
             EARTH -> "earth_crystal"
             WATER -> "water_crystal"
             else -> "unknown_crystal"
-        }
-    }
-
-    override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-        return when (stack.metadata) {
-            ItemCrystal.LIFE -> 0x68ff9a
-            ItemCrystal.ENERGY -> 0xd67fff
-            ItemCrystal.FIRE -> 0xff4800
-            ItemCrystal.EARTH -> 0x179e00
-            ItemCrystal.WATER -> 0x14a8ff
-            else -> 0xffffff
         }
     }
 }

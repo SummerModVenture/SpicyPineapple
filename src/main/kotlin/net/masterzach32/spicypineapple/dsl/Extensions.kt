@@ -27,8 +27,6 @@ fun Block.setCodename(name: String): Block {
     return setUnlocalizedName(name).setRegistryName(name)
 }
 
-fun BlockPos.equals(other: BlockPos) = x == other.x && y == other.y && z == other.z
-
 inline fun serverOnly(action: () -> Unit) {
     if (FMLCommonHandler.instance().effectiveSide == Side.SERVER) {
         action()

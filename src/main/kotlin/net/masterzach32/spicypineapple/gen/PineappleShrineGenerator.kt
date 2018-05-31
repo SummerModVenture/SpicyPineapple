@@ -1,6 +1,7 @@
 package net.masterzach32.spicypineapple.gen
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.minecraft.block.BlockStairs
 import net.minecraft.world.World
@@ -14,11 +15,10 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.storage.WorldSavedData
 
-
 object PineappleShrineGenerator : IWorldGenerator {
 
     override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
-        if (r.nextInt(512) != 0)
+        if (r.nextInt(200) != 0)
             return
 
         for (i in 1..1000) {
@@ -86,27 +86,10 @@ object PineappleShrineGenerator : IWorldGenerator {
                 world.setBlockState(BlockPos(x - 2, y + 1, z - 2), ModBlocks.pineappleBlockCrystalized.defaultState)
 
                 world.setBlockState(BlockPos(x, y + 1, z), ModBlocks.pineappleBlockCrystalized.defaultState)
+
+                ShrineSaveData.getForWorld(world).addShrineLocation(centerBlock)
                 break
             }
         }
-    }
-
-    object ShrineSaveData : WorldSavedData("PineappleShrineLocations") {
-
-        val map = mutableSetOf<BlockPos>()
-
-        fun addShrineLocation(pos: BlockPos) {
-            map.add(pos)
-            markDirty()
-        }
-
-        override fun writeToNBT(nbt: NBTTagCompound): NBTTagCompound {
-            return nbt
-        }
-
-        override fun readFromNBT(nbt: NBTTagCompound) {
-
-        }
-
     }
 }

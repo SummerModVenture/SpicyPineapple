@@ -3,19 +3,28 @@ package net.masterzach32.spicypineapple
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
+import net.masterzach32.spicypineapple.client.ItemColorHandler
 import net.masterzach32.spicypineapple.dsl.clientOnly
+import net.masterzach32.spicypineapple.dsl.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
+import net.masterzach32.spicypineapple.network.ShrineLocClientHandler
+import net.masterzach32.spicypineapple.network.ShrineLocServerHandler
+import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fml.common.LoaderState
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
 import org.apache.logging.log4j.Logger
 
 /*
@@ -40,6 +49,8 @@ object SpicyPineappleMod {
 
     lateinit var logger: Logger
 
+    val NETWORK: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID)
+
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         logger = event.modLog
@@ -48,6 +59,7 @@ object SpicyPineappleMod {
         ModItems.init()
         ModBlocks.init()
 
+        logger.info("Registering world generators.")
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlockSpicy, 1/40.0), 0)
         GameRegistry.registerWorldGenerator(PineappleShrineGenerator, 0)
@@ -55,15 +67,24 @@ object SpicyPineappleMod {
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
+        logger.info("Registering recipes.")
         GameRegistry.addSmelting(ModItems.pineappleSlice, ItemStack(ModItems.grilledPineappleSlice), 1.0F)
 
         clientOnly {
-            Minecraft.getMinecraft().itemColors.registerItemColorHandler(ModItems.crystal as IItemColor, ModItems.crystal)
+            logger.info("Registering item color handlers.")
+            Minecraft.getMinecraft().itemColors.registerItemColorHandler(ItemColorHandler, ModItems.crystal)
         }
     }
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-
+        clientOnly {
+            logger.info("Registering client network handler.")
+            NETWORK.registerMessage(ShrineLocClientHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
+        }
+        serverOnly {
+            logger.info("Registering server network handler.")
+            NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.SERVER)
+        }
     }
 }
