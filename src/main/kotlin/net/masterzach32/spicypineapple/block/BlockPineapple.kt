@@ -1,6 +1,10 @@
 package net.masterzach32.spicypineapple.block
 
+import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.dsl.distance
+import net.masterzach32.spicypineapple.gen.ShrineLocData
 import net.masterzach32.spicypineapple.item.ItemCrystal
+import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.Block
@@ -28,6 +32,17 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
         setHardness(0.5f)
         if (isCrystalized)
             setLightLevel(0.5f)
+    }
+
+    override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
+        if (isCrystalized && !world.isRemote) {
+            ShrineLocData.getForWorld(world).map
+                    .filter { it.distance(pos) < 8 }
+                    .forEach {
+                        ShrineLocData.getForWorld(world).removeShrineLocation(it)
+                        SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
+                    }
+        }
     }
 
     override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, r: Random) {

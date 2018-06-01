@@ -1,7 +1,6 @@
 package net.masterzach32.spicypineapple.gen
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
-import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
+import net.masterzach32.spicypineapple.dsl.distance
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -33,7 +32,20 @@ class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
         }
     }
 
-    val map = mutableSetOf<BlockPos>()
+    val map = mutableListOf<BlockPos>()
+
+    fun getClosestShrine(pos: BlockPos): BlockPos? {
+        var min = Double.MAX_VALUE
+        var index = -1
+        for (s in map.indices) {
+            val dist = pos.distance(map[s])
+            if (dist < min) {
+                min = dist
+                index = s
+            }
+        }
+        return if (index == -1) null else map[index]
+    }
 
     fun addShrineLocation(pos: BlockPos) {
         map.add(pos)
@@ -47,7 +59,7 @@ class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
 
     override fun writeToNBT(nbt: NBTTagCompound): NBTTagCompound {
         nbt.setInteger("count", map.size)
-        map.forEachIndexed { i, pos ->
+        map.filter { it != BlockPos(0, 0, 0) }.forEachIndexed { i, pos ->
             nbt.setLong("$i", pos.toLong())
         }
         return nbt
@@ -57,7 +69,9 @@ class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
         map.clear()
         if (nbt.hasKey("count")) {
             for (i in 0..nbt.getInteger("count")) {
-                map.add(BlockPos.fromLong(nbt.getLong("$i")))
+                val pos = BlockPos.fromLong(nbt.getLong("$i"))
+                if (pos != BlockPos(0, 0, 0))
+                    map.add(pos)
             }
         }
     }

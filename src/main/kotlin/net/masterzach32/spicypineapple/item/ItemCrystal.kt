@@ -26,7 +26,7 @@ class ItemCrystal : Item() {
 
     override fun getSubItems(tab: CreativeTabs, items: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
-            for (i in 0..4) {
+            for (i in 0 until COUNT) {
                 val stack = ItemStack(this, 1, i)
                 items.add(stack)
             }

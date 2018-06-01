@@ -28,5 +28,8 @@ item.pineapple_sword.name=Pineapple Sword
 item.energized_pickaxe.name=Energized Pickaxe
 item.energized_axe.name=Energized Axe
 
+item.staff.name=Shrine Finder
+
 tile.pineapple_block.name=Pineapple
+tile.pineapple_block_spicy.name=Spicy Pineapple
 tile.pineapple_block_crystalized.name=Crystalized Pineapple

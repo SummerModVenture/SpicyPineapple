@@ -44,11 +44,11 @@ object ModItems {
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 crystalPineappleSlice,
-                crystal,
+                *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
-                staff,
-                *pineappleToolset.getItems()
+                crystal,
+                staff
         )
     }
 

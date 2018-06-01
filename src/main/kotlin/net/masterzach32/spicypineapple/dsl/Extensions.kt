@@ -38,3 +38,7 @@ inline fun clientOnly(action: () -> Unit) {
         action()
     }
 }
+
+fun BlockPos.distance(other: BlockPos): Double {
+    return Math.sqrt(Math.pow(x-other.x.toDouble(), 2.0) + Math.pow(y-other.y.toDouble(), 2.0) + Math.pow(z-other.z.toDouble(), 2.0))
+}

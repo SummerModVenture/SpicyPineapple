@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos
 object PineappleShrineGenerator : IWorldGenerator {
 
     override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
-        if (r.nextInt(200) != 0)
+        if (r.nextInt(400) != 0)
             return
 
         for (i in 1..1000) {
