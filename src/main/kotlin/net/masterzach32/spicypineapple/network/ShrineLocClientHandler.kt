@@ -20,12 +20,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
  * @author Zach Kozar
  * @version 5/31/2018
  */
-@Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 class ShrineLocClientHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
 
     override fun onMessage(message: ShrineLocUpdateMessage, ctx: MessageContext): IMessage? {
-        SpicyPineappleMod.logger.info("Client received message: $message")
-
         val world = Minecraft.getMinecraft().world
         if (world != null && message.action == ShrineLocUpdateMessage.Action.ADD) {
             Minecraft.getMinecraft().addScheduledTask {

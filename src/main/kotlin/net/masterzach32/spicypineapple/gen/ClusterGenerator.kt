@@ -17,6 +17,9 @@ class ClusterGenerator(val toSpawn: Block, val probability: Double) : IWorldGene
             val y = 50 + r.nextInt(60)
             val z = chunkZ*16 + r.nextInt(16) + 8
 
+            if (world.getBiome(BlockPos(x, y, z)).isSnowyBiome)
+                return
+
             var count = 0
             for (i in 1..48) {
                 val x1 = x + r.nextInt(8) - r.nextInt(8)

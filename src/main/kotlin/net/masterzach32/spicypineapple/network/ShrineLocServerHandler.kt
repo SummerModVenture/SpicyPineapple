@@ -41,14 +41,13 @@ class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
     }
 
     override fun onMessage(message: ShrineLocUpdateMessage, ctx: MessageContext): IMessage? {
-        SpicyPineappleMod.logger.info("Server received message: $message")
-
         val world = ctx.serverHandler.player.serverWorld
 
         if (message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             world.addScheduledTask {
                 SpicyPineappleMod.logger.info("Player found shrine at ${message.pos}, removing from server list.")
                 ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
+                SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, message.pos))
             }
         }
 

@@ -14,9 +14,7 @@ import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.LoaderState
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -73,12 +71,6 @@ object SpicyPineappleMod {
         clientOnly {
             logger.info("Registering item color handlers.")
             Minecraft.getMinecraft().itemColors.registerItemColorHandler(ItemColorHandler, ModItems.crystal)
-        }
-    }
-
-    @Mod.EventHandler
-    fun postInit(event: FMLPostInitializationEvent) {
-        clientOnly {
             logger.info("Registering client network handler.")
             NETWORK.registerMessage(ShrineLocClientHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
         }
@@ -86,5 +78,10 @@ object SpicyPineappleMod {
             logger.info("Registering server network handler.")
             NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
+    }
+
+    @Mod.EventHandler
+    fun postInit(event: FMLPostInitializationEvent) {
+
     }
 }
