@@ -23,6 +23,8 @@ object ModBlocks {
     val pineappleBlockCrystalized = BlockPineapple(EnumPineappleType.CRYSTALIZED).setCodename("pineapple_block_crystalized")
 
     val pineappleStem = PineappleStem(pineappleBlock).setCodename("pineapple_stem")
+    val spicyPineappleStem = PineappleStem(pineappleBlockSpicy).setCodename("pineapple_stem_spicy")
+    val crystalizedPineappleStem = PineappleStem(pineappleBlockCrystalized).setCodename("pineapple_stem_crystalized")
 
     val pineappleBlockItem = itemBlock(pineappleBlock)
     val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
@@ -35,7 +37,9 @@ object ModBlocks {
                 pineappleBlock,
                 pineappleBlockSpicy,
                 pineappleBlockCrystalized,
-                pineappleStem
+                pineappleStem,
+                spicyPineappleStem,
+                crystalizedPineappleStem
         )
     }
 
@@ -57,7 +61,9 @@ object ModBlocks {
                 pineappleBlock,
                 pineappleBlockSpicy,
                 pineappleBlockCrystalized,
-                pineappleStem
+                pineappleStem,
+                spicyPineappleStem,
+                crystalizedPineappleStem
         )
     }
 
@@ -74,5 +80,7 @@ object ModBlocks {
 
     fun lateInit() {
         (pineappleStem as PineappleStem).seedItem = ModItems.pineappleSeed
+        (spicyPineappleStem as PineappleStem).seedItem = ModItems.spicyPineappleSeed
+        (crystalizedPineappleStem as PineappleStem).seedItem = ModItems.crystalPineappleSeed
     }
 }

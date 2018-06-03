@@ -77,6 +77,8 @@ object SpicyPineappleMod {
             logger.info("Registering color handlers.")
             Minecraft.getMinecraft().itemColors.registerItemColorHandler(ItemColorHandler, ModItems.crystal)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(BlockColorHandler, ModBlocks.pineappleStem)
+            Minecraft.getMinecraft().blockColors.registerBlockColorHandler(BlockColorHandler, ModBlocks.spicyPineappleStem)
+            Minecraft.getMinecraft().blockColors.registerBlockColorHandler(BlockColorHandler, ModBlocks.crystalizedPineappleStem)
             logger.info("Registering client network handler.")
             NETWORK.registerMessage(ShrineLocClientHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
         }

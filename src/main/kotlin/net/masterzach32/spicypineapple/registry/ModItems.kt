@@ -30,6 +30,10 @@ object ModItems {
 
     val pineappleSeed = ItemSeeds(ModBlocks.pineappleStem, Blocks.FARMLAND)
             .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed")
+    val spicyPineappleSeed = ItemSeeds(ModBlocks.spicyPineappleStem, Blocks.FARMLAND)
+            .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed_spicy")
+    val crystalPineappleSeed = ItemSeeds(ModBlocks.crystalizedPineappleStem, Blocks.FARMLAND)
+            .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed_crystal")
 
     val crystal = ItemCrystal().setCodename("crystal")
 
@@ -49,6 +53,8 @@ object ModItems {
                 grilledPineappleSlice,
                 crystalPineappleSlice,
                 pineappleSeed,
+                spicyPineappleSeed,
+                crystalPineappleSeed,
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
@@ -66,6 +72,8 @@ object ModItems {
                 grilledPineappleSlice,
                 crystalPineappleSlice,
                 pineappleSeed,
+                spicyPineappleSeed,
+                crystalPineappleSeed,
                 crystal,
                 staff
         )

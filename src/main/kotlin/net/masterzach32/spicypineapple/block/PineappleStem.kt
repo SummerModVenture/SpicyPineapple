@@ -77,7 +77,7 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
                 if (EnumFacing.Plane.HORIZONTAL.any { world.getBlockState(pos.offset(it)).block == crop })
                     return
                 val offset = pos.offset(EnumFacing.Plane.HORIZONTAL.random(rand))
-                val soilState = world.getBlockState(pos.down())
+                val soilState = world.getBlockState(offset.down())
                 val soilBlock = soilState.block
 
                 if (world.isAirBlock(offset) &&

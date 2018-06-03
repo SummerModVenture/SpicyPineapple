@@ -58,11 +58,23 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB = BB
 
     override fun getDrops(drops: NonNullList<ItemStack>, blockAccess: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
+        fun shouldDropSeed(): Boolean = Random().nextInt(4) == 0
+
         when (type) {
-            EnumPineappleType.NORMAL -> drops.add(ItemStack(ModItems.pineappleSlice, 4))
-            EnumPineappleType.SPICY -> drops.add(ItemStack(ModItems.spicyPineappleSlice, 4))
+            EnumPineappleType.NORMAL -> {
+                drops.add(ItemStack(ModItems.pineappleSlice, 4))
+                if (shouldDropSeed())
+                    drops.add(ItemStack(ModItems.pineappleSeed))
+            }
+            EnumPineappleType.SPICY -> {
+                drops.add(ItemStack(ModItems.spicyPineappleSlice, 4))
+                if (shouldDropSeed())
+                    drops.add(ItemStack(ModItems.spicyPineappleSeed))
+            }
             EnumPineappleType.CRYSTALIZED -> {
                 drops.add(ItemStack(ModItems.crystalPineappleSlice, 4))
+                if (shouldDropSeed())
+                    drops.add(ItemStack(ModItems.crystalPineappleSeed))
                 for (i in 0..(1 + fortune) / 2)
                     drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * ItemCrystal.COUNT).toInt()))
             }

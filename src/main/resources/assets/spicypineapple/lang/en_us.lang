@@ -13,6 +13,10 @@ item.record.pineapple_slice_grilled.desc=Grilled Pineapple Slice
 item.pineapple_slice_crystal.name=Crystal Pineapple Slice
 item.record.pineapple_slice_crystal.desc=Crystal Pineapple Slice
 
+item.pineapple_seed.name=Pineapple Seed
+item.pineapple_seed_spicy.name=Spicy Pineapple Seed
+item.pineapple_seed_crystal.name=Crystal Pineapple Seed
+
 item.energy_crystal.name=Energy Crystal
 item.life_crystal.name=Life Crystal
 item.fire_crystal.name=Fire Crystal
