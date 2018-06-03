@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.init.Blocks
+import net.minecraft.item.ItemSeeds
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
@@ -26,6 +28,8 @@ object ModItems {
     val crystalPineappleSlice = ItemPineappleSlice("pineapple_slice_crystal", 6, 1.0, true,
             PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1))
 
+    val pineappleSeed = ItemSeeds(ModBlocks.pineappleStem, Blocks.FARMLAND)
+            .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed")
 
     val crystal = ItemCrystal().setCodename("crystal")
 
@@ -38,12 +42,13 @@ object ModItems {
 
     @JvmStatic
     @SubscribeEvent
-    fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
+    fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
                 pineappleSlice,
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 crystalPineappleSlice,
+                pineappleSeed,
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
@@ -55,16 +60,17 @@ object ModItems {
     @JvmStatic
     @SubscribeEvent
     fun registerRenders(event: ModelRegistryEvent) {
-        registerRenders(
+        registerItemTexture(
                 pineappleSlice,
                 spicyPineappleSlice,
                 grilledPineappleSlice,
                 crystalPineappleSlice,
+                pineappleSeed,
                 crystal,
                 staff
         )
 
-        registerRenders(
+        registerItemTexture(
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
@@ -73,7 +79,7 @@ object ModItems {
     }
 
     @JvmStatic
-    private fun registerRenders(vararg items: Item, location: String = "") {
+    private fun registerItemTexture(vararg items: Item, location: String = "") {
         fun setResourceLocation(item: Item, metadata: Int, registryName: ResourceLocation, location: String) {
             ModelLoader.setCustomModelResourceLocation(item, metadata,
                     ModelResourceLocation("${registryName.resourceDomain}:$location${registryName.resourcePath}", "inventory"))

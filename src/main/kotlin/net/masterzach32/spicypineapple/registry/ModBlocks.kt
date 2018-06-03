@@ -2,6 +2,8 @@ package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapple
+import net.masterzach32.spicypineapple.block.EnumPineappleType
+import net.masterzach32.spicypineapple.block.PineappleStem
 import net.masterzach32.spicypineapple.dsl.setCodename
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -16,9 +18,11 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 @Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
 object ModBlocks {
 
-    val pineappleBlock = BlockPineapple(ModItems.pineappleSlice, 4, false).setCodename("pineapple_block")
-    val pineappleBlockSpicy = BlockPineapple(ModItems.spicyPineappleSlice, 4, false).setCodename("pineapple_block_spicy")
-    val pineappleBlockCrystalized = BlockPineapple(ModItems.crystalPineappleSlice, 4, true).setCodename("pineapple_block_crystalized")
+    val pineappleBlock = BlockPineapple(EnumPineappleType.NORMAL).setCodename("pineapple_block")
+    val pineappleBlockSpicy = BlockPineapple(EnumPineappleType.SPICY).setCodename("pineapple_block_spicy")
+    val pineappleBlockCrystalized = BlockPineapple(EnumPineappleType.CRYSTALIZED).setCodename("pineapple_block_crystalized")
+
+    val pineappleStem = PineappleStem(pineappleBlock).setCodename("pineapple_stem")
 
     val pineappleBlockItem = itemBlock(pineappleBlock)
     val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
@@ -30,7 +34,8 @@ object ModBlocks {
         event.registry.registerAll(
                 pineappleBlock,
                 pineappleBlockSpicy,
-                pineappleBlockCrystalized
+                pineappleBlockCrystalized,
+                pineappleStem
         )
     }
 
@@ -51,7 +56,8 @@ object ModBlocks {
         registerRenders(
                 pineappleBlock,
                 pineappleBlockSpicy,
-                pineappleBlockCrystalized
+                pineappleBlockCrystalized,
+                pineappleStem
         )
     }
 
@@ -65,4 +71,8 @@ object ModBlocks {
     private fun itemBlock(b: Block) = ItemBlock(b).setRegistryName(b.registryName)!!
 
     fun init() {}
+
+    fun lateInit() {
+        (pineappleStem as PineappleStem).seedItem = ModItems.pineappleSeed
+    }
 }

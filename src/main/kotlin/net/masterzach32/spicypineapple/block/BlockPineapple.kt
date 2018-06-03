@@ -24,8 +24,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import java.util.*
 
-class BlockPineapple(private val itemDropped: Item, private val countDropped: Int,
-                     private val isCrystalized: Boolean) : Block(Material.CACTUS) {
+class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTUS) {
 
     companion object {
         val BB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
@@ -34,12 +33,12 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
     init {
         setCreativeTab(SpicyPineappleTab)
         setHardness(0.5f)
-        if (isCrystalized)
+        if (type == EnumPineappleType.CRYSTALIZED)
             setLightLevel(0.4f)
     }
 
     override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
-        if (isCrystalized && !world.isRemote) {
+        if (type == EnumPineappleType.CRYSTALIZED && !world.isRemote) {
             ShrineLocData.getForWorld(world).map
                     .filter { it.distance(pos) < 8 }
                     .forEach {
@@ -49,31 +48,39 @@ class BlockPineapple(private val itemDropped: Item, private val countDropped: In
         }
     }
 
+    @Suppress("OverridingDeprecatedMember")
     override fun canProvidePower(state: IBlockState): Boolean = true
 
+    @Suppress("OverridingDeprecatedMember")
     override fun getWeakPower(state: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Int = 5
 
-    @SuppressWarnings("Deprecated")
+    @Suppress("OverridingDeprecatedMember")
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB = BB
 
     override fun getDrops(drops: NonNullList<ItemStack>, blockAccess: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
-        drops.add(ItemStack(itemDropped, countDropped))
-        for (i in 0..(1+fortune)/2)
-            drops.add(ItemStack(ModItems.crystal, 1, (Math.random()*ItemCrystal.COUNT).toInt()))
+        when (type) {
+            EnumPineappleType.NORMAL -> drops.add(ItemStack(ModItems.pineappleSlice, 4))
+            EnumPineappleType.SPICY -> drops.add(ItemStack(ModItems.spicyPineappleSlice, 4))
+            EnumPineappleType.CRYSTALIZED -> {
+                drops.add(ItemStack(ModItems.crystalPineappleSlice, 4))
+                for (i in 0..(1 + fortune) / 2)
+                    drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * ItemCrystal.COUNT).toInt()))
+            }
+        }
     }
 
-    @SuppressWarnings("Deprecated")
+    @Suppress("OverridingDeprecatedMember")
     override fun isFullBlock(state: IBlockState): Boolean = false
 
-    @SuppressWarnings("Deprecated")
+    @Suppress("OverridingDeprecatedMember")
     override fun isFullCube(state: IBlockState): Boolean = false
 
-    @SuppressWarnings("Deprecated")
+    @Suppress("OverridingDeprecatedMember")
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
-        return if (isCrystalized) CrystalizedPineappleTileEntity() else null
+        return if (type == EnumPineappleType.CRYSTALIZED) CrystalizedPineappleTileEntity() else null
     }
 }

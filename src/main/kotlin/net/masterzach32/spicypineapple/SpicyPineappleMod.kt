@@ -3,6 +3,9 @@ package net.masterzach32.spicypineapple
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
+import net.masterzach32.spicypineapple.block.BlockPineapple
+import net.masterzach32.spicypineapple.block.EnumPineappleType
+import net.masterzach32.spicypineapple.client.BlockColorHandler
 import net.masterzach32.spicypineapple.client.ItemColorHandler
 import net.masterzach32.spicypineapple.dsl.clientOnly
 import net.masterzach32.spicypineapple.dsl.serverOnly
@@ -65,12 +68,15 @@ object SpicyPineappleMod {
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
+        ModBlocks.lateInit()
+
         logger.info("Registering recipes.")
         GameRegistry.addSmelting(ModItems.pineappleSlice, ItemStack(ModItems.grilledPineappleSlice), 1.0F)
 
         clientOnly {
-            logger.info("Registering item color handlers.")
+            logger.info("Registering color handlers.")
             Minecraft.getMinecraft().itemColors.registerItemColorHandler(ItemColorHandler, ModItems.crystal)
+            Minecraft.getMinecraft().blockColors.registerBlockColorHandler(BlockColorHandler, ModBlocks.pineappleStem)
             logger.info("Registering client network handler.")
             NETWORK.registerMessage(ShrineLocClientHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
         }
