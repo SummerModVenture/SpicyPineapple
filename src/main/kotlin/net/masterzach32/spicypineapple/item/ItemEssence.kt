@@ -1,6 +1,5 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.EnumCrystalType
 import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.creativetab.CreativeTabs
