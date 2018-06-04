@@ -1,9 +1,10 @@
-package net.masterzach32.spicypineapple.dsl
+package net.masterzach32.spicypineapple.util
 
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.relauncher.Side
 
 /*
@@ -27,18 +28,21 @@ fun Block.setCodename(name: String): Block {
     return setUnlocalizedName(name).setRegistryName(name)
 }
 
+fun BlockPos.distance(other: BlockPos): Double {
+    return Math.sqrt(Math.pow(x-other.x.toDouble(), 2.0) + Math.pow(y-other.y.toDouble(), 2.0) + Math.pow(z-other.z.toDouble(), 2.0))
+}
+
 inline fun serverOnly(action: () -> Unit) {
-    if (FMLCommonHandler.instance().effectiveSide == Side.SERVER) {
+    if (FMLCommonHandler.instance().effectiveSide == Side.SERVER)
         action()
-    }
 }
 
 inline fun clientOnly(action: () -> Unit) {
-    if (FMLCommonHandler.instance().effectiveSide == Side.CLIENT) {
+    if (FMLCommonHandler.instance().effectiveSide == Side.CLIENT)
         action()
-    }
 }
 
-fun BlockPos.distance(other: BlockPos): Double {
-    return Math.sqrt(Math.pow(x-other.x.toDouble(), 2.0) + Math.pow(y-other.y.toDouble(), 2.0) + Math.pow(z-other.z.toDouble(), 2.0))
+inline fun ifModLoaded(modName: String, action: () -> Unit) {
+    if (Loader.isModLoaded(modName))
+        action()
 }

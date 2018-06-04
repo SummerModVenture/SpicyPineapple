@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.dsl.setCodename
+import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.block.BlockJukebox

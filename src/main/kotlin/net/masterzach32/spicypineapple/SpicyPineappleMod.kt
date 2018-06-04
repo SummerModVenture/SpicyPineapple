@@ -4,8 +4,9 @@ import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
 import net.masterzach32.spicypineapple.client.ColorHandler
-import net.masterzach32.spicypineapple.dsl.clientOnly
-import net.masterzach32.spicypineapple.dsl.serverOnly
+import net.masterzach32.spicypineapple.util.clientOnly
+import net.masterzach32.spicypineapple.util.ifModLoaded
+import net.masterzach32.spicypineapple.util.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
 import net.masterzach32.spicypineapple.network.ShrineLocClientHandler
@@ -87,6 +88,9 @@ object SpicyPineappleMod {
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-
+        ifModLoaded("SpicyTech") {
+            logger.info("Found mod SpicyTech, registering crusher recipes.")
+            // TODO ask cam to fix his code
+        }
     }
 }

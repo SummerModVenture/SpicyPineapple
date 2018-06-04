@@ -1,11 +1,11 @@
 package net.masterzach32.spicypineapple.block
 
+import net.masterzach32.spicypineapple.EnumPineappleType
 import net.minecraft.block.*
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.Item

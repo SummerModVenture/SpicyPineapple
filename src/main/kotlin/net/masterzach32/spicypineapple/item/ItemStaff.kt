@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.dsl.distance
+import net.masterzach32.spicypineapple.util.distance
 import net.masterzach32.spicypineapple.gen.ShrineLocData
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.entity.player.EntityPlayer

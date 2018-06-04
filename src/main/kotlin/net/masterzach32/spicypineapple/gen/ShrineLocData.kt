@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.gen
 
-import net.masterzach32.spicypineapple.dsl.distance
+import net.masterzach32.spicypineapple.util.distance
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World

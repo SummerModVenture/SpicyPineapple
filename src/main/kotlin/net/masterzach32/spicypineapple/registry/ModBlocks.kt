@@ -2,9 +2,9 @@ package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapple
-import net.masterzach32.spicypineapple.block.EnumPineappleType
+import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.block.PineappleStem
-import net.masterzach32.spicypineapple.dsl.setCodename
+import net.masterzach32.spicypineapple.util.setCodename
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock

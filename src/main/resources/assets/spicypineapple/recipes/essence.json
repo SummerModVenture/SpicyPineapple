@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spicypineapple:pineapple_slice"
+    }
+  ],
+  "result": {
+    "item": "spicypineapple:essence",
+    "data": 0
+  }
+}

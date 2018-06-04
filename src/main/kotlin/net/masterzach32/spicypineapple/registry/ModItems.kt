@@ -1,7 +1,7 @@
 package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
-import net.masterzach32.spicypineapple.dsl.setCodename
+import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.item.*
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.item.Item
@@ -36,6 +36,7 @@ object ModItems {
             .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed_crystal")
 
     val crystal = ItemCrystal().setCodename("crystal")
+    val essence = ItemEssence().setCodename("essence")
 
     val pineappleToolset = Toolset("pineapple", ToolMaterialPineapple, SpicyPineappleTab)
 
@@ -59,6 +60,7 @@ object ModItems {
                 energizedPickaxe,
                 energizedAxe,
                 crystal,
+                essence,
                 staff
         )
     }
@@ -75,6 +77,7 @@ object ModItems {
                 spicyPineappleSeed,
                 crystalPineappleSeed,
                 crystal,
+                essence,
                 staff
         )
 

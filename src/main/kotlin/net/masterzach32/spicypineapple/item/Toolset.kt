@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.dsl.setCodename
+import net.masterzach32.spicypineapple.util.setCodename
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.*
 

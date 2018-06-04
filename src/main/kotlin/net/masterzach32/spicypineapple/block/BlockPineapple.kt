@@ -1,9 +1,9 @@
 package net.masterzach32.spicypineapple.block
 
+import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.SpicyPineappleMod
-import net.masterzach32.spicypineapple.dsl.distance
+import net.masterzach32.spicypineapple.util.distance
 import net.masterzach32.spicypineapple.gen.ShrineLocData
-import net.masterzach32.spicypineapple.item.ItemCrystal
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
@@ -11,12 +11,10 @@ import net.masterzach32.spicypineapple.tile.CrystalizedPineappleTileEntity
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -76,7 +74,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
                 if (shouldDropSeed())
                     drops.add(ItemStack(ModItems.crystalPineappleSeed))
                 for (i in 0..(1 + fortune) / 2)
-                    drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * ItemCrystal.COUNT).toInt()))
+                    drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * EnumPineappleType.values().size).toInt()))
             }
         }
     }
