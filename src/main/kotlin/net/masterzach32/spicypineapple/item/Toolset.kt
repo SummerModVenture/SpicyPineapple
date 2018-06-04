@@ -18,7 +18,7 @@ import net.minecraft.item.*
  */
 class Toolset(val name: String, val material: Item.ToolMaterial, val creativeTab: CreativeTabs) {
 
-    val tools = mutableListOf<Item>()
+    private val tools = mutableListOf<Item>()
 
     init {
         tools.addAll(listOf(

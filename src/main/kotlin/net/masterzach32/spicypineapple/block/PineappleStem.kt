@@ -68,7 +68,7 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
         if (!world.isAreaLoaded(pos, 1))
             return
         if (world.getLightFromNeighbors(pos.up()) >= 9 &&
-                ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(10) == 0)) {
+                ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(EnumPineappleType.getTypeFromBlock(crop)!!.rarity*2+2) == 0)) {
             val currentAge = state.getValue(AGE)
             if (currentAge < 7) {
                 val newState = state.withProperty(AGE, currentAge + 1)
@@ -76,15 +76,13 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
             } else {
                 if (EnumFacing.Plane.HORIZONTAL.any { world.getBlockState(pos.offset(it)).block == crop })
                     return
-                val offset = pos.offset(EnumFacing.Plane.HORIZONTAL.random(rand))
-                val soilState = world.getBlockState(offset.down())
-                val soilBlock = soilState.block
-
-                if (world.isAirBlock(offset) &&
-                        (soilBlock.canSustainPlant(soilState, world, offset.down(), EnumFacing.UP, this) ||
-                                soilBlock == Blocks.DIRT ||
-                                soilBlock == Blocks.GRASS))
-                    world.setBlockState(offset, crop.defaultState)
+                val newFruit = EnumFacing.Plane.HORIZONTAL
+                        .map { pos.offset(it) }
+                        .filter { world.isAirBlock(it) }
+                        .map { Pair<BlockPos, IBlockState>(it.down(), world.getBlockState(it.down())) }
+                        .firstOrNull { it.second.block == Blocks.DIRT || it.second.block == Blocks.GRASS ||
+                                it.second.block.canSustainPlant(it.second, world, it.first, EnumFacing.UP, this) } ?: return
+                world.setBlockState(newFruit.first.up(), crop.defaultState)
             }
             ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos))
         }
