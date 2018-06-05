@@ -26,14 +26,16 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
 
     companion object {
         private const val MAX_AGE = 7
-        val STEM_AABB = arrayOf(AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.125, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.25, 0.625),
+        val STEM_AABB = arrayOf(
+                AxisAlignedBB(7.0/16, 0.0, 7.0/16, 9.0/16, 0.125, 9.0/16),
+                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 0.125, 10.0/16),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.375, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.5, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.625, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.75, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.875, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 1.0, 0.625))
+                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 1.0, 0.625)
+        )
 
 
         @JvmStatic val FACING: PropertyDirection = BlockTorch.FACING

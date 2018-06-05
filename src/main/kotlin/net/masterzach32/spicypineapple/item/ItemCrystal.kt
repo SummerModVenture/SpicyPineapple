@@ -2,7 +2,6 @@ package net.masterzach32.spicypineapple.item
 
 import net.masterzach32.spicypineapple.EnumCrystalType
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack

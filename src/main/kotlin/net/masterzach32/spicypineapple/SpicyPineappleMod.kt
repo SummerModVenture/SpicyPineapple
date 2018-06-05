@@ -1,5 +1,6 @@
 package net.masterzach32.spicypineapple
 
+import com.spicymemes.core.recipe.RecipesRegistryManager
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
@@ -84,13 +85,24 @@ object SpicyPineappleMod {
             logger.info("Registering server network handler.")
             NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
+
+        ifModLoaded("spicytech") {
+            logger.info("Registering crusher recipes.")
+            val reg = RecipesRegistryManager.getRegistry("spicytech", "crusher")
+            if (reg != null) {
+                reg.apply {
+                    add(ModItems.pineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.NORMAL.ordinal), 1.0f)
+                    add(ModItems.spicyPineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.SPICY.ordinal), 1.0f)
+                    add(ModItems.crystalPineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.CRYSTALIZED.ordinal), 2.0f)
+                }
+            } else {
+                logger.warn("Could not load SpicyTech crusher registry.")
+            }
+        }
     }
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-        ifModLoaded("SpicyTech") {
-            logger.info("Found mod SpicyTech, registering crusher recipes.")
-            // TODO ask cam to fix his code
-        }
+
     }
 }
