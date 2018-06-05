@@ -3,7 +3,7 @@ package net.masterzach32.spicypineapple.registry
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapple
 import net.masterzach32.spicypineapple.EnumPineappleType
-import net.masterzach32.spicypineapple.block.PineappleStem
+import net.masterzach32.spicypineapple.block.BlockPineapplePlant
 import net.masterzach32.spicypineapple.util.setCodename
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -22,9 +22,9 @@ object ModBlocks {
     val pineappleBlockSpicy = BlockPineapple(EnumPineappleType.SPICY).setCodename("pineapple_block_spicy")
     val pineappleBlockCrystalized = BlockPineapple(EnumPineappleType.CRYSTALIZED).setCodename("pineapple_block_crystalized")
 
-    val pineappleStem = PineappleStem(pineappleBlock).setCodename("pineapple_stem")
-    val spicyPineappleStem = PineappleStem(pineappleBlockSpicy).setCodename("pineapple_stem_spicy")
-    val crystalizedPineappleStem = PineappleStem(pineappleBlockCrystalized).setCodename("pineapple_stem_crystalized")
+    val pineappleStem = BlockPineapplePlant(pineappleBlock).setCodename("pineapple_stem")
+    val spicyPineappleStem = BlockPineapplePlant(pineappleBlockSpicy).setCodename("pineapple_stem_spicy")
+    val crystalizedPineappleStem = BlockPineapplePlant(pineappleBlockCrystalized).setCodename("pineapple_stem_crystalized")
 
     val pineappleBlockItem = itemBlock(pineappleBlock)
     val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
@@ -79,8 +79,8 @@ object ModBlocks {
     fun init() {}
 
     fun lateInit() {
-        (pineappleStem as PineappleStem).seedItem = ModItems.pineappleSeed
-        (spicyPineappleStem as PineappleStem).seedItem = ModItems.spicyPineappleSeed
-        (crystalizedPineappleStem as PineappleStem).seedItem = ModItems.crystalPineappleSeed
+        (pineappleStem as BlockPineapplePlant).seedItem = ModItems.pineappleSeed
+        (spicyPineappleStem as BlockPineapplePlant).seedItem = ModItems.spicyPineappleSeed
+        (crystalizedPineappleStem as BlockPineapplePlant).seedItem = ModItems.crystalPineappleSeed
     }
 }

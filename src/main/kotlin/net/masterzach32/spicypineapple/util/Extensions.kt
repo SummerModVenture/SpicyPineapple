@@ -42,7 +42,7 @@ inline fun clientOnly(action: () -> Unit) {
         action()
 }
 
-inline fun ifModLoaded(modName: String, action: () -> Unit) {
-    if (Loader.isModLoaded(modName))
+inline fun ifModLoaded(modid: String, action: () -> Unit) {
+    if (Loader.isModLoaded(modid))
         action()
 }

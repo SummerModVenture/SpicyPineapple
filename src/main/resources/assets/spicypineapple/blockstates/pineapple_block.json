@@ -1,7 +1,6 @@
 {
   "variants": {
-    "normal": [
-      { "model": "spicypineapple:pineapple_block" }
-    ]
+    "onplant=false": { "model": "spicypineapple:pineapple_block" },
+    "onplant=true": { "model": "spicypineapple:pineapple_block_fruit" }
   }
 }

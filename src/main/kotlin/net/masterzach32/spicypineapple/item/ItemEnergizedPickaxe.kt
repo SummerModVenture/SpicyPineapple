@@ -2,6 +2,7 @@ package net.masterzach32.spicypineapple.item
 
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks

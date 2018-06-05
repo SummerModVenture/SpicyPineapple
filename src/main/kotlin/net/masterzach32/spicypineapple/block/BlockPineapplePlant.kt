@@ -2,6 +2,8 @@ package net.masterzach32.spicypineapple.block
 
 import net.masterzach32.spicypineapple.EnumPineappleType
 import net.minecraft.block.*
+import net.minecraft.block.properties.IProperty
+import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
@@ -20,15 +22,15 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import java.util.*
 
-class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
+class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
 
     lateinit var seedItem: Item
 
     companion object {
-        private const val MAX_AGE = 7
+        const val MAX_AGE = 7
         val STEM_AABB = arrayOf(
-                AxisAlignedBB(7.0/16, 0.0, 7.0/16, 9.0/16, 0.125, 9.0/16),
-                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 0.125, 10.0/16),
+                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 1.0/16, 10.0/16),
+                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 2.0/16, 10.0/16),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.375, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.5, 0.625),
                 AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.625, 0.625),
@@ -38,12 +40,12 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
         )
 
 
-        @JvmStatic val FACING: PropertyDirection = BlockTorch.FACING
-        @JvmStatic val AGE: PropertyInteger = PropertyInteger.create("age", 0, MAX_AGE)
+        @JvmStatic val HAS_FRUIT: IProperty<Boolean> = PropertyBool.create("hasfruit")
+        @JvmStatic val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
     }
 
     init {
-        defaultState = blockState.baseState.withProperty(FACING, EnumFacing.UP).withProperty(AGE, 0)
+        defaultState = blockState.baseState.withProperty(HAS_FRUIT, false).withProperty(AGE, 0)
         tickRandomly = true
     }
 
@@ -54,14 +56,7 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
 
     @Suppress("OverridingDeprecatedMember")
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
-        val currentAge = state.getValue(AGE)
-        val newState = state.withProperty(FACING, EnumFacing.UP)
-
-        EnumFacing.Plane.HORIZONTAL
-                .filter { world.getBlockState(pos.offset(it)).block == crop && currentAge == MAX_AGE }
-                .forEach { return newState.withProperty(FACING, it) }
-
-        return state
+        return state.withProperty(HAS_FRUIT, world.getBlockState(pos.up()).block is BlockPineapple)
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
@@ -72,20 +67,12 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
         if (world.getLightFromNeighbors(pos.up()) >= 9 &&
                 ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(EnumPineappleType.getTypeFromBlock(crop)!!.rarity*2+2) == 0)) {
             val currentAge = state.getValue(AGE)
-            if (currentAge < 7) {
-                val newState = state.withProperty(AGE, currentAge + 1)
-                world.setBlockState(pos, newState, 2)
-            } else {
-                if (EnumFacing.Plane.HORIZONTAL.any { world.getBlockState(pos.offset(it)).block == crop })
-                    return
-                val newFruit = EnumFacing.Plane.HORIZONTAL
-                        .map { pos.offset(it) }
-                        .filter { world.isAirBlock(it) }
-                        .map { Pair<BlockPos, IBlockState>(it.down(), world.getBlockState(it.down())) }
-                        .firstOrNull { it.second.block == Blocks.DIRT || it.second.block == Blocks.GRASS ||
-                                it.second.block.canSustainPlant(it.second, world, it.first, EnumFacing.UP, this) } ?: return
-                world.setBlockState(newFruit.first.up(), crop.defaultState)
-            }
+
+            if (currentAge < 7)
+                world.setBlockState(pos, state.withProperty(AGE, currentAge + 1), 2)
+            else if (!state.getValue(HAS_FRUIT) && world.isAirBlock(pos.up()))
+                world.setBlockState(pos.up(), crop.defaultState)
+
             ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos))
         }
     }
@@ -109,9 +96,7 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
 
     override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean = state.getValue(AGE) != MAX_AGE
 
-    override fun grow(world: World, rand: Random, pos: BlockPos, state: IBlockState) {
-        growStem(world, pos, state)
-    }
+    override fun grow(world: World, rand: Random, pos: BlockPos, state: IBlockState) = growStem(world, pos, state)
 
     override fun canUseBonemeal(world: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean = true
 
@@ -122,6 +107,6 @@ class PineappleStem(val crop: Block) : BlockBush(), IGrowable {
     @Suppress("OverridingDeprecatedMember")
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(AGE, meta)
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, FACING, AGE)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, HAS_FRUIT, AGE)
 
 }

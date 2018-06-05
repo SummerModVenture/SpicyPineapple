@@ -85,11 +85,14 @@ object SpicyPineappleMod {
             logger.info("Registering server network handler.")
             NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
+    }
 
+    @Mod.EventHandler
+    fun postInit(event: FMLPostInitializationEvent) {
         ifModLoaded("spicytech") {
-            logger.info("Registering crusher recipes.")
             val reg = RecipesRegistryManager.getRegistry("spicytech", "crusher")
             if (reg != null) {
+                logger.info("Registering crusher recipes.")
                 reg.apply {
                     add(ModItems.pineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.NORMAL.ordinal), 1.0f)
                     add(ModItems.spicyPineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.SPICY.ordinal), 1.0f)
@@ -99,10 +102,5 @@ object SpicyPineappleMod {
                 logger.warn("Could not load SpicyTech crusher registry.")
             }
         }
-    }
-
-    @Mod.EventHandler
-    fun postInit(event: FMLPostInitializationEvent) {
-
     }
 }

@@ -23,6 +23,10 @@ item.fire_crystal.name=Fire Crystal
 item.earth_crystal.name=Earth Crystal
 item.water_crystal.name=Water Crystal
 
+item.normal_essence.name=Pineapple Essence
+item.spicy_essence.name=Spicy Pineapple Essence
+item.crystalized_essence.name=Crystal Pineapple Essence
+
 item.pineapple_axe.name=Pineapple Axe
 item.pineapple_pickaxe.name=Pineapple Pickaxe
 item.pineapple_shovel.name=Pineapple Shovel
@@ -31,6 +35,7 @@ item.pineapple_sword.name=Pineapple Sword
 
 item.energized_pickaxe.name=Energized Pickaxe
 item.energized_axe.name=Energized Axe
+item.energized_hoe.name=Energized Hoe
 
 item.staff.name=Shrine Finder
 

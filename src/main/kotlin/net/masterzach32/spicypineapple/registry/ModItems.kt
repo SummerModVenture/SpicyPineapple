@@ -42,6 +42,7 @@ object ModItems {
 
     val energizedPickaxe = ItemEnergizedPickaxe().setCodename("energized_pickaxe")
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
+    val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
     val staff = ItemStaff().setCodename("staff")
 
@@ -59,6 +60,7 @@ object ModItems {
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
+                energizedHoe,
                 crystal,
                 essence,
                 staff
@@ -85,6 +87,7 @@ object ModItems {
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
+                energizedHoe,
                 location =  "tools/"
         )
     }
