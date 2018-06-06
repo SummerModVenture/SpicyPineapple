@@ -9,7 +9,7 @@ import net.minecraft.world.gen.IChunkGenerator
 import net.minecraftforge.fml.common.IWorldGenerator
 import java.util.*
 
-class ClusterGenerator(val toSpawn: Block, val probability: Double) : IWorldGenerator {
+class ClusterGenerator(private val toSpawn: Block, private val probability: Double) : IWorldGenerator {
 
     override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
         if (Math.random() < probability) {
@@ -21,7 +21,8 @@ class ClusterGenerator(val toSpawn: Block, val probability: Double) : IWorldGene
                 return
 
             var count = 0
-            for (i in 1..48) {
+            var i = 0
+            while (count < 8 && i < 48) {
                 val x1 = x + r.nextInt(8) - r.nextInt(8)
                 val y1 = y + r.nextInt(4) - r.nextInt(4)
                 val z1 = z + r.nextInt(8) - r.nextInt(8)
@@ -30,11 +31,10 @@ class ClusterGenerator(val toSpawn: Block, val probability: Double) : IWorldGene
 
                 if (world.isAirBlock(blockPos) && world.getBlockState(BlockPos(x1, y1-1, z1)).block == Blocks.GRASS
                         && toSpawn.canPlaceBlockAt(world, blockPos)) {
-                    if (count == 8)
-                        break
                     world.setBlockState(blockPos, toSpawn.defaultState)
                     count++
                 }
+                i++
             }
         }
     }

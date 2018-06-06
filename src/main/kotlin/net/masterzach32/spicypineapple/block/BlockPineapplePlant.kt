@@ -47,10 +47,6 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
         tickRandomly = true
     }
 
-    override fun getExtendedState(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): IBlockState {
-        return super.getExtendedState(state, world, pos)
-    }
-
     @Suppress("OverridingDeprecatedMember")
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
         return STEM_AABB[state.getValue(AGE)]
