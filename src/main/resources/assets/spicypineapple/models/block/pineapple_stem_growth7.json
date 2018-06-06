@@ -1,6 +1,6 @@
 {
-    "parent": "block/stem_growth7",
+    "parent": "spicypineapple:block/pineapple_stem_growth6",
     "textures": {
-        "stem": "blocks/melon_stem_disconnected"
+        "stem": "spicypineapple:blocks/stem_7"
     }
 }

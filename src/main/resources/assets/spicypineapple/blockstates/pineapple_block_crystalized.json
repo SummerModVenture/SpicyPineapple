@@ -1,6 +1,6 @@
 {
   "variants": {
-    "onplant=false": { "model": "spicypineapple:pineapple_block_crystalized" },
-    "onplant=true": { "model": "spicypineapple:pineapple_block_crystalized_fruit" }
+    "isfruit=false": { "model": "spicypineapple:pineapple_block_crystalized" },
+    "isfruit=true": { "model": "spicypineapple:pineapple_block_crystalized_fruit" }
   }
 }

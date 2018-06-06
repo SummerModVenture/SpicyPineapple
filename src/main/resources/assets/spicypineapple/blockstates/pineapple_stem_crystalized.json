@@ -1,13 +1,31 @@
 {
+    "forge_marker": 1,
     "variants": {
-        "age=0,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth0" },
-        "age=1,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth1" },
-        "age=2,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth2" },
-        "age=3,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth3" },
-        "age=4,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth4" },
-        "age=5,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth5" },
-        "age=6,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth6" },
-        "age=7,hasfruit=false": { "model": "spicypineapple:pineapple_stem_growth7" },
-        "age=7,hasfruit=true": { "model": "spicypineapple:pineapple_stem_fruit" }
+        "age": {
+            "0": {
+                "model": "spicypineapple:pineapple_stem_growth0"
+            },
+            "1": {
+                "model": "spicypineapple:pineapple_stem_growth1"
+            },
+            "2": {
+                "model": "spicypineapple:pineapple_stem_growth2"
+            },
+            "3": {
+                "model": "spicypineapple:pineapple_stem_growth3"
+            },
+            "4": {
+                "model": "spicypineapple:pineapple_stem_growth4"
+            },
+            "5": {
+                "model": "spicypineapple:pineapple_stem_growth5"
+            },
+            "6": {
+                "model": "spicypineapple:pineapple_stem_growth6"
+            },
+            "7": {
+                "model": "spicypineapple:pineapple_stem_growth7"
+            }
+        }
     }
 }

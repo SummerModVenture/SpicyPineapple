@@ -31,32 +31,29 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
         val STEM_AABB = arrayOf(
                 AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 1.0/16, 10.0/16),
                 AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 2.0/16, 10.0/16),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.375, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.5, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.625, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.75, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 0.875, 0.625),
-                AxisAlignedBB(0.375, 0.0, 0.375, 0.625, 1.0, 0.625)
+                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 3.0/16, 11.0/16),
+                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 5.0/16, 11.0/16),
+                AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 8.0/16, 12.0/16),
+                AxisAlignedBB(3.0/16, 0.0, 3.0/16, 13.0/16, 11.0/16, 13.0/16),
+                AxisAlignedBB(1.0/16, 0.0, 1.0/16, 15.0/16, 13.0/16, 15.0/16),
+                AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 13.0/16, 1.0)
         )
 
-
-        @JvmStatic val HAS_FRUIT: IProperty<Boolean> = PropertyBool.create("hasfruit")
         @JvmStatic val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
     }
 
     init {
-        defaultState = blockState.baseState.withProperty(HAS_FRUIT, false).withProperty(AGE, 0)
+        defaultState = blockState.baseState.withProperty(AGE, 0)
         tickRandomly = true
+    }
+
+    override fun getExtendedState(state: IBlockState?, world: IBlockAccess?, pos: BlockPos?): IBlockState {
+        return super.getExtendedState(state, world, pos)
     }
 
     @Suppress("OverridingDeprecatedMember")
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
         return STEM_AABB[state.getValue(AGE)]
-    }
-
-    @Suppress("OverridingDeprecatedMember")
-    override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
-        return state.withProperty(HAS_FRUIT, world.getBlockState(pos.up()).block is BlockPineapple)
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
@@ -70,7 +67,7 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
 
             if (currentAge < 7)
                 world.setBlockState(pos, state.withProperty(AGE, currentAge + 1), 2)
-            else if (!state.getValue(HAS_FRUIT) && world.isAirBlock(pos.up()))
+            else if (world.isAirBlock(pos.up()))
                 world.setBlockState(pos.up(), crop.defaultState)
 
             ForgeHooks.onCropsGrowPost(world, pos, state, world.getBlockState(pos))
@@ -107,6 +104,6 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
     @Suppress("OverridingDeprecatedMember")
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(AGE, meta)
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, HAS_FRUIT, AGE)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, AGE)
 
 }

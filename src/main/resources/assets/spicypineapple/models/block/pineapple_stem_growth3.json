@@ -1,6 +1,30 @@
 {
-    "parent": "block/stem_growth3",
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "ambientocclusion": false,
     "textures": {
-        "stem": "blocks/melon_stem_disconnected"
-    }
+        "particle": "spicypineapple:blocks/stem_3",
+        "stem": "spicypineapple:blocks/stem_3"
+    },
+    "elements": [
+        {
+            "name": "Stem",
+            "from": [ 8.0, -1.0, 5.0 ],
+            "to": [ 8.0, 5.0, 11.0 ],
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0, "rescale": true },
+            "faces": {
+                "east": { "texture": "#stem", "uv": [ 0.0, 10.0, 6.0, 16.0 ], "tintindex": 0 },
+                "west": { "texture": "#stem", "uv": [ 6.0, 10.0, 0.0, 16.0 ], "tintindex": 0 }
+            }
+        },
+        {
+            "name": "Stem",
+            "from": [ 8.0, -1.0, 5.0 ],
+            "to": [ 8.0, 5.0, 11.0 ],
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": -45.0, "rescale": true },
+            "faces": {
+                "east": { "texture": "#stem", "uv": [ 0.0, 10.0, 6.0, 16.0 ], "tintindex": 0 },
+                "west": { "texture": "#stem", "uv": [ 6.0, 10.0, 0.0, 16.0 ], "tintindex": 0 }
+            }
+        }
+    ]
 }

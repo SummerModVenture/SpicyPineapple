@@ -32,7 +32,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         val BB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
         val PLANT_BB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
 
-        @JvmStatic val ON_PLANT: IProperty<Boolean> = PropertyBool.create("onplant")
+        @JvmStatic val IS_FRUIT: IProperty<Boolean> = PropertyBool.create("isfruit")
     }
 
     init {
@@ -41,7 +41,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         if (type == EnumPineappleType.CRYSTALIZED)
             setLightLevel(0.4f)
 
-        defaultState = blockState.baseState.withProperty(ON_PLANT, false)
+        defaultState = blockState.baseState.withProperty(IS_FRUIT, false)
     }
 
     override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
@@ -71,7 +71,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
 
     @Suppress("OverridingDeprecatedMember")
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
-        return if (state.getValue(ON_PLANT)) PLANT_BB else BB
+        return if (state.getValue(IS_FRUIT)) PLANT_BB else BB
     }
 
     override fun getDrops(drops: NonNullList<ItemStack>, blockAccess: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
@@ -113,7 +113,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         return if (type == EnumPineappleType.CRYSTALIZED) CrystalizedPineappleTileEntity() else null
     }
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, ON_PLANT)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, IS_FRUIT)
 
     override fun getMetaFromState(state: IBlockState): Int = 0
 
@@ -121,6 +121,6 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState
 
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
-        return state.withProperty(ON_PLANT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
+        return state.withProperty(IS_FRUIT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
     }
 }
