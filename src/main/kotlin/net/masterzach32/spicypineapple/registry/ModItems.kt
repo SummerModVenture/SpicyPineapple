@@ -45,8 +45,8 @@ object ModItems {
     val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
     val staff = ItemStaff().setCodename("staff")
-
     val healingStaff = ItemHealingStaff().setCodename("healing_staff")
+    val earthStaff = ItemEarthStaff().setCodename("earth_staff")
 
     @JvmStatic
     @SubscribeEvent
@@ -66,7 +66,8 @@ object ModItems {
                 crystal,
                 essence,
                 staff,
-                healingStaff
+                healingStaff,
+                earthStaff
         )
     }
 
@@ -84,7 +85,8 @@ object ModItems {
                 crystal,
                 essence,
                 staff,
-                healingStaff
+                healingStaff,
+                earthStaff
         )
 
         registerItemTexture(

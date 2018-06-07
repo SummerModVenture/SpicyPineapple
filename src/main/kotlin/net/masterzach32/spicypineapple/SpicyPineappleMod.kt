@@ -5,6 +5,7 @@ import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_NAME
 import net.masterzach32.spicypineapple.SpicyPineappleMod.MOD_VERSION
 import net.masterzach32.spicypineapple.client.ColorHandler
+import net.masterzach32.spicypineapple.entity.EntityHealArea
 import net.masterzach32.spicypineapple.util.clientOnly
 import net.masterzach32.spicypineapple.util.ifModLoaded
 import net.masterzach32.spicypineapple.util.serverOnly
@@ -18,12 +19,14 @@ import net.masterzach32.spicypineapple.registry.ModEntities
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
+import net.minecraftforge.fml.common.registry.EntityRegistry
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import org.apache.logging.log4j.Logger
@@ -59,7 +62,8 @@ object SpicyPineappleMod {
 
         ModItems.init()
         ModBlocks.init()
-        ModEntities.init()
+        //ModEntities.init()
+        EntityRegistry.registerModEntity(ResourceLocation("$MOD_ID:healer"), EntityHealArea::class.java, "healer", 0, this, 20, 1, false)
 
         logger.info("Registering world generators.")
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)
