@@ -39,7 +39,7 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
                 AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 13.0/16, 1.0)
         )
 
-        @JvmStatic val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
+        val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
     }
 
     init {
@@ -71,7 +71,7 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
     }
 
     private fun growStem(world: World, pos: BlockPos, state: IBlockState) {
-        val newAge = state.getValue(AGE) + MathHelper.getInt(world.rand, 2, 5)
+        val newAge = state.getValue(AGE) + MathHelper.getInt(world.rand, 1, 4)
         world.setBlockState(pos, state.withProperty(AGE, Math.min(MAX_AGE, newAge)), 2)
     }
 

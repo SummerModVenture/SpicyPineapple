@@ -46,6 +46,8 @@ object ModItems {
 
     val staff = ItemStaff().setCodename("staff")
 
+    val healingStaff = ItemHealingStaff().setCodename("healing_staff")
+
     @JvmStatic
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
@@ -63,7 +65,8 @@ object ModItems {
                 energizedHoe,
                 crystal,
                 essence,
-                staff
+                staff,
+                healingStaff
         )
     }
 
@@ -80,7 +83,8 @@ object ModItems {
                 crystalPineappleSeed,
                 crystal,
                 essence,
-                staff
+                staff,
+                healingStaff
         )
 
         registerItemTexture(

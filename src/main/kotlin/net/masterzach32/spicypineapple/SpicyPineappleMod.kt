@@ -14,6 +14,7 @@ import net.masterzach32.spicypineapple.network.ShrineLocClientHandler
 import net.masterzach32.spicypineapple.network.ShrineLocServerHandler
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
+import net.masterzach32.spicypineapple.registry.ModEntities
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
@@ -58,6 +59,7 @@ object SpicyPineappleMod {
 
         ModItems.init()
         ModBlocks.init()
+        ModEntities.init()
 
         logger.info("Registering world generators.")
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)

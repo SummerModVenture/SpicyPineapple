@@ -29,10 +29,10 @@ import java.util.*
 class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTUS) {
 
     companion object {
-        val BB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
-        val PLANT_BB = AxisAlignedBB(4/16.0, 0.0, 4/16.0, 12/16.0, 10/16.0, 12.0/16)
+        val BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 10.0/16, 12.0/16)
+        val PLANT_BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 7.0/16, 12.0/16)
 
-        @JvmStatic val IS_FRUIT: IProperty<Boolean> = PropertyBool.create("isfruit")
+        val IS_FRUIT: IProperty<Boolean> = PropertyBool.create("isfruit")
     }
 
     init {
@@ -120,6 +120,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     @Suppress("OverridingDeprecatedMember")
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState
 
+    @Suppress("OverridingDeprecatedMember")
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
         return state.withProperty(IS_FRUIT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
     }
