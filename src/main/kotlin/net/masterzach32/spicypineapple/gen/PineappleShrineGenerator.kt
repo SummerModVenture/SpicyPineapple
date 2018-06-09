@@ -1,6 +1,7 @@
 package net.masterzach32.spicypineapple.gen
 
 import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.LOGGER
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.minecraft.block.BlockStairs
@@ -29,7 +30,7 @@ object PineappleShrineGenerator : IWorldGenerator {
             val biome = world.biomeProvider.getBiome(centerBlock)
 
             if (world.getBlockState(centerBlock).block == Blocks.GRASS) {
-                SpicyPineappleMod.logger.info("Spawning shrine at $centerBlock")
+                LOGGER.info("Spawning shrine at $centerBlock")
 
                 world.setBlockState(BlockPos(x, y, z), Blocks.REDSTONE_LAMP.defaultState)
                 // stairs

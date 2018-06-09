@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.registry
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
+import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.item.*
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
 
-@Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
+@Mod.EventBusSubscriber(modid = MOD_ID)
 object ModItems {
 
     val pineappleSlice = ItemPineappleSlice("pineapple_slice", 2, 0.25)
@@ -45,8 +45,9 @@ object ModItems {
     val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
     val staff = ItemStaff().setCodename("staff")
-    val healingStaff = ItemHealingStaff().setCodename("healing_staff")
+    val healingStaff = ItemHealingStaff(1).setCodename("healing_staff")
     val earthStaff = ItemEarthStaff().setCodename("earth_staff")
+    val deathStaff = ItemDeathStaff().setCodename("death_staff")
 
     @JvmStatic
     @SubscribeEvent
@@ -67,7 +68,8 @@ object ModItems {
                 essence,
                 staff,
                 healingStaff,
-                earthStaff
+                earthStaff,
+                deathStaff
         )
     }
 
@@ -86,7 +88,8 @@ object ModItems {
                 essence,
                 staff,
                 healingStaff,
-                earthStaff
+                earthStaff,
+                deathStaff
         )
 
         registerItemTexture(

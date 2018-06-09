@@ -35,10 +35,6 @@ class ItemPineappleSlice(name: String, val hungerFilled: Int, val saturation: Do
                          var potionEffect: PotionEffect? = null, sound: SoundEvent = SoundEvents.RECORD_13)
     : ItemRecord(name, sound) {
 
-    companion object {
-        const val itemUseDuration = 32
-    }
-
     init {
         maxStackSize = 64
         creativeTab = SpicyPineappleTab
@@ -92,10 +88,14 @@ class ItemPineappleSlice(name: String, val hungerFilled: Int, val saturation: Do
         return stack
     }
 
-    override fun getMaxItemUseDuration(stack: ItemStack): Int = itemUseDuration
+    override fun getMaxItemUseDuration(stack: ItemStack): Int = USE_DURATION
 
     override fun getItemUseAction(stack: ItemStack): EnumAction = EnumAction.EAT
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {}
+
+    companion object {
+        const val USE_DURATION = 32
+    }
 }

@@ -1,8 +1,8 @@
 package net.masterzach32.spicypineapple.registry
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapple
 import net.masterzach32.spicypineapple.EnumPineappleType
+import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant
 import net.masterzach32.spicypineapple.util.setCodename
 import net.minecraft.block.Block
@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.client.event.ModelRegistryEvent
 
-@Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
+@Mod.EventBusSubscriber(modid = MOD_ID)
 object ModBlocks {
 
     val pineappleBlock = BlockPineapple(EnumPineappleType.NORMAL).setCodename("pineapple_block")

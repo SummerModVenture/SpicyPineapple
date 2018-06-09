@@ -1,7 +1,9 @@
 package net.masterzach32.spicypineapple.network
 
+import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.gen.ShrineLocData
+import net.masterzach32.spicypineapple.LOGGER
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -22,7 +24,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
  * @author Zach Kozar
  * @version 5/31/2018
  */
-@Mod.EventBusSubscriber(modid = SpicyPineappleMod.MOD_ID)
+@Mod.EventBusSubscriber(modid = MOD_ID)
 class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
 
     companion object {
@@ -32,9 +34,9 @@ class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
             val shrineData = ShrineLocData.getForWorld(event.player.world)
 
             if (shrineData.map.isNotEmpty())
-                SpicyPineappleMod.logger.info("Player joined world, updating their list of shrine locations...")
+                LOGGER.info("Player joined world, updating their list of shrine locations...")
             shrineData.map.forEach {
-                SpicyPineappleMod.logger.info("Sending location: $it")
+                LOGGER.info("Sending location: $it")
                 SpicyPineappleMod.NETWORK.sendTo(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, it), event.player as EntityPlayerMP)
             }
         }
@@ -45,7 +47,7 @@ class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
 
         if (message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             world.addScheduledTask {
-                SpicyPineappleMod.logger.info("Player found shrine at ${message.pos}, removing from server list.")
+                LOGGER.info("Player found shrine at ${message.pos}, removing from server list.")
                 ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
                 SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, message.pos))
             }

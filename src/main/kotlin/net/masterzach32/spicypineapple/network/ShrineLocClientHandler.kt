@@ -1,9 +1,8 @@
 package net.masterzach32.spicypineapple.network
 
-import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.gen.ShrineLocData
+import net.masterzach32.spicypineapple.LOGGER
 import net.minecraft.client.Minecraft
-import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
@@ -26,12 +25,12 @@ class ShrineLocClientHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
         val world = Minecraft.getMinecraft().world
         if (world != null && message.action == ShrineLocUpdateMessage.Action.ADD) {
             Minecraft.getMinecraft().addScheduledTask {
-                SpicyPineappleMod.logger.info("Received new shrine location from server: ${message.pos}")
+                LOGGER.info("Received new shrine location from server: ${message.pos}")
                 ShrineLocData.getForWorld(world).addShrineLocation(message.pos)
             }
         } else if (world != null && message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             Minecraft.getMinecraft().addScheduledTask {
-                SpicyPineappleMod.logger.info("Removing shrine location from local list: ${message.pos}")
+                LOGGER.info("Removing shrine location from local list: ${message.pos}")
                 ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
             }
         }
