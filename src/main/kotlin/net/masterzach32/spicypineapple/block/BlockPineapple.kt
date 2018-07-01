@@ -3,22 +3,24 @@ package net.masterzach32.spicypineapple.block
 import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant.Companion.AGE
+import net.masterzach32.spicypineapple.client.EssenceParticle
 import net.masterzach32.spicypineapple.util.distance
 import net.masterzach32.spicypineapple.gen.ShrineLocData
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
-import net.masterzach32.spicypineapple.tile.CrystalizedPineappleTileEntity
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.ITickable
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -109,6 +111,8 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
 
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
+    override fun hasTileEntity(state: IBlockState): Boolean = type == EnumPineappleType.CRYSTALIZED
+
     override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return if (type == EnumPineappleType.CRYSTALIZED) CrystalizedPineappleTileEntity() else null
     }
@@ -123,5 +127,22 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     @Suppress("OverridingDeprecatedMember")
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
         return state.withProperty(IS_FRUIT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
+    }
+
+    class CrystalizedPineappleTileEntity : TileEntity(), ITickable {
+        var tick = 3
+
+        override fun update() {
+            if (world.isRemote) {
+                tick--
+                if (tick == 0) {
+                    val x = pos.x + 0.5
+                    val y = pos.y + 0.6
+                    val z = pos.z + 0.5
+                    Minecraft.getMinecraft().effectRenderer.addEffect(EssenceParticle(world, x, y, z))
+                    tick = 2 + world.rand.nextInt(3)
+                }
+            }
+        }
     }
 }

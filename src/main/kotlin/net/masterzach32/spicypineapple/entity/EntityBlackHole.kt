@@ -50,7 +50,8 @@ class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world), 
         super.onUpdate()
 
         if (world.isRemote)
-            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + rand.nextDouble()/2, posY+0.5+rand.nextDouble()/2, posZ + rand.nextDouble()/2, 0.0, 0.0, 0.0)
+            for (i in 1..5)
+                world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + rand.nextDouble()/2, posY+0.5+rand.nextDouble()/2, posZ + rand.nextDouble()/2, 0.0, 0.0, 0.0)
         else {
             posX += motionX
             posY += motionY

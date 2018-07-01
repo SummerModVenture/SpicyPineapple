@@ -40,7 +40,7 @@ class ItemHealingStaff() : Item() {
     override fun getItemUseAction(stack: ItemStack): EnumAction = EnumAction.BOW
 
     companion object {
-        const val CHARGE_TIME = 40
+        const val CHARGE_TIME = 32
         const val COOLDOWN = 250
     }
 }
