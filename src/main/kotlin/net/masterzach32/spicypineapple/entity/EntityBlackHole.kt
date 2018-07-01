@@ -3,15 +3,18 @@ package net.masterzach32.spicypineapple.entity
 import net.masterzach32.spicypineapple.util.distance
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.item.EntityFallingBlock
+import net.minecraft.entity.IProjectile
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
+import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import kotlin.math.*
 
-class EntityBlackHole(world: World) : Entity(world) {
+class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world), IProjectile {
 
     var timer: Int = DURATION
 
@@ -19,10 +22,96 @@ class EntityBlackHole(world: World) : Entity(world) {
         isInvisible = true
     }
 
+    constructor(world: World) : this(world, null)
+
+    fun shoot(pitch: Double, yaw: Double, velocity: Double, inaccuracy: Double) {
+        val f = -sin(yaw * 0.017453292) * cos(pitch * 0.017453292)
+        val f1 = -sin(pitch * 0.017453292)
+        val f2 = cos(yaw * 0.017453292) * cos(pitch * 0.017453292)
+        this.shoot(f, f1, f2, velocity.toFloat(), inaccuracy.toFloat())
+    }
+
+    /**
+     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+     */
+    override fun shoot(x: Double, y: Double, z: Double, velocity: Float, inaccuracy: Float) {
+        val f = sqrt(x.pow(2) + y.pow(2) + z.pow(2))
+        this.motionX = x / f * velocity
+        this.motionY = y / f * velocity
+        this.motionZ = z / f * velocity
+        val f1 = sqrt(x * x + z * z)
+        this.rotationYaw = (atan2(x, z) * (180.0 / Math.PI)).toFloat()
+        this.rotationPitch = (atan2(y, f1) * (180.0 / Math.PI)).toFloat()
+        this.prevRotationYaw = this.rotationYaw
+        this.prevRotationPitch = this.rotationPitch
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+
+        if (world.isRemote)
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX + rand.nextDouble()/2, posY+0.5+rand.nextDouble()/2, posZ + rand.nextDouble()/2, 0.0, 0.0, 0.0)
+        else {
+            posX += motionX
+            posY += motionY
+            posZ += motionZ
+        }
+
+        if (timer % 2 == 0) {
+            val currentRadius = RADIUS - (timer.toDouble() / DURATION) * RADIUS + 2
+            world.loadedEntityList
+                    .filter { it != this && sqrt(sqr(posX - it.posX) + sqr(posY - it.posY) + sqr(posZ - it.posZ)) < currentRadius }
+                    .filter { it != entity }
+                    .forEach {
+                        if (!world.isRemote) {
+                            val dirVec = Vec3d(posX - it.posX, posY - it.posY, posZ - it.posZ).normalize()
+                            it.addVelocity(dirVec.x, dirVec.y, dirVec.z)
+                            it.velocityChanged = true
+                            if (position.distance(it.position) < 2) {
+                                if (it is EntityLivingBase)
+                                    it.attackEntityFrom(DamageSource.WITHER, 10f)
+                                else
+                                    it.setDead()
+                            }
+                        } else {
+                            for (i in 1..4)
+                                world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, it.posX + world.rand.nextDouble(), it.posY + world.rand.nextDouble()*it.height, it.posZ + world.rand.nextDouble(), 0.0, 0.0, 0.0, 1)
+                        }
+                    }
+            /*if (timer % 4 == 0) {
+                val blocks = BlockPos.getAllInBoxMutable(
+                        BlockPos(position.x - currentRadius, position.y - currentRadius, position.z - currentRadius),
+                        BlockPos(position.x + currentRadius, position.y + currentRadius, position.z + currentRadius)
+                )
+                blocks
+                        .filter { it.distance(position) < currentRadius }
+                        .map { it to world.getBlockState(it) }
+                        .forEach {
+                            if (!world.isRemote) {
+                                val entityBlock = EntityBlock(world, it.first, it.second)
+                                val dirVec = Vec3d(posX - it.first.x, posY - it.first.y, posZ - it.first.z).normalize().scale(4.0)
+                                entityBlock.addVelocity(dirVec.x, dirVec.y, dirVec.z)
+                                entityBlock.velocityChanged = true
+                                world.spawnEntity(entityBlock)
+                            }
+                            world.setBlockToAir(it.first)
+                        }
+            }*/
+        }
+        if (!world.isRemote) {
+            timer--
+            if (timer <= 0)
+                setDead()
+        }
+    }
+
     override fun writeEntityToNBT(compound: NBTTagCompound) {
         compound.setDouble("posX", posX)
         compound.setDouble("posY", posY)
         compound.setDouble("posZ", posZ)
+        compound.setDouble("velX", motionX)
+        compound.setDouble("velY", motionY)
+        compound.setDouble("velZ", motionZ)
         compound.setInteger("timer", timer)
     }
 
@@ -30,55 +119,13 @@ class EntityBlackHole(world: World) : Entity(world) {
         posX = compound.getDouble("posX")
         posY = compound.getDouble("posY")
         posZ = compound.getDouble("posZ")
+        motionX = compound.getDouble("velX")
+        motionY = compound.getDouble("velY")
+        motionZ = compound.getDouble("velZ")
         timer = compound.getInteger("timer")
     }
 
     override fun entityInit() {}
-
-    override fun onUpdate() {
-        super.onUpdate()
-
-        if (world.isRemote) {
-
-        } else {
-            val currentRadius = RADIUS - (timer.toDouble() / DURATION) * RADIUS + 2
-            if (timer % 2 == 0) {
-                world.loadedEntityList
-                        .filter { it != this && Math.sqrt(sqr(posX-it.posX) + sqr(posY - it.posY) + sqr(posZ - it.posZ)) < currentRadius }
-                        .forEach {
-                            val dirVec = Vec3d(posX - it.posX, posY - it.posY, posZ - it.posZ).normalize()
-                            it.addVelocity(dirVec.x, dirVec.y, dirVec.z)
-                            it.velocityChanged = true
-                            if (position.distance(it.position) < 2) {
-                                if (it is EntityLivingBase)
-                                    it.attackEntityFrom(DamageSource.WITHER, 4f)
-                                else
-                                    it.setDead()
-                            }
-                        }
-                val blocks = BlockPos.getAllInBoxMutable(
-                        BlockPos(position.x - currentRadius, position.y - currentRadius, position.z - currentRadius),
-                        BlockPos(position.x + currentRadius, position.y + currentRadius, position.z + currentRadius)
-                )
-                blocks
-                        .filter { it.distance(position) < currentRadius }
-                        .filter { !world.isAirBlock(it) }
-                        .map { Pair(it, world.getBlockState(it)) }
-                        .forEach {
-                            val entityBlock = EntityFallingBlock(world, it.first.x.toDouble(), it.first.y.toDouble(), it.first.z.toDouble(), it.second)
-                            val dirVec = Vec3d(posX - it.first.x, posY - it.first.y, posZ - it.first.z).normalize().scale(4.0)
-                            entityBlock.posY += 0.5
-                            entityBlock.addVelocity(dirVec.x, dirVec.y, dirVec.z)
-                            entityBlock.velocityChanged = true
-                            entityBlock.fallTime = 1
-                            world.spawnEntity(entityBlock)
-                        }
-            }
-            timer--
-            if (timer <= 0)
-                setDead()
-        }
-    }
 
     override fun isInvisibleToPlayer(player: EntityPlayer): Boolean = true
 

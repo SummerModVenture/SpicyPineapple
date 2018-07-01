@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
  * @author Zach Kozar
  * @version 5/31/2018
  */
-class ShrineLocClientHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
+class ClientShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
 
     override fun onMessage(message: ShrineLocUpdateMessage, ctx: MessageContext): IMessage? {
         val world = Minecraft.getMinecraft().world

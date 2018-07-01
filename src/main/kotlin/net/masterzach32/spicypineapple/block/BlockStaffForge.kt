@@ -34,9 +34,7 @@ class BlockStaffForge : BlockContainer(Material.WOOD) {
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, FACING)
 
-    override fun createNewTileEntity(world: World, meta: Int): TileEntity? {
-        return null
-    }
+    override fun createNewTileEntity(world: World, meta: Int): TileEntity? = null
 
     @Suppress("OverridingDeprecatedMember")
     override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL

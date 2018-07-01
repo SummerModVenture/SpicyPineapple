@@ -12,7 +12,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-class ItemHealingStaff(val strength: Int) : Item() {
+class ItemHealingStaff() : Item() {
 
     init {
         creativeTab = SpicyPineappleTab
@@ -29,7 +29,7 @@ class ItemHealingStaff(val strength: Int) : Item() {
 
     override fun onItemUseFinish(stack: ItemStack, world: World, entity: EntityLivingBase): ItemStack {
         if (!world.isRemote && entity is EntityPlayer) {
-            world.spawnEntity(EntityHealArea(world, entity, strength))
+            world.spawnEntity(EntityHealArea(world, entity, 1))
             entity.cooldownTracker.setCooldown(this, COOLDOWN)
         }
         return stack

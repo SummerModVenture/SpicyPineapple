@@ -19,18 +19,6 @@ import net.minecraft.world.storage.WorldSavedData
  * @version 5/31/2018
  */
 class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
-    companion object {
-        const val ID = "PineappleShrineLoc"
-
-        fun getForWorld(world: World): ShrineLocData {
-            var shrineData: WorldSavedData? = world.perWorldStorage.getOrLoadData(ShrineLocData::class.java, ShrineLocData.ID)
-            if (shrineData == null) {
-                shrineData = ShrineLocData()
-                world.perWorldStorage.setData(ShrineLocData.ID, shrineData)
-            }
-            return shrineData as ShrineLocData
-        }
-    }
 
     val map = mutableListOf<BlockPos>()
 
@@ -73,6 +61,19 @@ class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
                 if (pos != BlockPos(0, 0, 0))
                     map.add(pos)
             }
+        }
+    }
+
+    companion object {
+        const val ID = "PineappleShrineLoc"
+
+        fun getForWorld(world: World): ShrineLocData {
+            var shrineData: WorldSavedData? = world.perWorldStorage.getOrLoadData(ShrineLocData::class.java, ShrineLocData.ID)
+            if (shrineData == null) {
+                shrineData = ShrineLocData()
+                world.perWorldStorage.setData(ShrineLocData.ID, shrineData)
+            }
+            return shrineData as ShrineLocData
         }
     }
 }

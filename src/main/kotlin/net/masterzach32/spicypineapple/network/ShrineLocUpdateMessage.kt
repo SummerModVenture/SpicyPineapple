@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage
  */
 data class ShrineLocUpdateMessage(var action: Action, var pos: BlockPos) : IMessage {
 
-    constructor() : this(Action.UNKNOWN, BlockPos(0, 0, 0))
+    constructor() : this(Action.UNKNOWN, BlockPos.ORIGIN)
 
     override fun fromBytes(buf: ByteBuf) {
         pos = BlockPos.fromLong(buf.readLong())

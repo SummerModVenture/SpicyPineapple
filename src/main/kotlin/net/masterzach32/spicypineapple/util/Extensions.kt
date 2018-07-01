@@ -6,6 +6,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.relauncher.Side
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /*
  * SpicyPineapple - Created on 5/23/2018
@@ -29,7 +31,7 @@ fun Block.setCodename(name: String): Block {
 }
 
 fun BlockPos.distance(other: BlockPos): Double {
-    return Math.sqrt(Math.pow(x-other.x.toDouble(), 2.0) + Math.pow(y-other.y.toDouble(), 2.0) + Math.pow(z-other.z.toDouble(), 2.0))
+    return sqrt((x-other.x.toDouble()).pow(2) + (y-other.y.toDouble()).pow(2) + (z-other.z.toDouble()).pow(2))
 }
 
 inline fun serverOnly(action: () -> Unit) {

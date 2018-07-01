@@ -30,13 +30,10 @@ class ItemDeathStaff : Item() {
 
     override fun onItemUseFinish(stack: ItemStack, world: World, entity: EntityLivingBase): ItemStack {
         if (!world.isRemote && entity is EntityPlayer) {
-            val trace = entity.rayTrace(10.0, 0f)
-            if (trace != null && trace.typeOfHit == RayTraceResult.Type.BLOCK) {
-                val lookingAt = trace.blockPos
-                val death = EntityBlackHole(world)
-                death.setPosition(lookingAt.x + 0.5, lookingAt.y + 0.5, lookingAt.z + 0.5)
-                world.spawnEntity(death)
-            }
+            val death = EntityBlackHole(world, entity)
+            death.setPosition(entity.posX + 0.5, entity.posY + 1.0, entity.posZ + 0.5)
+            death.shoot(entity.pitchYaw.x.toDouble(), entity.pitchYaw.y.toDouble(), 0.4, 1.0)
+            world.spawnEntity(death)
         }
         return stack
     }

@@ -11,12 +11,14 @@ class KotlinAdapter : ILanguageAdapter {
 
     override fun setProxy(target: Field, proxyTarget: Class<*>, proxy: Any) = target.set(proxyTarget, proxy)
 
-    override fun getNewInstance(container: FMLModContainer,
-                                objectClass: Class<*>,
-                                classLoader: ClassLoader,
-                                factoryMarkedAnnotation: Method?) = when {
+    override fun getNewInstance(
+            container: FMLModContainer,
+            objectClass: Class<*>,
+            classLoader: ClassLoader,
+            factoryMarkedAnnotation: Method?
+    ) = when {
         factoryMarkedAnnotation != null -> factoryMarkedAnnotation(null)
-        "INSTANCE" in objectClass.fields.map { it.name } -> objectClass.getField("INSTANCE").get(null)
+        objectClass.fields.any { it.name == "INSTANCE" } -> objectClass.getField("INSTANCE").get(null)
         else -> objectClass.newInstance()
     }!!
 

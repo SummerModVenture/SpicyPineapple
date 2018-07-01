@@ -34,14 +34,14 @@ object PineappleShrineGenerator : IWorldGenerator {
 
                 world.setBlockState(BlockPos(x, y, z), Blocks.REDSTONE_LAMP.defaultState)
                 // stairs
-                world.setBlockState(BlockPos(x + 1, y, z), Blocks.STONE_BRICK_STAIRS.blockState.validStates
-                        .first { it.getValue(BlockStairs.FACING) == EnumFacing.WEST && it.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.BOTTOM })
-                world.setBlockState(BlockPos(x - 1, y, z), Blocks.STONE_BRICK_STAIRS.blockState.validStates
-                        .first { it.getValue(BlockStairs.FACING) == EnumFacing.EAST && it.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.BOTTOM })
-                world.setBlockState(BlockPos(x, y, z + 1), Blocks.STONE_BRICK_STAIRS.blockState.validStates
-                        .first { it.getValue(BlockStairs.FACING) == EnumFacing.NORTH && it.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.BOTTOM })
-                world.setBlockState(BlockPos(x, y, z - 1), Blocks.STONE_BRICK_STAIRS.blockState.validStates
-                        .first { it.getValue(BlockStairs.FACING) == EnumFacing.SOUTH && it.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.BOTTOM })
+                world.setBlockState(BlockPos(x + 1, y, z), Blocks.STONE_BRICK_STAIRS.defaultState
+                        .withProperty(BlockStairs.FACING, EnumFacing.WEST).withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM))
+                world.setBlockState(BlockPos(x - 1, y, z), Blocks.STONE_BRICK_STAIRS.defaultState
+                        .withProperty(BlockStairs.FACING, EnumFacing.EAST).withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM))
+                world.setBlockState(BlockPos(x, y, z + 1), Blocks.STONE_BRICK_STAIRS.defaultState
+                        .withProperty(BlockStairs.FACING, EnumFacing.NORTH).withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM))
+                world.setBlockState(BlockPos(x, y, z - 1), Blocks.STONE_BRICK_STAIRS.defaultState
+                        .withProperty(BlockStairs.FACING, EnumFacing.SOUTH).withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.BOTTOM))
                 // under stairs
                 world.setBlockState(BlockPos(x + 1, y - 1, z), Blocks.STONEBRICK.defaultState)
                 world.setBlockState(BlockPos(x + 2, y - 1, z), Blocks.STONEBRICK.defaultState)

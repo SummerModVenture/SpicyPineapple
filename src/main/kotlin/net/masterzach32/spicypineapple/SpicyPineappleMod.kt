@@ -7,8 +7,8 @@ import net.masterzach32.spicypineapple.util.ifModLoaded
 import net.masterzach32.spicypineapple.util.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
-import net.masterzach32.spicypineapple.network.ShrineLocClientHandler
-import net.masterzach32.spicypineapple.network.ShrineLocServerHandler
+import net.masterzach32.spicypineapple.network.ClientShrineLocHandler
+import net.masterzach32.spicypineapple.network.ServerShrineLocHandler
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.masterzach32.spicypineapple.registry.ModEntities
@@ -71,11 +71,11 @@ object SpicyPineappleMod {
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.spicyPineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.crystalizedPineappleStem)
             LOGGER.info("Registering client network handler.")
-            NETWORK.registerMessage(ShrineLocClientHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
+            NETWORK.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
         }
         serverOnly {
             LOGGER.info("Registering server network handler.")
-            NETWORK.registerMessage(ShrineLocServerHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
+            NETWORK.registerMessage(ServerShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
     }
 

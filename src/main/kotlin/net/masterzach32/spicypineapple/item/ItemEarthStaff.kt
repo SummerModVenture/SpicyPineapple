@@ -46,7 +46,7 @@ class ItemEarthStaff : Item() {
 
             getAdjacentBlocks(lookingAt, 4, blocks)
 
-            val states = blocks.map { Pair<BlockPos, IBlockState>(it, world.getBlockState(it)) }
+            val states = blocks.map { it to world.getBlockState(it) }
 
             for (pair in states) {
                 val pos = pair.first

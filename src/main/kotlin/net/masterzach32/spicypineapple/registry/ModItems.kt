@@ -45,7 +45,7 @@ object ModItems {
     val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
     val staff = ItemStaff().setCodename("staff")
-    val healingStaff = ItemHealingStaff(1).setCodename("healing_staff")
+    val healingStaff = ItemHealingStaff().setCodename("healing_staff")
     val earthStaff = ItemEarthStaff().setCodename("earth_staff")
     val deathStaff = ItemDeathStaff().setCodename("death_staff")
 

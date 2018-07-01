@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
  * @version 5/31/2018
  */
 @Mod.EventBusSubscriber(modid = MOD_ID)
-class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
+class ServerShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage> {
 
     companion object {
         @JvmStatic
@@ -33,11 +33,12 @@ class ShrineLocServerHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
         fun onPlayerJoinServer(event: PlayerEvent.PlayerLoggedInEvent) {
             val shrineData = ShrineLocData.getForWorld(event.player.world)
 
-            if (shrineData.map.isNotEmpty())
+            if (shrineData.map.isNotEmpty()) {
                 LOGGER.info("Player joined world, updating their list of shrine locations...")
-            shrineData.map.forEach {
-                LOGGER.info("Sending location: $it")
-                SpicyPineappleMod.NETWORK.sendTo(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, it), event.player as EntityPlayerMP)
+                shrineData.map.forEach {
+                    LOGGER.info("Sending location: $it")
+                    SpicyPineappleMod.NETWORK.sendTo(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, it), event.player as EntityPlayerMP)
+                }
             }
         }
     }

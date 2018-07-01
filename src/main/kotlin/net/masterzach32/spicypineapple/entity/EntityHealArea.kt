@@ -44,23 +44,28 @@ class EntityHealArea(world: World) : Entity(world) {
 
     override fun onUpdate() {
         super.onUpdate()
+        world.loadedEntityList
+                .filter { it != this && it.position.distance(this.position) < RADIUS }
+                .mapNotNull { it as? EntityLivingBase }
+                .forEach {
+                    if (!world.isRemote) {
+                        it.heal(0.05f + 0.05f * strength)
+                        if (it is EntityPlayer && timer % (HUNGER_PERIOD / strength) == 0)
+                            it.foodStats.addStats(1, 0.4f)
+                    } else {
+                        for (i in 1..5)
+                            world.spawnParticle(EnumParticleTypes.REDSTONE, it.posX + world.rand.nextDouble(), it.posY + world.rand.nextDouble()*it.height, it.posZ + world.rand.nextDouble(), 0.0, 0.0, 0.0, 1)
+                    }
+                }
         if (world.isRemote) {
-            for (i in 1..2*strength*RADIUS) {
+            for (i in 1..(2*3.14*strength*RADIUS).toInt()) {
                 // generate random point using spherical coordinates
                 val theta = Math.random()*2*3.14
-                val phi = Math.random()*3.14-3.14/2
-                val r = Math.sqrt(Math.random()) * RADIUS
-                world.spawnParticle(EnumParticleTypes.SPELL, posX + r*Math.cos(theta)*Math.cos(phi), posY + r*Math.sin(phi), posZ + r*Math.sin(theta)*Math.cos(phi), 0.0, 0.0, 0.0)
+                val phi = Math.sqrt(Math.random())*3.14-3.14/2
+                val r = RADIUS
+                world.spawnParticle(EnumParticleTypes.REDSTONE, posX + r*Math.cos(theta)*Math.cos(phi), posY + r*Math.sin(phi), posZ + r*Math.sin(theta)*Math.cos(phi), 0.0, 0.0, 0.0, 1)
             }
         } else {
-            world.loadedEntityList
-                    .filter { it != this && it.position.distance(this.position) < RADIUS }
-                    .mapNotNull { it as? EntityLivingBase }
-                    .forEach {
-                        it.heal(0.1f * strength)
-                        if (it is EntityPlayer && timer % HUNGER_PERIOD == 0)
-                            it.foodStats.addStats(1, 0.4f * strength)
-                    }
             timer--
             if (timer <= 0)
                 setDead()

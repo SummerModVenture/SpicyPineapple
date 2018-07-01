@@ -11,7 +11,15 @@ import java.util.*
 
 class ClusterGenerator(private val toSpawn: Block, private val probability: Double) : IWorldGenerator {
 
-    override fun generate(r: Random, chunkX: Int, chunkZ: Int, world: World, chunkGenerator: IChunkGenerator, chunkProvider: IChunkProvider) {
+    override fun generate(
+            r: Random,
+            chunkX: Int,
+            chunkZ: Int,
+            world: World,
+            chunkGenerator: IChunkGenerator,
+            chunkProvider: IChunkProvider
+    ) {
+
         if (Math.random() < probability) {
             val x = chunkX*16 + r.nextInt(16) + 8
             val y = 50 + r.nextInt(60)
