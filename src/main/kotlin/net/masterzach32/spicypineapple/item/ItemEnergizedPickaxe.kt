@@ -1,6 +1,7 @@
 package net.masterzach32.spicypineapple.item
 
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
+import net.masterzach32.spicypineapple.util.getBlocksWithin
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -32,7 +33,7 @@ class ItemEnergizedPickaxe : ItemPickaxe(ToolMaterialEnergized) {
     override fun onBlockDestroyed(stack: ItemStack, world: World, state: IBlockState, pos: BlockPos, entity: EntityLivingBase): Boolean {
         if (world.isRemote || entity !is EntityPlayer || entity.isSneaking)
             return super.onBlockDestroyed(stack, world, state, pos, entity)
-        val blocks = BlockPos.getAllInBoxMutable(BlockPos(pos.x-1, pos.y-1, pos.z-1), BlockPos(pos.x+1, pos.y+1, pos.z+1))
+        val blocks = pos.getBlocksWithin(1)
         blocks.forEach {
             val otherState = world.getBlockState(it)
             if (it != pos && otherState.block != Blocks.AIR) {
