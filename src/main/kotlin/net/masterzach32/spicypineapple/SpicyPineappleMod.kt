@@ -47,8 +47,8 @@ object SpicyPineappleMod {
 
         ModItems.init()
         ModBlocks.init()
-        ModEntities.init()
         ModTileEntities.init()
+        ModEntities.init()
         ModLoot.init()
 
         LOGGER.info("Registering world generators.")
@@ -70,11 +70,11 @@ object SpicyPineappleMod {
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.pineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.spicyPineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.crystalizedPineappleStem)
-            LOGGER.info("Registering client network handler.")
-            NETWORK.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
+            LOGGER.info("Registering client packets.")
+            NETWORK.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.CLIENT)
         }
         serverOnly {
-            LOGGER.info("Registering server network handler.")
+            LOGGER.info("Registering server packets.")
             NETWORK.registerMessage(ServerShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
     }
