@@ -16,8 +16,10 @@ import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
+import net.minecraft.world.storage.loot.LootPool
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.event.LootTableLoadEvent
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 object ModItems {

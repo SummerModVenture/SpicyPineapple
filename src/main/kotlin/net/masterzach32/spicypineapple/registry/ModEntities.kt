@@ -10,6 +10,7 @@ import net.masterzach32.spicypineapple.entity.render.RenderBlock
 import net.masterzach32.spicypineapple.entity.render.RenderHealArea
 import net.masterzach32.spicypineapple.util.clientOnly
 import net.minecraft.client.renderer.entity.Render
+import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.client.registry.RenderingRegistry
@@ -19,24 +20,21 @@ import kotlin.reflect.KClass
 
 object ModEntities {
 
-    @Mod.Instance(MOD_ID)
-    lateinit var instance: SpicyPineappleMod
-
     private var currentId = 0
 
     fun init() {
-        registerEntity(EntityHealArea::class, RenderHealArea::class, "healer", 20, 1, false)
-        registerEntity(EntityBlackHole::class, RenderBlackHole::class, "black_hole", 20, 1, true)
-        registerEntity(EntityBlock::class, RenderBlock::class, "block", 20, 1, true)
+        registerEntity(EntityHealArea::class, "healer", 20, 1, false) { RenderHealArea(it) }
+        registerEntity(EntityBlackHole::class, "black_hole", 20, 1, true) { RenderBlackHole(it) }
+        registerEntity(EntityBlock::class, "block", 20, 1, true) { RenderBlock(it) }
     }
 
     private fun <E : Entity, R : Render<E>> registerEntity(
             entityClass: KClass<E>,
-            renderClass: KClass<R>,
             name: String,
             trackingRange: Int,
             updateFrequency: Int,
-            sendVelocityData: Boolean
+            sendVelocityData: Boolean,
+            newRenderClass: (RenderManager) -> R
     ) {
 
         EntityRegistry.registerModEntity(
@@ -44,14 +42,14 @@ object ModEntities {
                 entityClass.java,
                 name,
                 getNextId(),
-                instance,
+                SpicyPineappleMod,
                 trackingRange,
                 updateFrequency,
                 sendVelocityData
 
         )
         clientOnly {
-            RenderingRegistry.registerEntityRenderingHandler(entityClass.java) { renderClass.constructors.first().call(it) }
+            RenderingRegistry.registerEntityRenderingHandler(entityClass.java, newRenderClass)
         }
     }
 

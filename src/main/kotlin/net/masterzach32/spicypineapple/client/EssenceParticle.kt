@@ -67,8 +67,8 @@ class EssenceParticle(world: World, posX: Double, posY: Double, posZ: Double) : 
         val f4 = (prevPosY + (posY - prevPosY) * partialTicks - Particle.interpPosY - Minecraft.getMinecraft().player.motionY / 2f)
         val f5 = (prevPosZ + (posZ - prevPosZ) * partialTicks - Particle.interpPosZ - Minecraft.getMinecraft().player.motionZ / 2f)
         val i = getBrightnessForRender(partialTicks)
-        val j11 = i shr 16 and 65535
-        val k11 = i and 65535
+        //val j11 = i shr 16 and 65535
+        //val k11 = i and 65535
         val size = 0.04f//directScale > 0 ? directScale : (0.1F * (isCauldronTop ? 3.15f : this.particleScale));
         Minecraft.getMinecraft().textureManager.bindTexture(texture)
         val k = particleTextureIndexX / 16.0
