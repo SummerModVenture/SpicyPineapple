@@ -33,10 +33,7 @@ class PineappleShrine : Structure(
             ShrineLocData.getForWorld(world).addShrineLocation(pos)
             SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, pos))
 
-            // TODO find shulker box
-            world.setBlockState(pos, Blocks.CHEST.defaultState)
-            val tile = world.getTileEntity(pos)
-            (tile as? TileEntityChest)?.setLootTable(ModLoot.shrineLoot, rand.nextLong())
+            (world.getTileEntity(pos.add(7 ,0, 5)) as? TileEntityShulkerBox)?.setLootTable(ModLoot.shrineLoot, rand.nextLong())
 
             return true
         }
