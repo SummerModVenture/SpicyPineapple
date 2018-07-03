@@ -6,7 +6,7 @@ import net.masterzach32.spicypineapple.util.clientOnly
 import net.masterzach32.spicypineapple.util.ifModLoaded
 import net.masterzach32.spicypineapple.util.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
-import net.masterzach32.spicypineapple.gen.PineappleShrineGenerator
+import net.masterzach32.spicypineapple.gen.StructureGenerator
 import net.masterzach32.spicypineapple.network.ClientShrineLocHandler
 import net.masterzach32.spicypineapple.network.ServerShrineLocHandler
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
@@ -54,7 +54,7 @@ object SpicyPineappleMod {
         LOGGER.info("Registering world generators.")
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlockSpicy, 1/40.0), 0)
-        GameRegistry.registerWorldGenerator(PineappleShrineGenerator, 0)
+        GameRegistry.registerWorldGenerator(StructureGenerator, 0)
     }
 
     @Mod.EventHandler

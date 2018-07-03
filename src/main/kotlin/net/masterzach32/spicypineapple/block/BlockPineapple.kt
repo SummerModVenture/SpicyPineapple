@@ -49,7 +49,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
         if (type == EnumPineappleType.CRYSTALIZED && !world.isRemote) {
             ShrineLocData.getForWorld(world).map
-                    .filter { it.distance(pos) < 8 }
+                    .filter { it.distance(pos) < 10 }
                     .forEach {
                         ShrineLocData.getForWorld(world).removeShrineLocation(it)
                         SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
