@@ -1,6 +1,7 @@
 package net.masterzach32.spicypineapple.block
 
 import net.masterzach32.spicypineapple.EnumPineappleType
+import net.masterzach32.spicypineapple.LOGGER
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant.Companion.AGE
 import net.masterzach32.spicypineapple.client.EssenceParticle
@@ -24,6 +25,7 @@ import net.minecraft.util.ITickable
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.Explosion
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import java.util.*
@@ -46,15 +48,23 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         defaultState = blockState.baseState.withProperty(IS_FRUIT, false)
     }
 
-    override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
+    override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState?) {
         if (type == EnumPineappleType.CRYSTALIZED && !world.isRemote) {
             ShrineLocData.getForWorld(world).map
                     .filter { it.distance(pos) < 10 }
                     .forEach {
                         ShrineLocData.getForWorld(world).removeShrineLocation(it)
                         SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
+                        if (state != null)
+                            LOGGER.info("Shrine destroyed by player: $pos")
+                        else
+                            LOGGER.info("Shrine destroyed by explosion: $pos")
                     }
         }
+    }
+
+    override fun onBlockDestroyedByExplosion(world: World, pos: BlockPos, explosion: Explosion) {
+        onBlockDestroyedByPlayer(world, pos, null)
     }
 
     override fun canPlaceBlockAt(world: World, pos: BlockPos): Boolean {

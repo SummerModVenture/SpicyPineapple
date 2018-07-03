@@ -7,6 +7,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.relauncher.Side
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -33,6 +34,10 @@ fun Block.setCodename(name: String): Block {
 
 fun BlockPos.distance(other: BlockPos): Double {
     return sqrt((x-other.x.toDouble()).pow(2) + (y-other.y.toDouble()).pow(2) + (z-other.z.toDouble()).pow(2))
+}
+
+fun BlockPos.horSquaredDistance(other: BlockPos): Int {
+    return abs(x - other.x) + abs(z - other.z)
 }
 
 fun BlockPos.getBlocksWithin(range: Int): Iterable<BlockPos> {

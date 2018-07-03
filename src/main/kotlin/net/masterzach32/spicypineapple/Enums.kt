@@ -26,12 +26,12 @@ enum class EnumPineappleType(val serializedName: String, val rarity: Int) : IStr
     }
 }
 
-enum class EnumCrystalType : IStringSerializable {
-    LIFE,
-    ENERGY,
-    FIRE,
-    EARTH,
-    WATER;
+enum class EnumCrystalType(val color: Int) : IStringSerializable {
+    LIFE(0x68ff9a),
+    ENERGY(0xd67fff),
+    FIRE(0xff4800),
+    EARTH(0x179e00),
+    WATER(0x14a8ff);
 
     override fun getName(): String {
         return name.toLowerCase() + "_crystal"

@@ -1,5 +1,6 @@
 package net.masterzach32.spicypineapple.item
 
+import net.masterzach32.spicypineapple.LOGGER
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.masterzach32.spicypineapple.util.*
 import net.minecraft.block.Block
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import kotlin.math.min
 
 class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.attackDamage, -3.0f) {
 
@@ -27,8 +29,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
         if (world.getBlockState(pos).block is BlockLog) {
             val logs = mutableSetOf<BlockPos>()
             harvestAllWood(world.getBlock(pos), logs, player, stack)
-            val leaves = mutableSetOf<BlockPos>()
-            logs.forEach { harvestDecayableLeaves(world.getBlock(it), leaves, player, stack) }
+            logs.forEach { harvestDecayableLeaves(world.getBlock(it), logs.size, mutableSetOf(), player, stack) }
         }
 
         return super.onBlockDestroyed(stack, world, state, pos, player)
@@ -37,7 +38,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     private fun harvestAllWood(biw: BlockInWorld, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
         biw.destroyBlock(player, stack)
         if (broken.size >= 100)
-            return
+            return LOGGER.info("Energized axe log limit reached. Logs: ${broken.size}")
         biw.pos.getBlocksWithin(1)
                 .filter { it != biw.pos }
                 .map { biw.world.getBlock(it) }
@@ -45,14 +46,17 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
                 .forEach { harvestAllWood(it, broken, player, stack) }
     }
 
-    private fun harvestDecayableLeaves(biw: BlockInWorld, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
-        if (broken.size > 200)
-            return
-        biw.pos.getBlocksWithinTopCone(4)
-                .filter { it != biw.pos }
-                .map { biw.world.getBlock(it) }
-                .filter { it.block is BlockLeaves && it.state.getValue(BlockLeaves.CHECK_DECAY) && broken.add(it.pos) }
-                .forEach { it.destroyBlock(player, stack) }
+    private fun harvestDecayableLeaves(biw: BlockInWorld, totalLogs: Int, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
+        if (broken.size >= min(totalLogs * 10, 200))
+            return LOGGER.info("Energized axe leaf limit reached. Logs: $totalLogs, Leaves: ${broken.size}")
+        EnumFacing.VALUES
+                .map { biw.world.getBlock(biw.pos.offset(it)) }
+                .filter { it.block is BlockLeaves && it.state.getValue(BlockLeaves.CHECK_DECAY)
+                        && broken.add(it.pos) && !it.isNearWood(1) }
+                .forEach {
+                    it.destroyBlock(player, stack)
+                    harvestDecayableLeaves(it, totalLogs, broken, player, stack)
+                }
     }
 
     private fun BlockInWorld.destroyBlock(player: EntityPlayer, stack: ItemStack) {
@@ -64,7 +68,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
         player.foodStats.addExhaustion(0.1f)
     }
 
-    private fun BlockInWorld.isNearWood(): Boolean {
-        return pos.getBlocksWithinMutable(3).any { world.getBlockState(it).block is BlockLog }
+    private fun BlockInWorld.isNearWood(range: Int): Boolean {
+        return pos.getBlocksWithinMutable(range).any { world.getBlockState(it).block is BlockLog }
     }
 }

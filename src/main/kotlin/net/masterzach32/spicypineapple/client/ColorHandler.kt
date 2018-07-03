@@ -23,13 +23,6 @@ object ColorHandler : IBlockColor, IItemColor {
     }
 
     override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-        return when (stack.metadata) {
-            EnumCrystalType.LIFE.ordinal -> 0x68ff9a
-            EnumCrystalType.ENERGY.ordinal -> 0xd67fff
-            EnumCrystalType.FIRE.ordinal -> 0xff4800
-            EnumCrystalType.EARTH.ordinal -> 0x179e00
-            EnumCrystalType.WATER.ordinal -> 0x14a8ff
-            else -> 0xffffff
-        }
+        return EnumCrystalType.getTypeFromItem(stack).color
     }
 }

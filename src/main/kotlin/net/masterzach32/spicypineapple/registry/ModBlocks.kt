@@ -2,6 +2,7 @@ package net.masterzach32.spicypineapple.registry
 
 import net.masterzach32.spicypineapple.block.BlockPineapple
 import net.masterzach32.spicypineapple.EnumPineappleType
+import net.masterzach32.spicypineapple.LOGGER
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant
 import net.masterzach32.spicypineapple.util.setCodename
@@ -76,7 +77,9 @@ object ModBlocks {
 
     private fun itemBlock(b: Block) = ItemBlock(b).setRegistryName(b.registryName)!!
 
-    fun init() {}
+    fun init() {
+        LOGGER.info("Loading blocks.")
+    }
 
     fun lateInit() {
         (pineappleStem as BlockPineapplePlant).seedItem = ModItems.pineappleSeed
