@@ -37,7 +37,12 @@ item.energized_pickaxe.name=Energized Pickaxe
 item.energized_axe.name=Energized Axe
 item.energized_hoe.name=Energized Hoe
 
+item.staff_rod.name=Staff Rod
 item.staff.name=Shrine Finder
+
+item.healing_staff.name=Healing Staff
+item.earth_staff.name=Earth Ripper
+item.death_staff.name=Gravity Well
 
 tile.pineapple_block.name=Pineapple
 tile.pineapple_block_spicy.name=Spicy Pineapple

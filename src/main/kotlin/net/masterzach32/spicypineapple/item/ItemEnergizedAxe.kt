@@ -39,7 +39,7 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
         biw.destroyBlock(player, stack)
         if (broken.size >= MAX_BLOCKS)
             return
-        biw.pos.getBlocksWithin(1)
+        biw.pos.getBlocksWithinTopConeMutable(1)
                 .filter { it != biw.pos }
                 .map { biw.world.getBlock(it) }
                 .filter { it.block is BlockLog && broken.add(it.pos) }

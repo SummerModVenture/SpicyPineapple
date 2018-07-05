@@ -49,7 +49,7 @@ object ModItems {
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
     val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
-    val staffRod = Item().setCodename("staff_rod")
+    val staffRod = Item().setCreativeTab(SpicyPineappleTab).setCodename("staff_rod")
 
     val staff = ItemStaff().setCodename("staff")
     val healingStaff = ItemHealingStaff().setCodename("healing_staff")

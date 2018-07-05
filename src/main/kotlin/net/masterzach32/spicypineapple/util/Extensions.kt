@@ -56,6 +56,10 @@ fun BlockPos.getBlocksWithinTopCone(range: Int): Iterable<BlockPos> {
     return BlockPos.getAllInBox(x - range, y, z - range, x + range, y + range, z + range)
 }
 
+fun BlockPos.getBlocksWithinTopConeMutable(range: Int): Iterable<BlockPos.MutableBlockPos> {
+    return BlockPos.getAllInBoxMutable(x - range, y, z - range, x + range, y + range, z + range)
+}
+
 fun World.getBlock(pos: BlockPos) = BlockInWorld(this, pos)
 
 inline fun serverOnly(action: () -> Unit) {

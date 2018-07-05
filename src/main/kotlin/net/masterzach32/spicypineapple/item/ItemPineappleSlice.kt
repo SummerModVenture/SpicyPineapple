@@ -31,9 +31,14 @@ import net.minecraftforge.fml.relauncher.SideOnly
  * @author Zach Kozar
  * @version 5/29/2018
  */
-class ItemPineappleSlice(name: String, val hungerFilled: Int, val saturation: Double, val alwaysEdible: Boolean = false,
-                         var potionEffect: PotionEffect? = null, sound: SoundEvent = SoundEvents.RECORD_13)
-    : ItemRecord(name, sound) {
+class ItemPineappleSlice(
+        name: String,
+        val hungerFilled: Int,
+        val saturation: Double,
+        val alwaysEdible: Boolean = false,
+        var potionEffect: PotionEffect? = null,
+        sound: SoundEvent = SoundEvents.RECORD_13
+) : ItemRecord(name, sound) {
 
     init {
         maxStackSize = 64
@@ -43,14 +48,23 @@ class ItemPineappleSlice(name: String, val hungerFilled: Int, val saturation: Do
 
     // RECORD CODE
 
-    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand,
-                           facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        val blockState = world.getBlockState(pos)
+    override fun onItemUse(
+            player: EntityPlayer,
+            world: World,
+            pos: BlockPos,
+            hand: EnumHand,
+            facing: EnumFacing,
+            hitX: Float,
+            hitY: Float,
+            hitZ: Float
+    ): EnumActionResult {
 
-        if (blockState.block == Blocks.JUKEBOX && !blockState.getValue(BlockJukebox.HAS_RECORD)) {
+        val state = world.getBlockState(pos)
+
+        if (state.block == Blocks.JUKEBOX && !state.getValue(BlockJukebox.HAS_RECORD)) {
             if (!world.isRemote) {
                 val stack = player.getHeldItem(hand)
-                (Blocks.JUKEBOX as BlockJukebox).insertRecord(world, pos, blockState, ItemStack(stack.item))
+                (state.block as BlockJukebox).insertRecord(world, pos, state, ItemStack(stack.item))
                 world.playEvent(null, 1010, pos, Item.getIdFromItem(this))
                 stack.shrink(1)
                 player.addStat(StatList.RECORD_PLAYED)
@@ -75,8 +89,18 @@ class ItemPineappleSlice(name: String, val hungerFilled: Int, val saturation: Do
     override fun onItemUseFinish(stack: ItemStack, world: World, player: EntityLivingBase): ItemStack {
         if (player is EntityPlayer) {
             player.foodStats.addStats(hungerFilled, saturation.toFloat())
-            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_BURP,
-                    SoundCategory.PLAYERS, 0.5f, world.rand.nextFloat() * 0.1f + 0.9f)
+            world.playSound(
+                    null,
+                    player.posX,
+                    player.posY,
+                    player.posZ,
+                    SoundEvents.ENTITY_PLAYER_BURP,
+                    SoundCategory.PLAYERS,
+                    0.5f,
+                    world.rand.nextFloat() * 0.1f + 0.9f
+
+            )
+
             if (!world.isRemote && potionEffect != null)
                 player.addPotionEffect(potionEffect!!)
             player.addStat(StatList.getObjectUseStats(this)!!)

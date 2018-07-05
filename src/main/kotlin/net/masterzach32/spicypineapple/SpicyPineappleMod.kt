@@ -1,9 +1,7 @@
 package net.masterzach32.spicypineapple
 
-import com.spicymemes.core.recipe.RecipesRegistryManager
 import net.masterzach32.spicypineapple.client.ColorHandler
 import net.masterzach32.spicypineapple.util.clientOnly
-import net.masterzach32.spicypineapple.util.ifModLoaded
 import net.masterzach32.spicypineapple.util.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.StructureGenerator
@@ -12,7 +10,6 @@ import net.masterzach32.spicypineapple.network.ServerShrineLocHandler
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.*
 import net.minecraft.client.Minecraft
-import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
