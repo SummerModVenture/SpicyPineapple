@@ -1,6 +1,20 @@
 {
-  "variants": {
-    "isfruit=false": { "model": "spicypineapple:pineapple_block_spicy" },
-    "isfruit=true": { "model": "spicypineapple:pineapple_block_spicy_fruit" }
-  }
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "particle": "spicypineapple:blocks/block_spicy",
+            "side": "spicypineapple:blocks/block_spicy",
+            "leaf": "spicypineapple:blocks/leaf"
+        }
+    },
+    "variants": {
+        "isfruit": {
+            "true": {
+                "model": "spicypineapple:pineapple_block_fruit"
+            },
+            "false": {
+                "model": "spicypineapple:pineapple_block"
+            }
+        }
+    }
 }

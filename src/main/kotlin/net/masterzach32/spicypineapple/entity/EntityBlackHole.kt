@@ -3,18 +3,15 @@ package net.masterzach32.spicypineapple.entity
 import net.masterzach32.spicypineapple.util.distance
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.IProjectile
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EnumParticleTypes
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import kotlin.math.*
 
-class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world), IProjectile {
+class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world) {
 
     var timer: Int = DURATION
 
@@ -24,17 +21,11 @@ class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world), 
 
     constructor(world: World) : this(world, null)
 
-    fun shoot(pitch: Double, yaw: Double, velocity: Double, inaccuracy: Double) {
-        val f = -sin(yaw * 0.017453292) * cos(pitch * 0.017453292)
-        val f1 = -sin(pitch * 0.017453292)
-        val f2 = cos(yaw * 0.017453292) * cos(pitch * 0.017453292)
-        this.shoot(f, f1, f2, velocity.toFloat(), inaccuracy.toFloat())
-    }
+    fun shoot(pitch: Double, yaw: Double, velocity: Double) {
+        val x = -sin(yaw * 0.017453292) * cos(pitch * 0.017453292)
+        val y = -sin(pitch * 0.017453292)
+        val z = cos(yaw * 0.017453292) * cos(pitch * 0.017453292)
 
-    /**
-     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
-     */
-    override fun shoot(x: Double, y: Double, z: Double, velocity: Float, inaccuracy: Float) {
         val f = sqrt(x.pow(2) + y.pow(2) + z.pow(2))
         this.motionX = x / f * velocity
         this.motionY = y / f * velocity
@@ -70,7 +61,7 @@ class EntityBlackHole(world: World, var entity: EntityPlayer?) : Entity(world), 
                             it.velocityChanged = true
                             if (position.distance(it.position) < 2) {
                                 if (it is EntityLivingBase)
-                                    it.attackEntityFrom(DamageSource.WITHER, 10f)
+                                    it.attackEntityFrom(DamageSource.WITHER, 40f)
                                 else
                                     it.setDead()
                             }

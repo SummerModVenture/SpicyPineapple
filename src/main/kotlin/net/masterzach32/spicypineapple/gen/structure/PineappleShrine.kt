@@ -18,8 +18,8 @@ import java.util.*
 
 class PineappleShrine : Structure(
         "pineappleshrine",
-        50,
-        listOf(*Biome.REGISTRY.map { it }.toTypedArray()),
+        300,
+        listOf(Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.COLD_TAIGA, Biomes.COLD_TAIGA_HILLS, Biomes.MUTATED_TAIGA_COLD),
         dimension = 0,
         minHeight = 70,
         maxHeight = 100

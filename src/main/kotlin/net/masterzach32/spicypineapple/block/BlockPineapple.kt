@@ -17,6 +17,7 @@ import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
@@ -30,6 +31,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import java.util.*
 
+@Suppress("OverridingDeprecatedMember")
 class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTUS) {
 
     companion object {
@@ -44,6 +46,8 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         setHardness(0.5f)
         if (type == EnumPineappleType.CRYSTALIZED)
             setLightLevel(0.4f)
+
+        fullBlock = false
 
         defaultState = blockState.baseState.withProperty(IS_FRUIT, false)
     }
@@ -73,15 +77,17 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
                 (ground.block is BlockPineapplePlant && ground.getValue(AGE) == BlockPineapplePlant.MAX_AGE)
     }
 
-    @Suppress("OverridingDeprecatedMember")
+    override fun neighborChanged(state: IBlockState, world: World, pos: BlockPos, block: Block, neighbor: BlockPos) {
+        if (pos.down() == neighbor && world.getBlockState(neighbor).block == Blocks.AIR)
+            world.setBlockToAir(pos)
+    }
+
     override fun canProvidePower(state: IBlockState): Boolean = type == EnumPineappleType.CRYSTALIZED
 
-    @Suppress("OverridingDeprecatedMember")
     override fun getWeakPower(state: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Int {
         return if (type == EnumPineappleType.CRYSTALIZED) 5 else 0
     }
 
-    @Suppress("OverridingDeprecatedMember")
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
         return if (state.getValue(IS_FRUIT)) PLANT_BB else BB
     }
@@ -110,13 +116,8 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         }
     }
 
-    @Suppress("OverridingDeprecatedMember")
-    override fun isFullBlock(state: IBlockState): Boolean = false
-
-    @Suppress("OverridingDeprecatedMember")
     override fun isFullCube(state: IBlockState): Boolean = false
 
-    @Suppress("OverridingDeprecatedMember")
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
@@ -131,10 +132,8 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
 
     override fun getMetaFromState(state: IBlockState): Int = 0
 
-    @Suppress("OverridingDeprecatedMember")
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState
 
-    @Suppress("OverridingDeprecatedMember")
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
         return state.withProperty(IS_FRUIT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
     }

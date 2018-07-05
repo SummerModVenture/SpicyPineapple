@@ -1,8 +1,0 @@
-{
-    "parent": "spicypineapple:block/pineapple_block_fruit",
-    "textures": {
-        "particle": "spicypineapple:blocks/block_spicy",
-        "side": "spicypineapple:blocks/block_spicy",
-        "leaf": "spicypineapple:blocks/leaf"
-    }
-}

@@ -23,6 +23,9 @@ object ColorHandler : IBlockColor, IItemColor {
     }
 
     override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-        return EnumCrystalType.getTypeFromItem(stack).color
+        return when(stack.item) {
+            is ItemCrystal -> EnumCrystalType.getTypeFromItem(stack).color
+            else -> 0xffffff
+        }
     }
 }

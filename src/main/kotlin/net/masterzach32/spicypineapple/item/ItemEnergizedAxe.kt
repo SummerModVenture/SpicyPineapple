@@ -37,8 +37,8 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
 
     private fun harvestAllWood(biw: BlockInWorld, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
         biw.destroyBlock(player, stack)
-        if (broken.size >= 100)
-            return LOGGER.info("Energized axe log limit reached. Logs: ${broken.size}")
+        if (broken.size >= MAX_BLOCKS)
+            return
         biw.pos.getBlocksWithin(1)
                 .filter { it != biw.pos }
                 .map { biw.world.getBlock(it) }
@@ -47,8 +47,8 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
     }
 
     private fun harvestDecayableLeaves(biw: BlockInWorld, totalLogs: Int, broken: MutableSet<BlockPos>, player: EntityPlayer, stack: ItemStack) {
-        if (broken.size >= min(totalLogs * 10, 200))
-            return LOGGER.info("Energized axe leaf limit reached. Logs: $totalLogs, Leaves: ${broken.size}")
+        if (broken.size >= min(totalLogs * 11, MAX_BLOCKS))
+            return
         EnumFacing.VALUES
                 .map { biw.world.getBlock(biw.pos.offset(it)) }
                 .filter { it.block is BlockLeaves && it.state.getValue(BlockLeaves.CHECK_DECAY)
@@ -70,5 +70,9 @@ class ItemEnergizedAxe : ItemAxe(ToolMaterialEnergized, ToolMaterialEnergized.at
 
     private fun BlockInWorld.isNearWood(range: Int): Boolean {
         return pos.getBlocksWithinMutable(range).any { world.getBlockState(it).block is BlockLog }
+    }
+
+    companion object {
+        const val MAX_BLOCKS = 200
     }
 }

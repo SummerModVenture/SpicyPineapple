@@ -40,7 +40,7 @@ class EssenceParticle(world: World, posX: Double, posY: Double, posZ: Double) : 
         val x = r.nextGaussian()
         val y = r.nextGaussian()
         val z = r.nextGaussian()
-        val mult = 1/ sqrt(x.pow(2) + y.pow(2) + z.pow(2)) * speedMagnitude
+        val mult = 1 / sqrt(x.pow(2) + y.pow(2) + z.pow(2)) * speedMagnitude
         motionX = x * mult
         motionY = y * mult
         motionZ = z * mult

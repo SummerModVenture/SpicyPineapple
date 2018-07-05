@@ -4,6 +4,10 @@ import net.masterzach32.spicypineapple.LOGGER
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.item.*
+import net.masterzach32.spicypineapple.item.magic.ItemDeathStaff
+import net.masterzach32.spicypineapple.item.magic.ItemEarthStaff
+import net.masterzach32.spicypineapple.item.magic.ItemHealingStaff
+import net.masterzach32.spicypineapple.item.magic.ItemStaff
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.Mod
@@ -17,10 +21,8 @@ import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
-import net.minecraft.world.storage.loot.LootPool
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.event.LootTableLoadEvent
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 object ModItems {
@@ -47,6 +49,8 @@ object ModItems {
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
     val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
 
+    val staffRod = Item().setCodename("staff_rod")
+
     val staff = ItemStaff().setCodename("staff")
     val healingStaff = ItemHealingStaff().setCodename("healing_staff")
     val earthStaff = ItemEarthStaff().setCodename("earth_staff")
@@ -69,6 +73,7 @@ object ModItems {
                 energizedHoe,
                 crystal,
                 essence,
+                staffRod,
                 staff,
                 healingStaff,
                 earthStaff,
@@ -89,6 +94,7 @@ object ModItems {
                 crystalPineappleSeed,
                 crystal,
                 essence,
+                staffRod,
                 staff,
                 healingStaff,
                 earthStaff,

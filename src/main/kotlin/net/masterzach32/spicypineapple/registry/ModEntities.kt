@@ -5,9 +5,11 @@ import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.entity.EntityBlackHole
 import net.masterzach32.spicypineapple.entity.EntityBlock
+import net.masterzach32.spicypineapple.entity.EntityEarthRipper
 import net.masterzach32.spicypineapple.entity.EntityHealArea
 import net.masterzach32.spicypineapple.entity.render.RenderBlackHole
 import net.masterzach32.spicypineapple.entity.render.RenderBlock
+import net.masterzach32.spicypineapple.entity.render.RenderEarthRipper
 import net.masterzach32.spicypineapple.entity.render.RenderHealArea
 import net.masterzach32.spicypineapple.util.clientOnly
 import net.minecraft.client.renderer.entity.Render
@@ -29,6 +31,7 @@ object ModEntities {
         registerEntity(EntityHealArea::class, "healer", 20, 1, false) { RenderHealArea(it) }
         registerEntity(EntityBlackHole::class, "black_hole", 20, 1, true) { RenderBlackHole(it) }
         registerEntity(EntityBlock::class, "block", 20, 1, true) { RenderBlock(it) }
+        registerEntity(EntityEarthRipper::class, "earth_ripper", 20, 1, true) { RenderEarthRipper(it) }
     }
 
     private fun <E : Entity, R : Render<E>> registerEntity(
@@ -44,7 +47,7 @@ object ModEntities {
                 ResourceLocation("$MOD_ID:$name"),
                 entityClass.java,
                 name,
-                getNextId(),
+                currentId++,
                 SpicyPineappleMod,
                 trackingRange,
                 updateFrequency,
@@ -54,10 +57,5 @@ object ModEntities {
         clientOnly {
             RenderingRegistry.registerEntityRenderingHandler(entityClass.java, newRenderClass)
         }
-    }
-
-    private fun getNextId(): Int {
-        currentId++
-        return currentId
     }
 }

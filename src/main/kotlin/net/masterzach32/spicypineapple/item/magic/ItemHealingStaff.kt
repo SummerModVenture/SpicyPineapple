@@ -1,6 +1,6 @@
-package net.masterzach32.spicypineapple.item
+package net.masterzach32.spicypineapple.item.magic
 
-import net.masterzach32.spicypineapple.entity.EntityBlackHole
+import net.masterzach32.spicypineapple.entity.EntityHealArea
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -10,10 +10,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
-import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 
-class ItemDeathStaff : Item() {
+class ItemHealingStaff() : Item() {
 
     init {
         creativeTab = SpicyPineappleTab
@@ -30,10 +29,8 @@ class ItemDeathStaff : Item() {
 
     override fun onItemUseFinish(stack: ItemStack, world: World, entity: EntityLivingBase): ItemStack {
         if (!world.isRemote && entity is EntityPlayer) {
-            val death = EntityBlackHole(world, entity)
-            death.setPosition(entity.posX + 0.5, entity.posY + 1.0, entity.posZ + 0.5)
-            death.shoot(entity.pitchYaw.x.toDouble(), entity.pitchYaw.y.toDouble(), 0.4, 1.0)
-            world.spawnEntity(death)
+            world.spawnEntity(EntityHealArea(world, entity, 1))
+            entity.cooldownTracker.setCooldown(this, COOLDOWN)
         }
         return stack
     }

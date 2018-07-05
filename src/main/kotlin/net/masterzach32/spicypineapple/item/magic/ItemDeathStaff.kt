@@ -1,6 +1,6 @@
-package net.masterzach32.spicypineapple.item
+package net.masterzach32.spicypineapple.item.magic
 
-import net.masterzach32.spicypineapple.entity.EntityHealArea
+import net.masterzach32.spicypineapple.entity.EntityBlackHole
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -12,7 +12,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-class ItemHealingStaff() : Item() {
+class ItemDeathStaff : Item() {
 
     init {
         creativeTab = SpicyPineappleTab
@@ -27,12 +27,14 @@ class ItemHealingStaff() : Item() {
             ActionResult(EnumActionResult.FAIL, stack)
     }
 
-    override fun onItemUseFinish(stack: ItemStack, world: World, entity: EntityLivingBase): ItemStack {
-        if (!world.isRemote && entity is EntityPlayer) {
-            world.spawnEntity(EntityHealArea(world, entity, 1))
-            entity.cooldownTracker.setCooldown(this, COOLDOWN)
+    override fun onItemUseFinish(stack: ItemStack, world: World, player: EntityLivingBase): ItemStack {
+        if (!world.isRemote && player is EntityPlayer) {
+            val death = EntityBlackHole(world, player)
+            death.setPosition(player.posX + 0.5, player.posY + 1.0, player.posZ + 0.5)
+            death.shoot(player.pitchYaw.x.toDouble(), player.pitchYaw.y.toDouble(), 0.4)
+            world.spawnEntity(death)
         }
-        return stack
+        return super.onItemUseFinish(stack, world, player)
     }
 
     override fun getMaxItemUseDuration(stack: ItemStack): Int = CHARGE_TIME

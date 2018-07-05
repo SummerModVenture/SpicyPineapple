@@ -61,10 +61,7 @@ object ModBlocks {
         registerRenders(
                 pineappleBlock,
                 pineappleBlockSpicy,
-                pineappleBlockCrystalized,
-                pineappleStem,
-                spicyPineappleStem,
-                crystalizedPineappleStem
+                pineappleBlockCrystalized
         )
     }
 

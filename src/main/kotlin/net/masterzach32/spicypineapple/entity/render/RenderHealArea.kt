@@ -9,6 +9,6 @@ import net.minecraft.util.ResourceLocation
 class RenderHealArea(manager: RenderManager) : Render<EntityHealArea>(manager) {
 
     override fun getEntityTexture(entity: EntityHealArea): ResourceLocation {
-        return ResourceLocation("$MOD_ID:textures/models/none.png")
+        return ResourceLocation("$MOD_ID:textures/entity/none.png")
     }
 }

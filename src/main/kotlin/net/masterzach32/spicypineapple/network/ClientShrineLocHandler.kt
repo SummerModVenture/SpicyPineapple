@@ -25,12 +25,10 @@ class ClientShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
         val world = Minecraft.getMinecraft().world
         if (world != null && message.action == ShrineLocUpdateMessage.Action.ADD) {
             Minecraft.getMinecraft().addScheduledTask {
-                LOGGER.info("Received new shrine location from server: ${message.pos}")
                 ShrineLocData.getForWorld(world).addShrineLocation(message.pos)
             }
         } else if (world != null && message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             Minecraft.getMinecraft().addScheduledTask {
-                LOGGER.info("Removing shrine location from local list: ${message.pos}")
                 ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
             }
         }

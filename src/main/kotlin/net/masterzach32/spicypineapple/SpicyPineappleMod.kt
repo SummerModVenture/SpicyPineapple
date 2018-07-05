@@ -61,8 +61,7 @@ object SpicyPineappleMod {
     fun init(event: FMLInitializationEvent) {
         ModBlocks.lateInit()
 
-        LOGGER.info("Registering recipes.")
-        GameRegistry.addSmelting(ModItems.pineappleSlice, ItemStack(ModItems.grilledPineappleSlice), 1.0F)
+        ModRecipes.init()
 
         clientOnly {
             LOGGER.info("Registering color handlers.")
@@ -81,18 +80,6 @@ object SpicyPineappleMod {
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-        ifModLoaded("spicytech") {
-            val reg = RecipesRegistryManager.getRegistry("spicytech", "crusher")
-            if (reg != null) {
-                LOGGER.info("Registering crusher recipes.")
-                reg.apply {
-                    add(ModItems.pineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.NORMAL.ordinal), 1.0f)
-                    add(ModItems.spicyPineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.SPICY.ordinal), 1.0f)
-                    add(ModItems.crystalPineappleSlice, ItemStack(ModItems.essence, 2, EnumPineappleType.CRYSTALIZED.ordinal), 2.0f)
-                }
-            } else {
-                LOGGER.warn("Could not load SpicyTech crusher registry.")
-            }
-        }
+        ModRecipes.initModRecipes()
     }
 }
