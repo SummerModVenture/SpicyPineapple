@@ -1,11 +1,9 @@
 package net.masterzach32.spicypineapple.gen.structure
 
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
-import net.minecraft.block.Block
 import net.minecraft.util.Mirror
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
@@ -39,7 +37,7 @@ open class Structure(
             addBlocksToWorld(template, world, pos)
             return true
         } else {
-            LOGGER.error("Could not find template for structure $name!")
+            logger.error("Could not find template for structure $name!")
         }
         return false
     }

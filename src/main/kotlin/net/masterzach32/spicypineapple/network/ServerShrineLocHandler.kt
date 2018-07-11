@@ -3,7 +3,7 @@ package net.masterzach32.spicypineapple.network
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.gen.ShrineLocData
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -34,10 +34,10 @@ class ServerShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
             val shrineData = ShrineLocData.getForWorld(event.player.world)
 
             if (shrineData.map.isNotEmpty()) {
-                LOGGER.info("Player joined world, updating their list of shrine locations...")
+                logger.info("Player joined world, updating their list of shrine locations...")
                 shrineData.map.forEach {
-                    LOGGER.info("Sending location: $it")
-                    SpicyPineappleMod.NETWORK.sendTo(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, it), event.player as EntityPlayerMP)
+                    logger.info("Sending location: $it")
+                    SpicyPineappleMod.network.sendTo(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, it), event.player as EntityPlayerMP)
                 }
             }
         }
@@ -48,9 +48,9 @@ class ServerShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
 
         if (message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             world.addScheduledTask {
-                LOGGER.info("Player found shrine at ${message.pos}, removing from server list.")
+                logger.info("Player found shrine at ${message.pos}, removing from server list.")
                 ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
-                SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, message.pos))
+                SpicyPineappleMod.network.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, message.pos))
             }
         }
 

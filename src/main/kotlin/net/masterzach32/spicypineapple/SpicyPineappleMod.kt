@@ -35,12 +35,12 @@ import net.minecraftforge.fml.relauncher.Side
         modLanguageAdapter = "net.masterzach32.spicypineapple.util.KotlinAdapter")
 object SpicyPineappleMod {
 
-    val NETWORK: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID)
+    val network: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID)
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        LOGGER = event.modLog
-        LOGGER.info("Creating some spicy pineapples.")
+        logger = event.modLog
+        logger.info("Creating some spicy pineapples.")
 
         ModItems.init()
         ModBlocks.init()
@@ -48,7 +48,7 @@ object SpicyPineappleMod {
         ModEntities.init()
         ModLoot.init()
 
-        LOGGER.info("Registering world generators.")
+        logger.info("Registering world generators.")
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlock, 1/10.0), 0)
         GameRegistry.registerWorldGenerator(ClusterGenerator(ModBlocks.pineappleBlockSpicy, 1/40.0), 0)
         GameRegistry.registerWorldGenerator(StructureGenerator, 0)
@@ -61,17 +61,17 @@ object SpicyPineappleMod {
         ModRecipes.init()
 
         clientOnly {
-            LOGGER.info("Registering color handlers.")
+            logger.info("Registering color handlers.")
             Minecraft.getMinecraft().itemColors.registerItemColorHandler(ColorHandler, ModItems.crystal)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.pineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.spicyPineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.crystalizedPineappleStem)
-            LOGGER.info("Registering client packets.")
-            NETWORK.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.CLIENT)
+            logger.info("Registering client packets.")
+            network.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.CLIENT)
         }
         serverOnly {
-            LOGGER.info("Registering server packets.")
-            NETWORK.registerMessage(ServerShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
+            logger.info("Registering server packets.")
+            network.registerMessage(ServerShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
         }
     }
 

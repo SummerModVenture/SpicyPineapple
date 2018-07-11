@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.registry
 
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.item.*
@@ -132,6 +132,6 @@ object ModItems {
     }
 
     fun init() {
-        LOGGER.info("Loading items.")
+        logger.info("Loading items.")
     }
 }

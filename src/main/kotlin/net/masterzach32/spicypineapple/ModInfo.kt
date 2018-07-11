@@ -6,4 +6,4 @@ const val MOD_ID = "spicypineapple"
 const val MOD_NAME = "Spicy Pineapple Mod"
 const val MOD_VERSION = "1.0.1"
 
-lateinit var LOGGER: Logger
+lateinit var logger: Logger

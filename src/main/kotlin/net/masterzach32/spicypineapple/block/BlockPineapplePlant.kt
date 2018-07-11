@@ -26,22 +26,6 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
 
     lateinit var seedItem: Item
 
-    companion object {
-        const val MAX_AGE = 7
-        val STEM_AABB = arrayOf(
-                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 1.0/16, 10.0/16),
-                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 2.0/16, 10.0/16),
-                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 3.0/16, 11.0/16),
-                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 5.0/16, 11.0/16),
-                AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 8.0/16, 12.0/16),
-                AxisAlignedBB(3.0/16, 0.0, 3.0/16, 13.0/16, 11.0/16, 13.0/16),
-                AxisAlignedBB(1.0/16, 0.0, 1.0/16, 15.0/16, 13.0/16, 15.0/16),
-                AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 13.0/16, 1.0)
-        )
-
-        val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
-    }
-
     init {
         defaultState = blockState.baseState.withProperty(AGE, 0)
         tickRandomly = true
@@ -101,5 +85,21 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(AGE, meta)
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, AGE)
+
+    companion object {
+        const val MAX_AGE = 7
+        val STEM_AABB = arrayOf(
+                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 1.0/16, 10.0/16),
+                AxisAlignedBB(6.0/16, 0.0, 6.0/16, 10.0/16, 2.0/16, 10.0/16),
+                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 3.0/16, 11.0/16),
+                AxisAlignedBB(5.0/16, 0.0, 5.0/16, 11.0/16, 5.0/16, 11.0/16),
+                AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 8.0/16, 12.0/16),
+                AxisAlignedBB(3.0/16, 0.0, 3.0/16, 13.0/16, 11.0/16, 13.0/16),
+                AxisAlignedBB(1.0/16, 0.0, 1.0/16, 15.0/16, 13.0/16, 15.0/16),
+                AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 13.0/16, 1.0)
+        )
+
+        val AGE: IProperty<Int> = PropertyInteger.create("age", 0, MAX_AGE)
+    }
 
 }

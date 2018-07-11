@@ -1,7 +1,7 @@
 package net.masterzach32.spicypineapple.block
 
 import net.masterzach32.spicypineapple.EnumPineappleType
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant.Companion.AGE
 import net.masterzach32.spicypineapple.client.EssenceParticle
@@ -34,13 +34,6 @@ import java.util.*
 @Suppress("OverridingDeprecatedMember")
 class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTUS) {
 
-    companion object {
-        val BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 10.0/16, 12.0/16)
-        val PLANT_BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 7.0/16, 12.0/16)
-
-        val IS_FRUIT: IProperty<Boolean> = PropertyBool.create("isfruit")
-    }
-
     init {
         setCreativeTab(SpicyPineappleTab)
         setHardness(0.5f)
@@ -58,11 +51,11 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
                     .filter { it.distance(pos) < 10 }
                     .forEach {
                         ShrineLocData.getForWorld(world).removeShrineLocation(it)
-                        SpicyPineappleMod.NETWORK.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
+                        SpicyPineappleMod.network.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
                         if (state != null)
-                            LOGGER.info("Shrine destroyed by player: $pos")
+                            logger.info("Shrine destroyed by player: $pos")
                         else
-                            LOGGER.info("Shrine destroyed by explosion: $pos")
+                            logger.info("Shrine destroyed by explosion: $pos")
                     }
         }
     }
@@ -137,6 +130,14 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
         return state.withProperty(IS_FRUIT, world.getBlockState(pos.down()).block is BlockPineapplePlant)
     }
+
+    companion object {
+        val BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 10.0/16, 12.0/16)
+        val PLANT_BB = AxisAlignedBB(4.0/16, 0.0, 4.0/16, 12.0/16, 7.0/16, 12.0/16)
+
+        val IS_FRUIT: IProperty<Boolean> = PropertyBool.create("isfruit")
+    }
+
 
     class CrystalizedPineappleTileEntity : TileEntity(), ITickable {
         var tick = 3

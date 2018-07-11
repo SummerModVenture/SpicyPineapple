@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.registry
 
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.entity.EntityBlackHole
@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.entity.Entity
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.client.registry.RenderingRegistry
-import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.registry.EntityRegistry
 import kotlin.reflect.KClass
 
@@ -26,7 +25,7 @@ object ModEntities {
     private var currentId = 0
 
     fun init() {
-        LOGGER.info("Loading entities.")
+        logger.info("Loading entities.")
 
         registerEntity(EntityHealArea::class, "healer", 20, 1, false) { RenderHealArea(it) }
         registerEntity(EntityBlackHole::class, "black_hole", 20, 1, true) { RenderBlackHole(it) }

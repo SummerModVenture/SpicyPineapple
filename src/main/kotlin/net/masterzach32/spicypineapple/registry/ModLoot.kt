@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.registry
 
-import net.masterzach32.spicypineapple.LOGGER
+import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.storage.loot.LootTableList
@@ -18,6 +18,6 @@ object ModLoot {
     }
 
     fun init() {
-        LOGGER.info("Loading loot tables.")
+        logger.info("Loading loot tables.")
     }
 }

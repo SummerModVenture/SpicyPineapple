@@ -1,7 +1,6 @@
 package net.masterzach32.spicypineapple.network
 
 import net.masterzach32.spicypineapple.gen.ShrineLocData
-import net.masterzach32.spicypineapple.LOGGER
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
