@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.Side
  * @version 5/22/2018
  */
 @Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, modLanguage = "kotlin",
-        modLanguageAdapter = "net.masterzach32.spicypineapple.util.KotlinAdapter")
+        modLanguageAdapter = "com.spicymemes.core.KotlinAdapter")
 object SpicyPineappleMod {
 
     val network: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID)

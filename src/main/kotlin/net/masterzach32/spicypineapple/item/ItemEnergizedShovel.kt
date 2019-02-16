@@ -2,30 +2,15 @@ package net.masterzach32.spicypineapple.item
 
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.masterzach32.spicypineapple.util.getBlocksWithin
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
-import net.minecraft.item.ItemPickaxe
+import net.minecraft.item.ItemSpade
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-/*
- * SpicyPineapple - Created on 5/24/2018
- * Author: Zach Kozar
- * 
- * This code is licensed under the GNU GPL v3
- * You can find more info in the LICENSE file at the project root.
- */
-
-/**
- * @author Zach Kozar1
- * @version 5/24/2018
- */
-class ItemEnergizedPickaxe : ItemPickaxe(ToolMaterialEnergized) {
+class ItemEnergizedShovel : ItemSpade(ToolMaterialEnergized) {
 
     init {
         creativeTab = SpicyPineappleTab
@@ -38,7 +23,7 @@ class ItemEnergizedPickaxe : ItemPickaxe(ToolMaterialEnergized) {
         blocks.forEach {
             val otherState = world.getBlockState(it)
             @Suppress("DEPRECATION")
-            if (it != pos && otherState.block.getBlockHardness(otherState, world, it) != -1.0F) {
+            if (it != pos && otherState.block.isToolEffective("shovel", otherState)) {
                 otherState.block.harvestBlock(world, entity, it, otherState, null, stack)
                 world.setBlockToAir(it)
             }

@@ -1,6 +1,6 @@
 [{
-  "modid": "spicypineapple",
-  "name": "Spicy Pineapple Mod",
+  "modid": "${modid}",
+  "name": "${modname}",
   "description": "Pineapples are really spicy",
   "version": "${version}",
   "mcversion": "${mcversion}",

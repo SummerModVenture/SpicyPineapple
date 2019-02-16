@@ -13,6 +13,7 @@ object ModRecipes {
         logger.info("Registering recipes.")
 
         GameRegistry.addSmelting(ModItems.pineappleSlice, ItemStack(ModItems.grilledPineappleSlice), 1.0F)
+        GameRegistry.addSmelting(ModItems.spicyPineappleSlice, ItemStack(ModItems.grilledSpicyPineappleSlice), 1.0F)
 
         //RecipesRegistryManager.addRegistry(MOD_ID, "crystal_forge", )
     }

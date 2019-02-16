@@ -170,7 +170,7 @@
         {
           "type": "item",
           "weight": 33,
-          "name": "spicypineapple:energized_hoe",
+          "name": "spicypineapple:energized_shovel",
           "conditions": [
             {
               "condition": "random_chance",

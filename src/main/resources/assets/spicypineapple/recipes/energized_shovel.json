@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "item": "spicypineapple:crystal",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "spicypineapple:energized_shovel"
+  }
+}

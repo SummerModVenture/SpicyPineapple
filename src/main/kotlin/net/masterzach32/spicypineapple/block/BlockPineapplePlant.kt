@@ -1,6 +1,7 @@
 package net.masterzach32.spicypineapple.block
 
 import net.masterzach32.spicypineapple.EnumPineappleType
+import net.masterzach32.spicypineapple.util.getBlock
 import net.minecraft.block.*
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyBool

@@ -4,7 +4,6 @@ import net.masterzach32.spicypineapple.block.BlockPineapple
 import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
-import net.masterzach32.spicypineapple.block.BlockCrystalForge
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant
 import net.masterzach32.spicypineapple.util.setCodename
 import net.minecraft.block.Block
@@ -32,8 +31,8 @@ object ModBlocks {
     val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
     val pineappleBlockCrystalizedItem = itemBlock(pineappleBlockCrystalized)
 
-    val crystalForge = BlockCrystalForge().setCodename("crystal_forge")
-    val crystalForgeItem = itemBlock(crystalForge)
+    //val crystalForge = BlockCrystalForge().setCodename("crystal_forge")
+    //val crystalForgeItem = itemBlock(crystalForge)
 
     @JvmStatic
     @SubscribeEvent
@@ -44,8 +43,8 @@ object ModBlocks {
                 pineappleBlockCrystalized,
                 pineappleStem,
                 spicyPineappleStem,
-                crystalizedPineappleStem,
-                crystalForge
+                crystalizedPineappleStem
+                //crystalForge
         )
     }
 
@@ -55,8 +54,8 @@ object ModBlocks {
         event.registry.registerAll(
                 pineappleBlockItem,
                 pineappleBlockSpicyItem,
-                pineappleBlockCrystalizedItem,
-                crystalForgeItem
+                pineappleBlockCrystalizedItem
+                //crystalForgeItem
         )
     }
 
@@ -67,8 +66,8 @@ object ModBlocks {
         registerRenders(
                 pineappleBlock,
                 pineappleBlockSpicy,
-                pineappleBlockCrystalized,
-                crystalForge
+                pineappleBlockCrystalized
+                //crystalForge
         )
     }
 

@@ -20,5 +20,4 @@ class ItemEnergizedHoe : ItemHoe(ToolMaterialEnergized) {
     init {
         creativeTab = SpicyPineappleTab
     }
-
 }

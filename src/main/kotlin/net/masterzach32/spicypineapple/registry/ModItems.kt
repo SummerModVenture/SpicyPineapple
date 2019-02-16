@@ -29,9 +29,10 @@ object ModItems {
 
     val pineappleSlice = ItemPineappleSlice("pineapple_slice", 2, 0.25)
     val spicyPineappleSlice = ItemPineappleSlice("pineapple_slice_spicy", 3, 0.5)
-    val grilledPineappleSlice = ItemPineappleSlice("pineapple_slice_grilled", 4, 1.0)
     val crystalPineappleSlice = ItemPineappleSlice("pineapple_slice_crystal", 6, 1.0, true,
             PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1))
+    val grilledPineappleSlice = ItemPineappleSlice("pineapple_slice_grilled", 4, 1.0)
+    val grilledSpicyPineappleSlice = ItemPineappleSlice("pineapple_slice_spicy_grilled", 6, 1.5)
 
     val pineappleSeed = ItemSeeds(ModBlocks.pineappleStem, Blocks.FARMLAND)
             .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed")
@@ -47,7 +48,8 @@ object ModItems {
 
     val energizedPickaxe = ItemEnergizedPickaxe().setCodename("energized_pickaxe")
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
-    val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
+    //val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
+    val energizedShovel = ItemEnergizedShovel().setCodename("energized_shovel")
 
     val staffRod = Item().setCreativeTab(SpicyPineappleTab).setCodename("staff_rod")
 
@@ -62,15 +64,17 @@ object ModItems {
         event.registry.registerAll(
                 pineappleSlice,
                 spicyPineappleSlice,
-                grilledPineappleSlice,
                 crystalPineappleSlice,
+                grilledPineappleSlice,
+                grilledSpicyPineappleSlice,
                 pineappleSeed,
                 spicyPineappleSeed,
                 crystalPineappleSeed,
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
-                energizedHoe,
+                //energizedHoe,
+                energizedShovel,
                 crystal,
                 essence,
                 staffRod,
@@ -87,8 +91,9 @@ object ModItems {
         registerItemTexture(
                 pineappleSlice,
                 spicyPineappleSlice,
-                grilledPineappleSlice,
                 crystalPineappleSlice,
+                grilledPineappleSlice,
+                grilledSpicyPineappleSlice,
                 pineappleSeed,
                 spicyPineappleSeed,
                 crystalPineappleSeed,
@@ -105,7 +110,8 @@ object ModItems {
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
-                energizedHoe,
+                //energizedHoe,
+                energizedShovel,
                 location =  "tools/"
         )
     }

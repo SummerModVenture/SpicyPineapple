@@ -10,6 +10,8 @@ item.pineapple_slice_spicy.name=Spicy Pineapple Slice
 item.record.pineapple_slice_spicy.desc=Spicy Pineapple Slice
 item.pineapple_slice_grilled.name=Grilled Pineapple Slice
 item.record.pineapple_slice_grilled.desc=Grilled Pineapple Slice
+item.pineapple_slice_spicy_grilled.name=Spicy Grilled Pineapple Slice
+item.record.pineapple_slice_spicy_grilled.desc=Spicy Grilled Pineapple Slice
 item.pineapple_slice_crystal.name=Crystal Pineapple Slice
 item.record.pineapple_slice_crystal.desc=Crystal Pineapple Slice
 
@@ -33,9 +35,11 @@ item.pineapple_shovel.name=Pineapple Shovel
 item.pineapple_hoe.name=Pineapple Hoe
 item.pineapple_sword.name=Pineapple Sword
 
-item.energized_pickaxe.name=Energized Pickaxe
 item.energized_axe.name=Energized Axe
+item.energized_pickaxe.name=Energized Pickaxe
+item.energized_shovel.name=Energized Shovel
 item.energized_hoe.name=Energized Hoe
+item.energized_sword.name=Energized Sword
 
 item.staff_rod.name=Staff Rod
 item.staff.name=Shrine Finder
