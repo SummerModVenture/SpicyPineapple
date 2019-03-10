@@ -25,9 +25,9 @@ item.fire_crystal.name=Fire Crystal
 item.earth_crystal.name=Earth Crystal
 item.water_crystal.name=Water Crystal
 
-item.normal_essence.name=Pineapple Essence
-item.spicy_essence.name=Spicy Pineapple Essence
-item.crystalized_essence.name=Crystal Pineapple Essence
+item.essence.name=Pineapple Essence
+item.essence_spicy.name=Spicy Pineapple Essence
+item.essence_crystal.name=Crystal Pineapple Essence
 
 item.pineapple_axe.name=Pineapple Axe
 item.pineapple_pickaxe.name=Pineapple Pickaxe

@@ -1,13 +1,10 @@
 package net.masterzach32.spicypineapple.item
 
+import com.spicymemes.core.util.getBlocksWithin
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
-import net.masterzach32.spicypineapple.util.getBlocksWithin
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
 import net.minecraft.item.ItemPickaxe
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos

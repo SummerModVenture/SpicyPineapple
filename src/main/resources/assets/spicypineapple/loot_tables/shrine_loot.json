@@ -11,6 +11,7 @@
           "type": "item",
           "weight": 25,
           "name": "spicypineapple:pineapple_slice_crystal",
+          "data": 2,
           "conditions": [
             {
               "condition": "random_chance",
@@ -30,7 +31,8 @@
         {
           "type": "item",
           "weight": 50,
-          "name": "spicypineapple:pineapple_slice_grilled",
+          "name": "spicypineapple:pineapple_slice",
+          "data": 3,
           "conditions": [
             {
               "condition": "random_chance",

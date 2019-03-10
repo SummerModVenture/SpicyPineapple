@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.entity
 
-import net.masterzach32.spicypineapple.util.getBlock
+import com.spicymemes.core.util.getBlock
 import net.minecraft.entity.item.EntityFallingBlock
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumParticleTypes

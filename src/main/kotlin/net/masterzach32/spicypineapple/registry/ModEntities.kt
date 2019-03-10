@@ -1,5 +1,6 @@
 package net.masterzach32.spicypineapple.registry
 
+import com.spicymemes.core.util.clientOnly
 import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.SpicyPineappleMod
@@ -11,7 +12,6 @@ import net.masterzach32.spicypineapple.entity.render.RenderBlackHole
 import net.masterzach32.spicypineapple.entity.render.RenderBlock
 import net.masterzach32.spicypineapple.entity.render.RenderEarthRipper
 import net.masterzach32.spicypineapple.entity.render.RenderHealArea
-import net.masterzach32.spicypineapple.util.clientOnly
 import net.minecraft.client.renderer.entity.Render
 import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.entity.Entity

@@ -2,7 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "spicypineapple:pineapple_slice_crystal"
+      "item": "spicypineapple:pineapple_slice",
+      "data": 2
     }
   ],
   "result": {

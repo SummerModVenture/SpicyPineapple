@@ -1,12 +1,13 @@
 package net.masterzach32.spicypineapple.block
 
-import net.masterzach32.spicypineapple.EnumPineappleType
-import net.masterzach32.spicypineapple.logger
+import com.spicymemes.core.util.clientOnly
+import com.spicymemes.core.util.distance
 import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant.Companion.AGE
 import net.masterzach32.spicypineapple.client.EssenceParticle
-import net.masterzach32.spicypineapple.util.distance
 import net.masterzach32.spicypineapple.gen.ShrineLocData
+import net.masterzach32.spicypineapple.item.ItemCrystal
+import net.masterzach32.spicypineapple.item.ItemPineappleSlice
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
 import net.masterzach32.spicypineapple.registry.ModItems
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
@@ -32,12 +33,12 @@ import net.minecraft.world.World
 import java.util.*
 
 @Suppress("OverridingDeprecatedMember")
-class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTUS) {
+class BlockPineapple(private val type: ItemPineappleSlice.Type) : Block(Material.CACTUS) {
 
     init {
         setCreativeTab(SpicyPineappleTab)
         setHardness(0.5f)
-        if (type == EnumPineappleType.CRYSTALIZED)
+        if (type == ItemPineappleSlice.Type.CRYSTALIZED)
             setLightLevel(0.4f)
 
         fullBlock = false
@@ -46,16 +47,12 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
     }
 
     override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState?) {
-        if (type == EnumPineappleType.CRYSTALIZED && !world.isRemote) {
+        if (type == ItemPineappleSlice.Type.CRYSTALIZED && !world.isRemote) {
             ShrineLocData.getForWorld(world).map
                     .filter { it.distance(pos) < 10 }
                     .forEach {
-                        ShrineLocData.getForWorld(world).removeShrineLocation(it)
+                        ShrineLocData.getForWorld(world).remove(it)
                         SpicyPineappleMod.network.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.REMOVE, it))
-                        if (state != null)
-                            logger.info("Shrine destroyed by player: $pos")
-                        else
-                            logger.info("Shrine destroyed by explosion: $pos")
                     }
         }
     }
@@ -75,10 +72,10 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
             world.setBlockToAir(pos)
     }
 
-    override fun canProvidePower(state: IBlockState): Boolean = type == EnumPineappleType.CRYSTALIZED
+    override fun canProvidePower(state: IBlockState): Boolean = type == ItemPineappleSlice.Type.CRYSTALIZED
 
     override fun getWeakPower(state: IBlockState, blockAccess: IBlockAccess, pos: BlockPos, side: EnumFacing): Int {
-        return if (type == EnumPineappleType.CRYSTALIZED) 5 else 0
+        return if (type == ItemPineappleSlice.Type.CRYSTALIZED) 5 else 0
     }
 
     override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
@@ -89,23 +86,24 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         val shouldDropSeed = Random().nextInt(4) == 0
 
         when (type) {
-            EnumPineappleType.NORMAL -> {
-                drops.add(ItemStack(ModItems.pineappleSlice, 4))
+            ItemPineappleSlice.Type.NORMAL -> {
+                drops.add(ItemStack(ModItems.pineappleSlice, 4, type.ordinal))
                 if (shouldDropSeed)
                     drops.add(ItemStack(ModItems.pineappleSeed))
             }
-            EnumPineappleType.SPICY -> {
-                drops.add(ItemStack(ModItems.spicyPineappleSlice, 4))
+            ItemPineappleSlice.Type.SPICY -> {
+                drops.add(ItemStack(ModItems.pineappleSlice, 4, type.ordinal))
                 if (shouldDropSeed)
                     drops.add(ItemStack(ModItems.spicyPineappleSeed))
             }
-            EnumPineappleType.CRYSTALIZED -> {
-                drops.add(ItemStack(ModItems.crystalPineappleSlice, 4))
+            ItemPineappleSlice.Type.CRYSTALIZED -> {
+                drops.add(ItemStack(ModItems.pineappleSlice, 4, type.ordinal))
                 if (shouldDropSeed)
                     drops.add(ItemStack(ModItems.crystalPineappleSeed))
                 for (i in 0..(1 + fortune) / 2)
-                    drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * EnumPineappleType.values().size).toInt()))
+                    drops.add(ItemStack(ModItems.crystal, 1, (Math.random() * ItemCrystal.Type.values().size).toInt()))
             }
+            else -> {}
         }
     }
 
@@ -115,10 +113,10 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
 
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    override fun hasTileEntity(state: IBlockState): Boolean = type == EnumPineappleType.CRYSTALIZED
+    override fun hasTileEntity(state: IBlockState): Boolean = type == ItemPineappleSlice.Type.CRYSTALIZED
 
     override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
-        return if (type == EnumPineappleType.CRYSTALIZED) CrystalizedPineappleTileEntity() else null
+        return if (type == ItemPineappleSlice.Type.CRYSTALIZED) CrystalizedPineappleTileEntity() else null
     }
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, IS_FRUIT)
@@ -143,7 +141,7 @@ class BlockPineapple(private val type: EnumPineappleType) : Block(Material.CACTU
         var tick = 3
 
         override fun update() {
-            if (world.isRemote) {
+            clientOnly(world) {
                 tick--
                 if (tick == 0) {
                     val x = pos.x + 0.5

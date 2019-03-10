@@ -1,8 +1,8 @@
 package net.masterzach32.spicypineapple.registry
 
+import com.spicymemes.core.util.setCodename
 import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
-import net.masterzach32.spicypineapple.util.setCodename
 import net.masterzach32.spicypineapple.item.*
 import net.masterzach32.spicypineapple.item.magic.ItemDeathStaff
 import net.masterzach32.spicypineapple.item.magic.ItemEarthStaff
@@ -17,22 +17,16 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemSeeds
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.Potion
-import net.minecraft.potion.PotionEffect
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.oredict.OreDictionary
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 object ModItems {
 
-    val pineappleSlice = ItemPineappleSlice("pineapple_slice", 2, 0.25)
-    val spicyPineappleSlice = ItemPineappleSlice("pineapple_slice_spicy", 3, 0.5)
-    val crystalPineappleSlice = ItemPineappleSlice("pineapple_slice_crystal", 6, 1.0, true,
-            PotionEffect(Potion.getPotionFromResourceLocation("regeneration")!!, 150, 1))
-    val grilledPineappleSlice = ItemPineappleSlice("pineapple_slice_grilled", 4, 1.0)
-    val grilledSpicyPineappleSlice = ItemPineappleSlice("pineapple_slice_spicy_grilled", 6, 1.5)
+    val pineappleSlice = ItemPineappleSlice()
 
     val pineappleSeed = ItemSeeds(ModBlocks.pineappleStem, Blocks.FARMLAND)
             .setCreativeTab(SpicyPineappleTab).setCodename("pineapple_seed")
@@ -48,7 +42,7 @@ object ModItems {
 
     val energizedPickaxe = ItemEnergizedPickaxe().setCodename("energized_pickaxe")
     val energizedAxe = ItemEnergizedAxe().setCodename("energized_axe")
-    //val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
+    val energizedHoe = ItemEnergizedHoe().setCodename("energized_hoe")
     val energizedShovel = ItemEnergizedShovel().setCodename("energized_shovel")
 
     val staffRod = Item().setCreativeTab(SpicyPineappleTab).setCodename("staff_rod")
@@ -63,17 +57,13 @@ object ModItems {
     fun registerItems(event: RegistryEvent.Register<Item>) {
         event.registry.registerAll(
                 pineappleSlice,
-                spicyPineappleSlice,
-                crystalPineappleSlice,
-                grilledPineappleSlice,
-                grilledSpicyPineappleSlice,
                 pineappleSeed,
                 spicyPineappleSeed,
                 crystalPineappleSeed,
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
-                //energizedHoe,
+                energizedHoe,
                 energizedShovel,
                 crystal,
                 essence,
@@ -83,17 +73,32 @@ object ModItems {
                 earthStaff,
                 deathStaff
         )
+
+        ItemPineappleSlice.Type.values()
+                .sliceArray(0..1)
+                .forEach {
+                    OreDictionary.registerOre("itemPineapple", ItemStack(pineappleSlice, 1, it.ordinal))
+                    OreDictionary.registerOre("foodPineapple", ItemStack(pineappleSlice, 1, it.ordinal))
+                }
+        ItemPineappleSlice.Type.values()
+                .sliceArray(3..4)
+                .forEach {
+                    OreDictionary.registerOre("itemGrilledPineapple", ItemStack(pineappleSlice, 1, it.ordinal))
+                    OreDictionary.registerOre("itemPineappleGrilled", ItemStack(pineappleSlice, 1, it.ordinal))
+                    OreDictionary.registerOre("foodGrilledPineapple", ItemStack(pineappleSlice, 1, it.ordinal))
+                    OreDictionary.registerOre("foodPineappleGrilled", ItemStack(pineappleSlice, 1, it.ordinal))
+                }
+
+
+        OreDictionary.registerOre("itemCrystalPineapple", ItemStack(pineappleSlice, 1, ItemPineappleSlice.Type.CRYSTALIZED.ordinal))
     }
 
     @JvmStatic
     @SubscribeEvent
     fun registerRenders(event: ModelRegistryEvent) {
+        registerItemTexture(pineappleSlice, useUnlocalizedName = true)
+
         registerItemTexture(
-                pineappleSlice,
-                spicyPineappleSlice,
-                crystalPineappleSlice,
-                grilledPineappleSlice,
-                grilledSpicyPineappleSlice,
                 pineappleSeed,
                 spicyPineappleSeed,
                 crystalPineappleSeed,
@@ -110,14 +115,14 @@ object ModItems {
                 *pineappleToolset.getItems(),
                 energizedPickaxe,
                 energizedAxe,
-                //energizedHoe,
+                energizedHoe,
                 energizedShovel,
                 location =  "tools/"
         )
     }
 
     @JvmStatic
-    private fun registerItemTexture(vararg items: Item, location: String = "") {
+    private fun registerItemTexture(vararg items: Item, useUnlocalizedName: Boolean = false, location: String = "") {
         fun setResourceLocation(item: Item, metadata: Int, registryName: ResourceLocation, location: String) {
             ModelLoader.setCustomModelResourceLocation(item, metadata,
                     ModelResourceLocation("${registryName.resourceDomain}:$location${registryName.resourcePath}", "inventory"))
@@ -129,7 +134,10 @@ object ModItems {
                 it.getSubItems(it.creativeTab!!, stacks)
 
                 stacks.forEach { stack ->
-                    setResourceLocation(it, stack.metadata, it.registryName!!, location)
+                    if (useUnlocalizedName)
+                        setResourceLocation(it, stack.metadata, ResourceLocation("spicypineapple", it.getUnlocalizedName(stack).drop(5)), location)
+                    else
+                        setResourceLocation(it, stack.metadata, it.registryName!!, location)
                 }
             } else {
                 setResourceLocation(it, 0, it.registryName!!, location)

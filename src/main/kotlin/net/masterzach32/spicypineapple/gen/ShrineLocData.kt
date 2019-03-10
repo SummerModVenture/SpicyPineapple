@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.gen
 
-import net.masterzach32.spicypineapple.util.distance
+import com.spicymemes.core.util.distance
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -35,12 +35,12 @@ class ShrineLocData(name: String = ID) : WorldSavedData(ID) {
         return if (index == -1) null else map[index]
     }
 
-    fun addShrineLocation(pos: BlockPos) {
+    fun add(pos: BlockPos) {
         map.add(pos)
         markDirty()
     }
 
-    fun removeShrineLocation(pos: BlockPos) {
+    fun remove(pos: BlockPos) {
         map.remove(pos)
         markDirty()
     }

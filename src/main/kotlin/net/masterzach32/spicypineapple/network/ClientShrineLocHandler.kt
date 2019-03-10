@@ -24,11 +24,11 @@ class ClientShrineLocHandler : IMessageHandler<ShrineLocUpdateMessage, IMessage>
         val world = Minecraft.getMinecraft().world
         if (world != null && message.action == ShrineLocUpdateMessage.Action.ADD) {
             Minecraft.getMinecraft().addScheduledTask {
-                ShrineLocData.getForWorld(world).addShrineLocation(message.pos)
+                ShrineLocData.getForWorld(world).add(message.pos)
             }
         } else if (world != null && message.action == ShrineLocUpdateMessage.Action.REMOVE) {
             Minecraft.getMinecraft().addScheduledTask {
-                ShrineLocData.getForWorld(world).removeShrineLocation(message.pos)
+                ShrineLocData.getForWorld(world).remove(message.pos)
             }
         }
 

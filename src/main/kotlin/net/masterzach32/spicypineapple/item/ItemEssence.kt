@@ -1,6 +1,5 @@
 package net.masterzach32.spicypineapple.item
 
-import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -28,8 +27,8 @@ class ItemEssence : Item() {
 
     override fun getSubItems(tab: CreativeTabs, items: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab))
-            items.addAll(EnumPineappleType.values().map { ItemStack(this, 1, it.ordinal) })
+            items.addAll(ItemPineappleSlice.Type.values().sliceArray(0..2).map { ItemStack(this, 1, it.ordinal) })
     }
 
-    override fun getUnlocalizedName(stack: ItemStack): String = "item.${EnumPineappleType.values()[stack.metadata].getName()}_essence"
+    override fun getUnlocalizedName(stack: ItemStack): String = "item.essence${ItemPineappleSlice.Type.values()[stack.metadata].prefix}"
 }

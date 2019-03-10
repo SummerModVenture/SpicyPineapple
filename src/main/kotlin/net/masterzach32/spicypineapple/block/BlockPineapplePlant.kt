@@ -1,11 +1,8 @@
 package net.masterzach32.spicypineapple.block
 
-import net.masterzach32.spicypineapple.EnumPineappleType
-import net.masterzach32.spicypineapple.util.getBlock
+import net.masterzach32.spicypineapple.item.ItemPineappleSlice
 import net.minecraft.block.*
 import net.minecraft.block.properties.IProperty
-import net.minecraft.block.properties.PropertyBool
-import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -13,7 +10,6 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumFacing
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -25,7 +21,7 @@ import java.util.*
 
 class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
 
-    lateinit var seedItem: Item
+    lateinit var seedItem: ItemStack
 
     init {
         defaultState = blockState.baseState.withProperty(AGE, 0)
@@ -43,7 +39,7 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
         if (!world.isAreaLoaded(pos, 1))
             return
         if (world.getLightFromNeighbors(pos.up()) >= 9 &&
-                ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(EnumPineappleType.getTypeFromBlock(crop)!!.rarity*2+2) == 0)) {
+                ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(ItemPineappleSlice.Type.getTypeFromBlock(crop)!!.rarity*2+2) == 0)) {
             val currentAge = state.getValue(AGE)
 
             if (currentAge < 7)
@@ -64,13 +60,13 @@ class BlockPineapplePlant(val crop: Block) : BlockBush(), IGrowable {
         val currentAge = state.getValue(AGE)
         for (i in 0 until 3)
             if (Block.RANDOM.nextInt(15) < currentAge)
-                drops.add(ItemStack(seedItem))
+                drops.add(seedItem)
     }
 
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item = Items.AIR
 
     @Suppress("OverridingDeprecatedMember")
-    override fun getItem(world: World, pos: BlockPos, state: IBlockState): ItemStack = ItemStack(seedItem)
+    override fun getItem(world: World, pos: BlockPos, state: IBlockState): ItemStack = seedItem
 
     override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean = state.getValue(AGE) != MAX_AGE
 

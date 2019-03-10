@@ -1,6 +1,8 @@
 package net.masterzach32.spicypineapple.item.magic
 
+import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.entity.EntityEarthRipper
+import net.masterzach32.spicypineapple.network.StaffActivatedPacket
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityFallingBlock
@@ -44,11 +46,9 @@ class ItemEarthStaff : Item() {
     }
 
     override fun onItemUseFinish(stack: ItemStack, world: World, player: EntityLivingBase): ItemStack {
-        if (!world.isRemote && player is EntityPlayer) {
-            val earth = EntityEarthRipper(world)
-            earth.setPosition(player.posX + 0.5, player.posY, player.posZ + 0.5)
-            earth.shoot(0.0, player.pitchYaw.y.toDouble(), 3.0)
-            world.spawnEntity(earth)
+        if (world.isRemote && player is EntityPlayer) {
+            val packet = StaffActivatedPacket(player.positionVector, player.pitchYaw, 0)
+            SpicyPineappleMod.network.sendToServer(packet)
         }
         return super.onItemUseFinish(stack, world, player)
     }

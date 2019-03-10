@@ -1,7 +1,5 @@
 package net.masterzach32.spicypineapple.client
 
-import net.masterzach32.spicypineapple.EnumCrystalType
-import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.item.ItemCrystal
 import net.masterzach32.spicypineapple.registry.ModBlocks
 import net.minecraft.block.state.IBlockState
@@ -24,7 +22,7 @@ object ColorHandler : IBlockColor, IItemColor {
 
     override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
         return when(stack.item) {
-            is ItemCrystal -> EnumCrystalType.getTypeFromItem(stack).color
+            is ItemCrystal -> ItemCrystal.Type.getTypeFromItem(stack).color
             else -> 0xffffff
         }
     }

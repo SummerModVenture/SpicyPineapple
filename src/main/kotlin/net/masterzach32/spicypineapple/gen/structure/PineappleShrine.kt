@@ -24,7 +24,7 @@ class PineappleShrine : Structure(
         if (template != null) {
             addBlocksToWorld(template, world, pos.down(3))
 
-            ShrineLocData.getForWorld(world).addShrineLocation(pos)
+            ShrineLocData.getForWorld(world).add(pos)
             SpicyPineappleMod.network.sendToAll(ShrineLocUpdateMessage(ShrineLocUpdateMessage.Action.ADD, pos))
 
             (world.getTileEntity(pos.add(7 ,0, 5)) as? TileEntityShulkerBox)?.setLootTable(ModLoot.shrineLoot, rand.nextLong())

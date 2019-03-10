@@ -1,7 +1,7 @@
 package net.masterzach32.spicypineapple.item
 
+import com.spicymemes.core.util.*
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
-import net.masterzach32.spicypineapple.util.*
 import net.minecraft.block.BlockLeaves
 import net.minecraft.block.BlockLog
 import net.minecraft.block.state.IBlockState

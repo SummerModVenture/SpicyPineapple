@@ -1,14 +1,14 @@
 package net.masterzach32.spicypineapple
 
+import com.spicymemes.core.util.clientOnly
 import net.masterzach32.spicypineapple.client.ColorHandler
-import net.masterzach32.spicypineapple.util.clientOnly
-import net.masterzach32.spicypineapple.util.serverOnly
 import net.masterzach32.spicypineapple.gen.ClusterGenerator
 import net.masterzach32.spicypineapple.gen.StructureGenerator
 import net.masterzach32.spicypineapple.network.ClientShrineLocHandler
-import net.masterzach32.spicypineapple.network.ServerShrineLocHandler
 import net.masterzach32.spicypineapple.network.ShrineLocUpdateMessage
+import net.masterzach32.spicypineapple.network.StaffActivatedPacket
 import net.masterzach32.spicypineapple.registry.*
+import net.masterzach32.spicypineapple.server.ShrineLocHandler
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -66,13 +66,11 @@ object SpicyPineappleMod {
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.pineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.spicyPineappleStem)
             Minecraft.getMinecraft().blockColors.registerBlockColorHandler(ColorHandler, ModBlocks.crystalizedPineappleStem)
-            logger.info("Registering client packets.")
-            network.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.CLIENT)
         }
-        serverOnly {
-            logger.info("Registering server packets.")
-            network.registerMessage(ServerShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
-        }
+        logger.info("Registering network packets.")
+        network.registerMessage(ClientShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 0, Side.CLIENT)
+        network.registerMessage(ShrineLocHandler::class.java, ShrineLocUpdateMessage::class.java, 1, Side.SERVER)
+        network.registerMessage(StaffActivatedPacket.Handler::class.java, StaffActivatedPacket::class.java, 2, Side.SERVER)
     }
 
     @Mod.EventHandler

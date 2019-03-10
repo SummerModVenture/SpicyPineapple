@@ -1,6 +1,8 @@
 package net.masterzach32.spicypineapple.item.magic
 
+import net.masterzach32.spicypineapple.SpicyPineappleMod
 import net.masterzach32.spicypineapple.entity.EntityBlackHole
+import net.masterzach32.spicypineapple.network.StaffActivatedPacket
 import net.masterzach32.spicypineapple.tabs.SpicyPineappleTab
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -28,11 +30,9 @@ class ItemDeathStaff : Item() {
     }
 
     override fun onItemUseFinish(stack: ItemStack, world: World, player: EntityLivingBase): ItemStack {
-        if (!world.isRemote && player is EntityPlayer) {
-            val death = EntityBlackHole(world, player)
-            death.setPosition(player.posX + 0.5, player.posY + 1.0, player.posZ + 0.5)
-            death.shoot(player.pitchYaw.x.toDouble(), player.pitchYaw.y.toDouble(), 0.4)
-            world.spawnEntity(death)
+        if (world.isRemote && player is EntityPlayer) {
+            val packet = StaffActivatedPacket(player.positionVector, player.pitchYaw, 1)
+            SpicyPineappleMod.network.sendToServer(packet)
         }
         return super.onItemUseFinish(stack, world, player)
     }

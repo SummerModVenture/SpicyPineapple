@@ -1,11 +1,11 @@
 package net.masterzach32.spicypineapple.registry
 
+import com.spicymemes.core.util.setCodename
 import net.masterzach32.spicypineapple.block.BlockPineapple
-import net.masterzach32.spicypineapple.EnumPineappleType
 import net.masterzach32.spicypineapple.logger
 import net.masterzach32.spicypineapple.MOD_ID
 import net.masterzach32.spicypineapple.block.BlockPineapplePlant
-import net.masterzach32.spicypineapple.util.setCodename
+import net.masterzach32.spicypineapple.item.ItemPineappleSlice
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
@@ -13,15 +13,16 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.client.event.ModelRegistryEvent
 
 @Mod.EventBusSubscriber(modid = MOD_ID)
 object ModBlocks {
 
-    val pineappleBlock = BlockPineapple(EnumPineappleType.NORMAL).setCodename("pineapple_block")
-    val pineappleBlockSpicy = BlockPineapple(EnumPineappleType.SPICY).setCodename("pineapple_block_spicy")
-    val pineappleBlockCrystalized = BlockPineapple(EnumPineappleType.CRYSTALIZED).setCodename("pineapple_block_crystalized")
+    val pineappleBlock = BlockPineapple(ItemPineappleSlice.Type.NORMAL).setCodename("pineapple_block")
+    val pineappleBlockSpicy = BlockPineapple(ItemPineappleSlice.Type.SPICY).setCodename("pineapple_block_spicy")
+    val pineappleBlockCrystalized = BlockPineapple(ItemPineappleSlice.Type.CRYSTALIZED).setCodename("pineapple_block_crystalized")
 
     val pineappleStem = BlockPineapplePlant(pineappleBlock).setCodename("pineapple_stem")
     val spicyPineappleStem = BlockPineapplePlant(pineappleBlockSpicy).setCodename("pineapple_stem_spicy")
@@ -30,9 +31,6 @@ object ModBlocks {
     val pineappleBlockItem = itemBlock(pineappleBlock)
     val pineappleBlockSpicyItem = itemBlock(pineappleBlockSpicy)
     val pineappleBlockCrystalizedItem = itemBlock(pineappleBlockCrystalized)
-
-    //val crystalForge = BlockCrystalForge().setCodename("crystal_forge")
-    //val crystalForgeItem = itemBlock(crystalForge)
 
     @JvmStatic
     @SubscribeEvent
@@ -85,8 +83,8 @@ object ModBlocks {
     }
 
     fun lateInit() {
-        (pineappleStem as BlockPineapplePlant).seedItem = ModItems.pineappleSeed
-        (spicyPineappleStem as BlockPineapplePlant).seedItem = ModItems.spicyPineappleSeed
-        (crystalizedPineappleStem as BlockPineapplePlant).seedItem = ModItems.crystalPineappleSeed
+        (pineappleStem as BlockPineapplePlant).seedItem = ItemStack(ModItems.pineappleSeed)
+        (spicyPineappleStem as BlockPineapplePlant).seedItem = ItemStack(ModItems.spicyPineappleSeed)
+        (crystalizedPineappleStem as BlockPineapplePlant).seedItem = ItemStack(ModItems.crystalPineappleSeed)
     }
 }

@@ -7,7 +7,8 @@
   ],
   "key": {
     "P": {
-      "item": "spicypineapple:pineapple_slice_crystal"
+      "type": "forge:ore_dict",
+      "ore": "itemCrystalPineapple"
     },
     "S": {
       "item": "minecraft:stick"

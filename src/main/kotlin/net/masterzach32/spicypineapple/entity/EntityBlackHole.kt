@@ -1,6 +1,6 @@
 package net.masterzach32.spicypineapple.entity
 
-import net.masterzach32.spicypineapple.util.distance
+import com.spicymemes.core.util.distance
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
