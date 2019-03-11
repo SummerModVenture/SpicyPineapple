@@ -31,7 +31,7 @@ class ItemDeathStaff : Item() {
 
     override fun onItemUseFinish(stack: ItemStack, world: World, player: EntityLivingBase): ItemStack {
         if (world.isRemote && player is EntityPlayer) {
-            val packet = StaffActivatedPacket(player.positionVector, player.pitchYaw, 1)
+            val packet = StaffActivatedPacket(player.positionVector, player.pitchYaw.x, player.pitchYaw.y, 1)
             SpicyPineappleMod.network.sendToServer(packet)
         }
         return super.onItemUseFinish(stack, world, player)

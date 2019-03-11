@@ -10,7 +10,7 @@
         {
           "type": "item",
           "weight": 25,
-          "name": "spicypineapple:pineapple_slice_crystal",
+          "name": "spicypineapple:pineapple_slice",
           "data": 2,
           "conditions": [
             {

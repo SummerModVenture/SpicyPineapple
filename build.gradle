@@ -12,7 +12,6 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-
 version = "${project.mod_version}"
 group = "${project.group_name}"
 archivesBaseName = "${project.archive_name}"
@@ -27,11 +26,26 @@ minecraft {
     mappings = "${project.mcp_version}"
     runDir = "run"
 
-    replace '@PINEAPPLE-MOD-ID@', project.mod_id
-    replace '@PINEAPPLE-MOD-NAME@', project.mod_name
-    replace '@PINEAPPLE-MOD-VERSION@', project.mod_version
-    replace '@PINEAPPLE-MOD-MC-VERSION@', project.minecraft_version
+    replace '@MOD-ID@', project.mod_id
+    replace '@MOD-NAME@', project.mod_name
+    replace '@MOD-VERSION@', project.mod_version
     replaceIn 'ModInfo.kt'
+
+    if (project.hasProperty('mc_username')) {
+        clientRunArgs += ['--username', "${project.mc_username}"]
+        if (project.hasProperty('mc_password')) {
+            clientRunArgs += ['--password=', "${project.mc_password}"]
+        }
+    }
+
+    serverRunArgs += "nogui"
+
+    // skip the screen to confirm that you want to load a world with missing registry entries
+    serverJvmArgs += "-Dfml.doNotBackup=true"
+    clientJvmArgs += "-Dfml.doNotBackup=true"
+
+    // skip having to confirm on server
+    serverJvmArgs += "-Dfml.queryResult=confirm"
 }
 
 repositories {
